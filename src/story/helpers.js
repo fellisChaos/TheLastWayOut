@@ -4,6 +4,7 @@ import { G } from '../game.js'
 import { ui } from '../core/ui.js'
 import { audio } from '../core/audio.js'
 import { unlock } from '../reality.js'
+import { ptAt, projDist } from '../world/common.js'
 
 export { G, ui, audio, THREE }
 export const wait = (s) => G.wait(s)
@@ -59,3 +60,47 @@ export function around(r, ang0 = 0, spread = Math.PI * 2) {
 // camera shake relaxed by setting
 export const shake = (a) => G.camShake(a)
 export const caption = (t, d = 2.4) => ui.caption(t, d)
+
+// ---- movement goals (with a debug autopilot used by headless tests: ?auto=1) ----
+const auto = () => !!G.auto
+function snapTo(x, z) {
+  const p = G.player
+  if (p.mode === 'ride' && G.scooter) { const c = G.scooter.chassis; c.position.set(x, 0.6, z); c.velocity.set(0, 0, 0) }
+  else { G.teleportPlayer(x, z); if (G.scooter && p.push) { const c = G.scooter.chassis; c.position.set(x, 0.6, z) } }
+}
+// wait until player is within r of (x,z)
+export async function go(x, z, r = 2.4) {
+  if (auto()) { await wait(0.5); snapTo(x, z); await wait(0.3); return }
+  await G.until(() => G.distToPlayer(x, z) < r)
+}
+// wait until the player has travelled to distance d along a trail polyline
+export async function goTrail(pts, d, back = 0) {
+  if (auto()) { await wait(0.5); const q = ptAt(pts, d); snapTo(q.x, q.z); await wait(0.3); return }
+  await G.until(() => projDist(pts, G.player.pos.x, G.player.pos.z) >= d)
+}
+export const trailD = (pts) => projDist(pts, G.player.pos.x, G.player.pos.z)
+export const trailLen = (pts) => { let l = 0; for (let i = 1; i < pts.length; i++) l += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].z - pts[i - 1].z); return l }
+// interact with auto-press
+export async function use(pos, label, o) {
+  const pr = G.interact(pos, label, o)
+  if (auto()) { await wait(0.5); G.player.pos.x = pos.x + 0.3; G.player.pos.z = pos.z + 0.3; G.interacts.forEach(i => i.res && i.res()); G.interacts = [] }
+  return pr
+}
+// race two interactions; returns 0 or 1
+export async function either(a, b) {
+  const ia = G.interact(a.pos, a.label, { r: a.r || 3.2, cone: -1, once: true }), ib = G.interact(b.pos, b.label, { r: b.r || 3.2, cone: -1, once: true })
+  if (auto()) { await wait(0.6); const k = G.autoPick ?? 0; const it = G.interacts[k]; G.interacts.forEach(i => i.res && i.res()); }
+  const r = await Promise.race([ia.then(() => 0), ib.then(() => 1)])
+  G.clearInteracts(); return auto() ? (G.autoPick ?? 0) : r
+}
+// freeze movement, turn the camera to a point, run fn, release
+export async function focus(pos, fn, dur = 0.9) { const p = G.player; p.canMove = false; await G.turnTo(pos, dur); try { await fn() } finally { p.canMove = true } }
+// wait while the player is looking toward pos (3D cone) for sec seconds
+export async function lookFor(pos, sec = 1.2, cos = 0.93) {
+  if (auto()) { await wait(0.5); return }
+  let t = 0; await G.until(() => { t = G.playerLookingAt3(pos, cos) ? t + G.lastDt : Math.max(0, t - G.lastDt); return t >= sec })
+}
+export const lookedAway = (pos, cos = 0.35) => auto() || !G.playerLookingAt3(pos, cos)
+export function pushOn() { G.startPush(); G.noRun = true }
+export function pushOff() { G.stopPush(); G.noRun = false }
+export function envSet(n) { G.env.set(n) }

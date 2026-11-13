@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { Level } from './build.js'
 import { scatterForest } from './nature.js'
 import { nearestOnPoly } from '../core/util.js'
+import { tex } from './textures.js'
 
 // Catmull-Rom smoothing of a polyline -> dense points
 export function smoothPts(pts, per = 6) {
@@ -57,3 +58,51 @@ export function sideAt(pts, d, off = 0) {
   const p = ptAt(pts, d), nx = Math.cos(p.yaw), nz = -Math.sin(p.yaw)
   return { x: p.x + nx * -off, z: p.z + nz * -off, yaw: p.yaw }
 }
+
+// round clearing: textured disc + walkable disc
+export function clearing(L, x, z, r, name = '', texKey = 'mud', rep = 4) {
+  const t = tex[texKey]().clone(); t.needsUpdate = true; t.repeat.set(r * 2 / rep, r * 2 / rep)
+  const m = new THREE.Mesh(new THREE.CircleGeometry(r * 0.95, 28), new THREE.MeshStandardMaterial({ map: t, roughness: 1 }))
+  m.rotation.x = -Math.PI / 2; m.position.set(x, 0.013, z); m.receiveShadow = true; L.add(m)
+  L.walk.disc(x, z, r, name); return m
+}
+// far-away lantern glow (not fogged so it can be seen through the dark)
+export function farLight(L, x, y, z, size = 9, color = '#ffb25a') {
+  const g = new THREE.Group(); g.position.set(x, y, z)
+  const mk = (sz, op) => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex.glow(), color, transparent: true, opacity: op, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, fog: false })); s.scale.setScalar(sz); s.renderOrder = 5; g.add(s); return s }
+  const a = mk(size, 0.9), b = mk(size * 0.35, 1)
+  L.updaters.push((dt, t) => { const k = 0.8 + 0.2 * Math.sin(t * 9) + 0.1 * Math.sin(t * 23.3); a.material.opacity = 0.75 * k; b.material.opacity = 0.9 * k })
+  L.add(g); return g
+}
+// bush that can be told to shake (event scares)
+export function shakyBush(L, bushFn, x, z, s = 1.2) {
+  const b = bushFn(s); b.position.set(x, 0, z); L.add(b); b.userData.k = 0; b.userData.base = b.position.clone()
+  L.updaters.push((dt, t) => { const k = b.userData.k; if (k > 0.001) { b.userData.k = Math.max(0, k - dt * 0.9); b.position.x = b.userData.base.x + Math.sin(t * 38) * 0.06 * k; b.rotation.z = Math.sin(t * 31) * 0.12 * k; b.rotation.x = Math.cos(t * 27) * 0.08 * k } else { b.rotation.z = 0; b.rotation.x = 0; b.position.copy(b.userData.base) } })
+  b.shake = () => { b.userData.k = 1 }; return b
+}
+// sway of bamboo/siris with wind
+export function windSway(L, G, items) {
+  L.updaters.push((dt, t) => { const w = 0.25 + G.env.windV * 2.2; items.forEach((o, i) => { o.rotation.z = Math.sin(t * 1.3 + i * 1.7) * 0.012 * w; o.rotation.x = Math.cos(t * 1.1 + i) * 0.009 * w }) })
+}
+export function makeSnake() {
+  const g = new THREE.Group(), m = new THREE.MeshStandardMaterial({ color: '#2a2a1c', roughness: 0.5 }), segs = []
+  for (let i = 0; i < 14; i++) { const s = new THREE.Mesh(new THREE.SphereGeometry(0.035 - i * 0.0008, 6, 5), m); s.scale.z = 1.6; s.position.y = 0.035; g.add(s); segs.push(s) }
+  g.userData.segs = segs; g.visible = false; return g
+}
+
+// random distant night sounds (owl, dog, jackal, peacock). o: {owl,dog,jackal,peacock} multipliers (0 = off)
+import { R as _R } from '../core/util.js'
+export function nightTick(L, G, o = {}) {
+  const t = { owl: _R.range(4, 12), dog: _R.range(20, 40), jackal: _R.range(40, 80), peacock: _R.range(30, 60) }
+  const fns = { owl: 'owl', dog: 'dog', jackal: 'jackal', peacock: 'peacock' }
+  const rate = { owl: [12, 28], dog: [30, 70], jackal: [60, 120], peacock: [50, 110] }
+  L.tickAudio = (dt) => {
+    if (!G.audio.ctx || G.stopped) return
+    const p = G.player.pos
+    for (const k in t) {
+      const m = o[k] === undefined ? 1 : o[k]; if (!m) continue
+      t[k] -= dt; if (t[k] <= 0) { t[k] = _R.range(rate[k][0], rate[k][1]) / m; const a = _R.range(0, 6.28), r = _R.range(28, 60); G.audio[fns[k]]({ x: p.x + Math.sin(a) * r, y: 3, z: p.z + Math.cos(a) * r }) }
+    }
+  }
+}
+export function trailOf(L, name) { return L.trails.find(t => t.name === name) }
