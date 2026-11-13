@@ -270,3 +270,79 @@ export const tex = {
   })
 }
 export const wrapRepeat = (t, x, y) => { const c = t.clone(); c.needsUpdate = true; c.repeat.set(x, y); return c }
+
+// ================= Poly Haven CC0 PBR layer =================
+// Real photographic PBR sets (public/tex/*). If they fail to load, the procedural textures above stay in use.
+const SETS = {
+  plaster:    { slug: 'beige_wall_001',       m: 2.4, tint: true },
+  mudwall:    { slug: 'clay_plaster',         m: 2.0 },
+  brick:      { slug: 'brick_wall_02',        m: 2.0 },
+  tile:       { slug: 'clay_roof_tiles_02',   m: 1.6 },
+  tin:        { slug: 'corrugated_iron_03',   m: 2.0 },
+  wood:       { slug: 'wood_planks',          m: 1.2, tint: true },
+  cement:     { slug: 'concrete_wall_008',    m: 2.2 },
+  tileFloor:  { slug: 'floor_tiles_06',       m: 2.2 },
+  earthFloor: { slug: 'dirt_floor',           m: 3.0 },
+  stone:      { slug: 'rock_boulder_dry',     m: 1.6, tint: true },
+  bark:       { slug: 'bark_brown_01',        m: 0, rep: [1, 2] },
+  grass:      { slug: 'grass_ground',         m: 2.0 },
+  mud:        { slug: 'gravel_road',          m: 2.0 },
+  road:       { slug: 'asphalt_02',           m: 2.0 },
+}
+const imgs = {}, pbrTex = {}
+const loadImg = (url) => new Promise((res) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = url })
+let _pbrP = null
+export function preloadPBR() {
+  if (_pbrP) return _pbrP
+  const slugs = [...new Set(Object.values(SETS).map(s => s.slug))]
+  _pbrP = Promise.all(slugs.map(async (slug) => {
+    const [d, n, r] = await Promise.all(['diff', 'nor', 'rough'].map(k => loadImg(`./tex/${slug}_${k}.jpg`)))
+    if (!d) return
+    const mk = (im, srgb) => { const t = new THREE.Texture(im); t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8; t.needsUpdate = true; return t }
+    const avg = (() => { const c = mk0(8); const g = c.getContext('2d'); g.drawImage(d, 0, 0, 8, 8); const a = g.getImageData(0, 0, 8, 8).data; let R = 0, G = 0, B = 0; for (let i = 0; i < a.length; i += 4) { R += a[i]; G += a[i + 1]; B += a[i + 2] } const k = a.length / 4; return [R / k, G / k, B / k] })()
+    pbrTex[slug] = { diff: mk(d, true), nrm: n ? mk(n, false) : null, rgh: r ? mk(r, false) : null, img: d, avg }
+  })).then(() => installPBR())
+  return _pbrP
+}
+const mk0 = (s) => mk(s, s)
+const tintCache = {}
+function tinted(slug, col, m) {
+  const P = pbrTex[slug]; const key = slug + col
+  if (tintCache[key]) return tintCache[key]
+  const S = 512, c = mk(S, S), g = c.getContext('2d'); g.drawImage(P.img, 0, 0, S, S)
+  const id = g.getImageData(0, 0, S, S), a = id.data, b = hex(col)
+  const kr = clamp(b[0] / P.avg[0], 0.25, 1.9), kg = clamp(b[1] / P.avg[1], 0.25, 1.9), kb = clamp(b[2] / P.avg[2], 0.25, 1.9)
+  for (let i = 0; i < a.length; i += 4) { a[i] = Math.min(255, a[i] * kr); a[i + 1] = Math.min(255, a[i + 1] * kg); a[i + 2] = Math.min(255, a[i + 2] * kb) }
+  g.putImageData(id, 0, 0)
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8
+  t.userData = { slug, world: m }
+  return (tintCache[key] = t)
+}
+const plainCache = {}
+function plain(slug, m, rep) {
+  const P = pbrTex[slug], key = slug + m + (rep || '')
+  if (plainCache[key]) return plainCache[key]
+  const t = P.diff.clone(); t.needsUpdate = true; t.userData = { slug, world: m }; if (rep) t.repeat.set(rep[0], rep[1])
+  return (plainCache[key] = t)
+}
+function installPBR() {
+  const proc = { ...tex }
+  for (const [k, s] of Object.entries(SETS)) {
+    if (!pbrTex[s.slug]) continue
+    if (s.tint) tex[k] = (col) => col ? tinted(s.slug, col, s.m) : plain(s.slug, s.m, s.rep)
+    else tex[k] = () => plain(s.slug, s.m, s.rep)
+  }
+  tex.__proc = proc
+}
+// give a material the normal + roughness maps matching its colour map (same UV transform)
+export function withPBR(m) {
+  const map = m && m.map, u = map && map.userData
+  if (!u || !u.slug || !pbrTex[u.slug]) return m
+  const P = pbrTex[u.slug]
+  const cp = (t) => { const c = t.clone(); c.needsUpdate = true; c.repeat.copy(map.repeat); c.offset.copy(map.offset); c.wrapS = map.wrapS; c.wrapT = map.wrapT; return c }
+  if (P.nrm) { m.normalMap = cp(P.nrm); m.normalScale.set(1.1, 1.1) }
+  if (P.rgh) { m.roughnessMap = cp(P.rgh); m.roughness = 1 }
+  m.needsUpdate = true
+  return m
+}
+export const worldUV = (mat) => (mat && mat.map && mat.map.userData && mat.map.userData.world) || 0

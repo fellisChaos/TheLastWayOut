@@ -9,6 +9,7 @@ import { Actor } from './world/actors.js'
 import { makeTorch } from './world/people.js'
 import { clamp, damp, lerp, angDiff, fmtClock, R, nearestOnPoly } from './core/util.js'
 import { Scooter } from './world/scooter.js'
+import { preloadPBR } from './world/textures.js'
 
 const LEVELS = import.meta.glob('./levels/*.js')
 
@@ -74,6 +75,7 @@ G.tickClock = function (dt, rate) { if (G.clockFrozen || !rate) return; G.time +
 
 // ---------------- levels ----------------
 G.loadLevel = async function (name, opts = {}) {
+  await preloadPBR()
   if (G.level) { G.level.dispose(); G.level = null }
   G.actors.forEach(a => a.dispose()); G.actors = []; G.comp = null; G.scooter = null
   // purge any leftover rain/torch state

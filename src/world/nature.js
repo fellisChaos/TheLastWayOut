@@ -1,9 +1,9 @@
 // Indian-forest kit: instanced trees, peepal, banyan, bamboo, undergrowth, rocks
 import * as THREE from 'three'
-import { tex } from './textures.js'
+import { tex, withPBR } from './textures.js'
 import { RNG, nearestOnPoly, clamp } from '../core/util.js'
 
-const mat = (o) => new THREE.MeshStandardMaterial({ roughness: 0.95, metalness: 0, ...o })
+const mat = (o) => withPBR(new THREE.MeshStandardMaterial({ roughness: 0.95, metalness: 0, ...o }))
 let _geo
 function geos() {
   if (_geo) return _geo

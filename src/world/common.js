@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { Level } from './build.js'
 import { scatterForest } from './nature.js'
 import { nearestOnPoly } from '../core/util.js'
-import { tex } from './textures.js'
+import { tex, withPBR } from './textures.js'
 
 // Catmull-Rom smoothing of a polyline -> dense points
 export function smoothPts(pts, per = 6) {
@@ -62,7 +62,7 @@ export function sideAt(pts, d, off = 0) {
 // round clearing: textured disc + walkable disc
 export function clearing(L, x, z, r, name = '', texKey = 'mud', rep = 4) {
   const t = tex[texKey]().clone(); t.needsUpdate = true; t.repeat.set(r * 2 / rep, r * 2 / rep)
-  const m = new THREE.Mesh(new THREE.CircleGeometry(r * 0.95, 28), new THREE.MeshStandardMaterial({ map: t, roughness: 1 }))
+  const m = new THREE.Mesh(new THREE.CircleGeometry(r * 0.95, 28), withPBR(new THREE.MeshStandardMaterial({ map: t, roughness: 1 })))
   m.rotation.x = -Math.PI / 2; m.position.set(x, 0.013, z); m.receiveShadow = true; L.add(m)
   L.walk.disc(x, z, r, name); return m
 }

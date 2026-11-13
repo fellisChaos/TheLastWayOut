@@ -2,7 +2,7 @@
 import * as THREE from 'three'
 import { Level, buildHouse, sofa, table, chair, stool, charpai, tvSet, shelf, matka, brassVessel, chulha, garlandedPhoto, fan, tubeLight, pole, wires, streetLight, autoRickshaw, cow, dogModel, helmetRack, bush, bx, cyl, sph } from '../world/build.js'
 import { makeTiffin, makeSteelGlass } from '../world/people.js'
-import { tex } from '../world/textures.js'
+import { tex, withPBR } from '../world/textures.js'
 import { R } from '../core/util.js'
 
 export function build(G, opts = {}) {
@@ -47,10 +47,10 @@ export function build(G, opts = {}) {
   // yard
   const ch = charpai(); ch.position.set(-4.5, 0, 7.6); ch.rotation.y = 0.2; L.add(ch)
   const tul = bush(0.6); tul.position.set(4.6, 0, 5.2); L.add(tul)
-  cyl(L.group, 0.28, 0.22, 0.4, new THREE.MeshStandardMaterial({ map: tex.mudwall() }), 4.6, 0, 5.2, 10)
+  cyl(L.group, 0.28, 0.22, 0.4, withPBR(new THREE.MeshStandardMaterial({ map: tex.mudwall() })), 4.6, 0, 5.2, 10)
   const mt2 = matka(); mt2.position.set(-5.5, 0, 5); L.add(mt2)
   // gate wall
-  const wall = new THREE.MeshStandardMaterial({ map: tex.plaster('#cdbd96') })
+  const wall = withPBR(new THREE.MeshStandardMaterial({ map: tex.plaster('#cdbd96') }))
   bx(L.group, 6.6, 1.2, 0.2, wall, -3.7, 0, 11.6); bx(L.group, 6.6, 1.2, 0.2, wall, 6.1, 0, 11.6); L.solid(-7, 11.5, -0.4, 11.75, 1.2); L.solid(2.8, 11.5, 9.4, 11.75, 1.2)
   bx(L.group, 0.3, 1.5, 0.3, wall, -0.4, 0, 11.6); bx(L.group, 0.3, 1.5, 0.3, wall, 2.8, 0, 11.6)
   // neighbours across the street
@@ -66,7 +66,7 @@ export function build(G, opts = {}) {
   const cw = cow(); cw.position.set(18, 0, 16.4); cw.rotation.y = 1.4; L.add(cw); L.walk.circle(18, 16.4, 0.9)
   const dg = dogModel(); dg.position.set(2, 0, 17.3); dg.rotation.y = 2; L.add(dg)
   // trees
-  const tr = (x, z, s = 1) => { const g = new THREE.Group(); const t = cyl(g, 0.22 * s, 0.32 * s, 4 * s, new THREE.MeshStandardMaterial({ map: tex.bark() }), 0, 0, 0, 8); for (let i = 0; i < 3; i++) sph(g, 1.8 * s, new THREE.MeshStandardMaterial({ map: tex.leaf(), color: '#7aa860' }), R.range(-0.8, 0.8), 4.4 * s + i * 0.5, R.range(-0.8, 0.8)); g.position.set(x, 0, z); L.add(g); L.walk.circle(x, z, 0.35 * s) }
+  const tr = (x, z, s = 1) => { const g = new THREE.Group(); const t = cyl(g, 0.22 * s, 0.32 * s, 4 * s, withPBR(new THREE.MeshStandardMaterial({ map: tex.bark() })), 0, 0, 0, 8); for (let i = 0; i < 3; i++) sph(g, 1.8 * s, new THREE.MeshStandardMaterial({ map: tex.leaf(), color: '#7aa860' }), R.range(-0.8, 0.8), 4.4 * s + i * 0.5, R.range(-0.8, 0.8)); g.position.set(x, 0, z); L.add(g); L.walk.circle(x, z, 0.35 * s) }
   tr(-6, 9.5, 1.1); tr(9, 8.4, 1.2); tr(30, 19, 1.3); tr(-30, 19, 1.2); tr(40, 10, 1.1); tr(55, 18.5, 1.3); tr(65, 10, 1.2)
   // scooter parked on the street, facing +x (east: the way out of town)
   L.spawn = night ? { x: 2, z: 5, yaw: Math.PI } : { x: -2.2, z: -0.5, yaw: -2.36 }

@@ -1,12 +1,18 @@
 // Level base class + building / prop kit
 import * as THREE from 'three'
 import * as CANNON from 'cannon-es'
-import { tex } from './textures.js'
+import { tex, withPBR, worldUV } from './textures.js'
 import { Walk } from './walk.js'
 import { RNG, nearestOnPoly, R } from '../core/util.js'
 
-const S = (o) => new THREE.MeshStandardMaterial({ roughness: 0.9, metalness: 0, ...o })
-export const bx = (p, w, h, d, mat, x, y, z, ry = 0) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); m.position.set(x, y + h / 2, z); m.rotation.y = ry; m.castShadow = true; m.receiveShadow = true; p.add(m); return m }
+const S = (o) => withPBR(new THREE.MeshStandardMaterial({ roughness: 0.9, metalness: 0, ...o }))
+// scale a box's UVs to world metres so photo textures keep their real-world size
+export function boxUV(geo, w, h, d, m) {
+  const uv = geo.attributes.uv, dims = [[d, h], [d, h], [w, d], [w, d], [w, h], [w, h]]
+  for (let f = 0; f < 6; f++) for (let i = 0; i < 4; i++) { const k = f * 4 + i; uv.setXY(k, uv.getX(k) * dims[f][0] / m, uv.getY(k) * dims[f][1] / m) }
+  uv.needsUpdate = true; return geo
+}
+export const bx = (p, w, h, d, mat, x, y, z, ry = 0) => { const wu = worldUV(mat), geo = new THREE.BoxGeometry(w, h, d); if (wu) boxUV(geo, w, h, d, wu); const m = new THREE.Mesh(geo, mat); m.position.set(x, y + h / 2, z); m.rotation.y = ry; m.castShadow = true; m.receiveShadow = true; p.add(m); return m }
 export const cyl = (p, rt, rb, h, mat, x, y, z, seg = 14) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), mat); m.position.set(x, y + h / 2, z); m.castShadow = true; m.receiveShadow = true; p.add(m); return m }
 export const sph = (p, r, mat, x, y, z, sx = 1, sy = 1, sz = 1) => { const m = new THREE.Mesh(new THREE.SphereGeometry(r, 14, 10), mat); m.position.set(x, y, z); m.scale.set(sx, sy, sz); m.castShadow = true; p.add(m); return m }
 
@@ -96,7 +102,7 @@ export function buildHouse(L, o) {
   if (roof === 'flat') { bx(g, w + 0.5, 0.2, d + 0.5, rm, 0, h, 0); bx(g, w + 0.5, 0.5, 0.1, rm, 0, h + 0.2, d / 2 + 0.2); bx(g, w + 0.5, 0.5, 0.1, rm, 0, h + 0.2, -d / 2 - 0.2); bx(g, 0.1, 0.5, d + 0.5, rm, w / 2 + 0.2, h + 0.2, 0); bx(g, 0.1, 0.5, d + 0.5, rm, -w / 2 - 0.2, h + 0.2, 0) }
   else {
     const sl = roof === 'tin' ? 0.22 : 0.5, rise = Math.tan(sl) * (d / 2 + 0.5), len = (d / 2 + 0.6) / Math.cos(sl)
-    for (const s of [-1, 1]) { const m = new THREE.Mesh(new THREE.BoxGeometry(w + 0.9, 0.08, len), rm); m.position.set(0, h + rise / 2 + 0.05, s * (d / 4 + 0.25)); m.rotation.x = s * sl; m.castShadow = true; g.add(m) }
+    for (const s of [-1, 1]) { const rg = new THREE.BoxGeometry(w + 0.9, 0.08, len); if (worldUV(rm)) boxUV(rg, w + 0.9, 0.08, len, worldUV(rm)); const m = new THREE.Mesh(rg, rm); m.position.set(0, h + rise / 2 + 0.05, s * (d / 4 + 0.25)); m.rotation.x = s * sl; m.castShadow = true; g.add(m) }
     const shp = new THREE.Shape(); shp.moveTo(-d / 2 - 0.1, 0); shp.lineTo(d / 2 + 0.1, 0); shp.lineTo(0, rise); shp.closePath()
     for (const s of [-1, 1]) { const gm = new THREE.Mesh(new THREE.ShapeGeometry(shp), wm); gm.position.set(s * (w / 2 + 0.1), h, 0); gm.rotation.y = s * Math.PI / 2; g.add(gm) }
   }
