@@ -6,16 +6,16 @@ const C = (h) => new THREE.Color(h)
 export const MOODS = {
   day:      { top: '#5f93c9', hor: '#cfe0e8', fog: 0.0035, amb: 0.9, hemiS: '#c8d8ee', hemiG: '#6b6a50', sun: 2.6, sunC: '#fff2d8', sunDir: [60, 80, 40], rain: 0, wind: 0.08, exposure: 1.0 },
   evening:  { top: '#4c6f9b', hor: '#f0a468', fog: 0.0065, amb: 0.65, hemiS: '#b9a690', hemiG: '#5a4b32', sun: 2.0, sunC: '#ffb067', sunDir: [-80, 22, 40], rain: 0, wind: 0.1, exposure: 1.0 },
-  dusk:     { top: '#1d2a48', hor: '#8a5a6a', fog: 0.014, amb: 0.35, hemiS: '#6b6a8a', hemiG: '#2a2a28', sun: 0.35, sunC: '#cc7a6a', sunDir: [-80, 8, 40], rain: 0, wind: 0.15, exposure: 1.0 },
-  night:    { top: '#0a1226', hor: '#233450', fog: 0.026, amb: 0.42, hemiS: '#5a70a0', hemiG: '#1c2018', sun: 0.6, sunC: '#7f9bd0', sunDir: [30, 60, -40], rain: 0, wind: 0.2, exposure: 1.0 },
-  storm:    { top: '#0c1220', hor: '#2a3648', fog: 0.036, amb: 0.4, hemiS: '#566a8c', hemiG: '#181c16', sun: 0.5, sunC: '#6a84b0', sunDir: [30, 60, -40], rain: 0.9, wind: 0.75, exposure: 1.0 },
-  rain:     { top: '#0c1220', hor: '#26323f', fog: 0.034, amb: 0.38, hemiS: '#566a8c', hemiG: '#181c16', sun: 0.45, sunC: '#6a84b0', sunDir: [30, 60, -40], rain: 0.55, wind: 0.45, exposure: 1.0 },
-  drizzle:  { top: '#0c1220', hor: '#2a3644', fog: 0.032, amb: 0.38, hemiS: '#566a8c', hemiG: '#181c16', sun: 0.45, sunC: '#6a84b0', sunDir: [30, 60, -40], rain: 0.25, wind: 0.3, exposure: 1.0 },
-  deep:     { top: '#080d18', hor: '#18222f', fog: 0.042, amb: 0.3, hemiS: '#42567a', hemiG: '#10140f', sun: 0.35, sunC: '#5a74a0', sunDir: [30, 60, -40], rain: 0.35, wind: 0.3, exposure: 1.0 },
-  still:    { top: '#070b14', hor: '#141c28', fog: 0.045, amb: 0.28, hemiS: '#3c4e6e', hemiG: '#0e120e', sun: 0.3, sunC: '#5a74a0', sunDir: [30, 60, -40], rain: 0.0, wind: 0.0, exposure: 1.0 },
-  predawn:  { top: '#0c1530', hor: '#4a4a62', fog: 0.03, amb: 0.22, hemiS: '#556690', hemiG: '#1c1c1a', sun: 0.3, sunC: '#aab8e0', sunDir: [80, 14, 20], rain: 0.1, wind: 0.15, exposure: 1.0 },
+  dusk:     { top: '#1d2a48', hor: '#8a5a6a', fog: 0.014, amb: 0.35, hemiS: '#6b6a8a', hemiG: '#2a2a28', sun: 0.35, sunC: '#cc7a6a', sunDir: [-80, 8, 40], rain: 0, wind: 0.15, exposure: 1.3 },
+  night:    { top: '#0a1226', hor: '#233450', fog: 0.026, amb: 0.42, hemiS: '#5a70a0', hemiG: '#1c2018', sun: 0.6, sunC: '#7f9bd0', sunDir: [30, 60, -40], rain: 0, wind: 0.2, exposure: 1.7 },
+  storm:    { top: '#0c1220', hor: '#2a3648', fog: 0.036, amb: 0.4, hemiS: '#566a8c', hemiG: '#181c16', sun: 0.5, sunC: '#6a84b0', sunDir: [30, 60, -40], rain: 0.9, wind: 0.75, exposure: 2.1 },
+  rain:     { top: '#0c1220', hor: '#26323f', fog: 0.034, amb: 0.38, hemiS: '#566a8c', hemiG: '#181c16', sun: 0.45, sunC: '#6a84b0', sunDir: [30, 60, -40], rain: 0.55, wind: 0.45, exposure: 2.0 },
+  drizzle:  { top: '#0c1220', hor: '#2a3644', fog: 0.032, amb: 0.38, hemiS: '#566a8c', hemiG: '#181c16', sun: 0.45, sunC: '#6a84b0', sunDir: [30, 60, -40], rain: 0.25, wind: 0.3, exposure: 2.0 },
+  deep:     { top: '#080d18', hor: '#18222f', fog: 0.042, amb: 0.3, hemiS: '#42567a', hemiG: '#10140f', sun: 0.35, sunC: '#5a74a0', sunDir: [30, 60, -40], rain: 0.35, wind: 0.3, exposure: 2.3 },
+  still:    { top: '#070b14', hor: '#141c28', fog: 0.045, amb: 0.28, hemiS: '#3c4e6e', hemiG: '#0e120e', sun: 0.3, sunC: '#5a74a0', sunDir: [30, 60, -40], rain: 0.0, wind: 0.0, exposure: 2.3 },
+  predawn:  { top: '#0c1530', hor: '#4a4a62', fog: 0.03, amb: 0.22, hemiS: '#556690', hemiG: '#1c1c1a', sun: 0.3, sunC: '#aab8e0', sunDir: [80, 14, 20], rain: 0.1, wind: 0.15, exposure: 1.8 },
   dawn:     { top: '#5b7ea8', hor: '#f2b78a', fog: 0.012, amb: 0.7, hemiS: '#c8c0b8', hemiG: '#605a46', sun: 1.7, sunC: '#ffc890', sunDir: [80, 14, 20], rain: 0, wind: 0.1, exposure: 1.0 },
-  indoor:   { top: '#0a0e16', hor: '#10161e', fog: 0.012, amb: 0.2, hemiS: '#6a5a44', hemiG: '#2a2218', sun: 0, sunC: '#000', sunDir: [0, 1, 0], rain: 0, wind: 0.0, exposure: 1.0 },
+  indoor:   { top: '#0a0e16', hor: '#10161e', fog: 0.012, amb: 0.2, hemiS: '#6a5a44', hemiG: '#2a2218', sun: 0, sunC: '#000', sunDir: [0, 1, 0], rain: 0, wind: 0.0, exposure: 1.6 },
   homeDay:  { top: '#6f9acb', hor: '#e2d8c0', fog: 0.003, amb: 1.0, hemiS: '#d8e0ee', hemiG: '#7a7058', sun: 2.8, sunC: '#ffe2b0', sunDir: [-50, 60, 30], rain: 0, wind: 0.06, exposure: 1.0 }
 }
 
@@ -56,7 +56,7 @@ export class Env {
     const m = this.mood, c = this.cur, k = this._snap ? 1 : 1 - Math.exp(-dt * 0.55)
     this._snap = false
     c.topC.lerp(C(m.top), k); c.horC.lerp(C(m.hor), k); c.sunCc.lerp(C(m.sunC), k); c.hemiSc.lerp(C(m.hemiS), k); c.hemiGc.lerp(C(m.hemiG), k)
-    c.fog = lerp(c.fog, m.fog, k); c.amb = lerp(c.amb, m.amb, k); c.sun = lerp(c.sun, m.sun, k); c.rain = lerp(c.rain, m.rain, k); c.wind = lerp(c.wind, m.wind, k)
+    c.exposure = lerp(c.exposure ?? 1, m.exposure ?? 1, k); this.G.renderer.toneMappingExposure = 1.05 * c.exposure; c.fog = lerp(c.fog, m.fog, k); c.amb = lerp(c.amb, m.amb, k); c.sun = lerp(c.sun, m.sun, k); c.rain = lerp(c.rain, m.rain, k); c.wind = lerp(c.wind, m.wind, k)
     const sd = new THREE.Vector3(...m.sunDir); c.sunDirV.lerp(sd, k)
     this.hemi.color.copy(c.hemiSc); this.hemi.groundColor.copy(c.hemiGc); this.hemi.intensity = c.amb * (this.G.cfg.ambBoost || 1)
     this.sun.color.copy(c.sunCc); this.sun.intensity = c.sun + this.flashV * 3; this.sun.position.copy(camPos).addScaledVector(c.sunDirV.clone().normalize(), 80); this.sun.target.position.copy(camPos)

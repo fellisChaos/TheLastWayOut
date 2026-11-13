@@ -317,7 +317,7 @@ function updateCamera(dt) {
 function updateAudioState(dt) {
   const p = G.player, S = audio.st, env = G.env, L = G.level
   // torch smooth
-  const tl = G.torch; tl.intensity = damp(tl.intensity, G.torchOn ? 70 * G.torchPow : 0, 18, dt); G.torchFill.intensity = tl.intensity * 0.012
+  const tl = G.torch; tl.intensity = damp(tl.intensity, G.torchOn ? 70 * G.torchPow : 0, 18, dt); G.torchFill.intensity = tl.intensity * 0.03
   G.torchTarget.position.x = damp(G.torchTarget.position.x, 0, 4, dt)
   // env -> audio
   const indoor = L.isIndoors ? L.isIndoors(p.pos.x, p.pos.z) : 0
