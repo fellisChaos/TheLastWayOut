@@ -7,8 +7,8 @@ const mat = (o) => new THREE.MeshStandardMaterial({ roughness: 0.95, metalness: 
 let _geo
 function geos() {
   if (_geo) return _geo
-  const trunk = new THREE.CylinderGeometry(0.55, 1, 1, 7, 3); trunk.translate(0, 0.5, 0)
-  const blob = new THREE.IcosahedronGeometry(1, 2); const p = blob.attributes.position, r = new RNG(3)
+  const trunk = new THREE.CylinderGeometry(0.55, 1, 1, 6, 1); trunk.translate(0, 0.5, 0)
+  const blob = new THREE.IcosahedronGeometry(1, 1); const p = blob.attributes.position, r = new RNG(3)
   for (let i = 0; i < p.count; i++) { const k = 0.78 + r.next() * 0.44; p.setXYZ(i, p.getX(i) * k, p.getY(i) * k * 0.8, p.getZ(i) * k) }
   blob.computeVertexNormals()
   const card = new THREE.PlaneGeometry(1, 1); card.translate(0, 0.5, 0)
