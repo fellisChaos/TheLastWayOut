@@ -83,4 +83,5 @@ Cards unlock as you meet each event and are saved in localStorage.
 
 - Verified in headless Chromium (software WebGL): every chapter and both full endings run to the end card with no console errors. I checked screenshots of several scenes.
 - **Not yet verified:** a real GPU (frame rate), the Electron window, and AppImage/deb building. They were not run in this sandbox.
-- Known rough edges: low-poly look, face textures, companion AI, and the cow model looks like a sheep. Triangle counts in forest levels are high. If it stutters, lower the quality in Settings.
+- Known visual bug (NOT fixed): at night, in forest/cremation-ground scenes, a ragged row of dark tree-trunk stubs shows along the far horizon. They are darker than the fog/sky behind them. I lowered tree polygon counts and put the sky through tone-mapping, but the screenshot after that still shows it. Next step is to make the fog colour match the sky horizon, or add a dense fog wall at the edge of each level's bounds.
+- Other rough edges: low-poly look, face textures, companion AI, and the cow model looks like a sheep. Triangle counts in forest levels are high. If it stutters, lower the quality in Settings.
