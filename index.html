@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>The Last Way Out — आख़िरी रास्ता</title>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="vignette" class="layer"></div>
+<div id="fear" class="layer"></div>
+<div id="grain" class="layer"></div>
+<div id="flash" class="layer"></div>
+
+<!-- HUD -->
+<div id="hud" class="hidden">
+  <div id="clock"><span id="clock-t">7:42 PM</span></div>
+  <div id="crosshair"></div>
+  <div id="prompt"><kbd>E</kbd> <span id="prompt-t"></span></div>
+  <div id="holdbar"><i></i></div>
+  <div id="caption"></div>
+  <div id="subs"><div id="subs-who"></div><div id="subs-hi"></div><div id="subs-en"></div></div>
+  <div id="toast"></div>
+  <div id="speedo" class="hidden"><b id="speedo-v">0</b><small>km/h</small></div>
+</div>
+
+<div id="choice" class="hidden"><div id="choice-q"></div><div id="choice-opts"></div></div>
+<div id="titlecard" class="hidden"><div id="tc-chapter"></div><div id="tc-title"></div><div id="tc-time"></div></div>
+<div id="fade" class="layer"></div>
+<div id="loading" class="hidden">loading…</div>
+
+<!-- touch controls -->
+<div id="touch" class="hidden">
+  <div id="joy"><i></i></div>
+  <div id="look"></div>
+  <button id="b-run">RUN</button><button id="b-torch">TORCH</button><button id="b-use">USE</button><button id="b-pause">II</button>
+</div>
+
+<!-- MENU -->
+<div id="menu" class="screen">
+  <div class="menu-inner">
+    <div class="menu-kicker">a grounded psychological horror story</div>
+    <h1>THE LAST WAY OUT</h1>
+    <h2>आख़िरी रास्ता</h2>
+    <div class="menu-sub">Nishan &amp; Nishant went out for a ride. Most of what happened that night has an explanation.<br/>Not all of it.</div>
+    <div class="menu-btns">
+      <button id="m-start" class="primary">▶ &nbsp;New Game</button>
+      <button id="m-chapters">Chapters</button>
+      <button id="m-log">Reality Log <span id="m-log-n"></span></button>
+      <button id="m-settings">Settings</button>
+      <button id="m-controls">Controls</button>
+      <button id="m-quit" class="hidden">Quit</button>
+    </div>
+    <div class="menu-foot">Best with headphones &amp; lights off. Click once to enable sound.</div>
+  </div>
+</div>
+
+<div id="chapters" class="screen hidden"><div class="panel">
+  <h3>Chapters</h3><div id="chapter-list"></div><button class="back">← Back</button>
+</div></div>
+
+<div id="settings" class="screen hidden"><div class="panel">
+  <h3>Settings</h3>
+  <label>Master volume <input type="range" id="s-master" min="0" max="1" step="0.05" value="0.8"></label>
+  <label>Voices <input type="range" id="s-voice" min="0" max="1" step="0.05" value="1"></label>
+  <label>Ambience <input type="range" id="s-amb" min="0" max="1" step="0.05" value="0.8"></label>
+  <label>Effects <input type="range" id="s-sfx" min="0" max="1" step="0.05" value="1"></label>
+  <label>Mouse sensitivity <input type="range" id="s-sens" min="0.3" max="2.5" step="0.1" value="1"></label>
+  <label>Subtitles
+    <select id="s-subs"><option value="both">Hinglish + English</option><option value="hi">Hinglish</option><option value="en">English</option><option value="off">Off</option></select></label>
+  <label>Sound captions <input type="checkbox" id="s-caps" checked></label>
+  <label>Graphics
+    <select id="s-gfx"><option value="low">Low</option><option value="med" selected>Medium</option><option value="high">High</option></select></label>
+  <label>Reduce camera shake <input type="checkbox" id="s-shake"></label>
+  <label>Reduce flashing <input type="checkbox" id="s-flash"></label>
+  <label>Spoken voices (browser TTS, if Hindi voice exists) <input type="checkbox" id="s-tts"></label>
+  <button class="back">← Back</button>
+</div></div>
+
+<div id="controls" class="screen hidden"><div class="panel">
+  <h3>Controls</h3>
+  <table class="keys">
+    <tr><td><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></td><td>Walk (on the scooter: throttle / steer / brake)</td></tr>
+    <tr><td>Mouse</td><td>Look around</td></tr>
+    <tr><td><kbd>Shift</kbd></td><td>Run (you will get tired)</td></tr>
+    <tr><td><kbd>F</kbd></td><td>Torch on / off</td></tr>
+    <tr><td><kbd>E</kbd></td><td>Interact · hold near the scooter to push it</td></tr>
+    <tr><td><kbd>C</kbd></td><td>Crouch / hide</td></tr>
+    <tr><td><kbd>P</kbd></td><td>Check phone</td></tr>
+    <tr><td><kbd>Esc</kbd></td><td>Pause</td></tr>
+  </table>
+  <p class="dim">No fighting. No inventory. No map. Just two friends, and a night.</p>
+  <button class="back">← Back</button>
+</div></div>
+
+<div id="pause" class="screen hidden"><div class="panel center">
+  <h3>Paused</h3>
+  <button id="p-resume" class="primary">Resume</button>
+  <button id="p-settings">Settings</button>
+  <button id="p-controls">Controls</button>
+  <button id="p-menu">Main menu</button>
+</div></div>
+
+<div id="report" class="screen hidden"><div class="panel wide">
+  <div id="report-head"></div>
+  <div id="report-cards"></div>
+  <div class="center"><button id="r-close" class="primary">Continue</button></div>
+</div></div>
+
+<div id="endcard" class="screen hidden"><div class="center end-inner">
+  <div id="end-title"></div><div id="end-sub"></div>
+  <div class="menu-btns"><button id="e-report" class="primary">Read the reality report</button><button id="e-menu">Main menu</button></div>
+</div></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
