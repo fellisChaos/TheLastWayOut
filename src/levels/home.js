@@ -69,7 +69,7 @@ export function build(G, opts = {}) {
   const tr = (x, z, s = 1) => { const g = new THREE.Group(); const t = cyl(g, 0.22 * s, 0.32 * s, 4 * s, new THREE.MeshStandardMaterial({ map: tex.bark() }), 0, 0, 0, 8); for (let i = 0; i < 3; i++) sph(g, 1.8 * s, new THREE.MeshStandardMaterial({ map: tex.leaf(), color: '#7aa860' }), R.range(-0.8, 0.8), 4.4 * s + i * 0.5, R.range(-0.8, 0.8)); g.position.set(x, 0, z); L.add(g); L.walk.circle(x, z, 0.35 * s) }
   tr(-6, 9.5, 1.1); tr(9, 8.4, 1.2); tr(30, 19, 1.3); tr(-30, 19, 1.2); tr(40, 10, 1.1); tr(55, 18.5, 1.3); tr(65, 10, 1.2)
   // scooter parked on the street, facing +x (east: the way out of town)
-  L.spawn = night ? { x: 2, z: 5, yaw: Math.PI } : { x: -2.2, z: -0.5, yaw: 0 }
+  L.spawn = night ? { x: 2, z: 5, yaw: Math.PI } : { x: -2.2, z: -0.5, yaw: -2.36 }
   if (!night) {
     G.addScooter(L, 7.5, 14.6, Math.PI / 2)
   }

@@ -27,6 +27,7 @@ class UI {
     if (p.dataset.t !== text + key) { $('prompt-t').textContent = text; p.querySelector('kbd').textContent = key; p.dataset.t = text + key }
     p.classList.add('show')
   }
+  objective(t) { const e = $('objective'); if (!t) { e.classList.remove('show'); return } $('objective-t').textContent = t; e.classList.add('show') }
   hold(v) { const h = $('holdbar'); h.style.opacity = v > 0 ? 1 : 0; h.firstElementChild.style.width = (v * 100) + '%' }
   clock(txt, frozen = false, show = true) { const c = $('clock'); $('clock-t').textContent = txt; c.classList.toggle('show', show); c.classList.toggle('frozen', frozen) }
   fade(to = 1, sec = 1.2) { const f = $('fade'); f.style.transition = `opacity ${sec}s ease`; f.style.opacity = to; return sleep(sec * 1000 + 30) }

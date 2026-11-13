@@ -96,3 +96,8 @@ button.primary{border-color:var(--accent)!important;color:#fff!important}
 #touch button{position:absolute;pointer-events:auto;background:rgba(0,0,0,.45);border:1px solid #888;color:#fff;border-radius:50%;width:62px;height:62px;font-size:11px}
 #b-run{right:6vw;bottom:8vh}#b-torch{right:6vw;bottom:calc(8vh + 74px)}#b-use{right:calc(6vw + 74px);bottom:8vh}#b-pause{right:14px;top:14px;width:40px;height:40px}
 @media (max-width:700px){#subs-hi{font-size:18px}}
+
+#objective{position:absolute;left:24px;top:64px;max-width:340px;padding:8px 14px;background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,0));border-left:2px solid #d8b070;opacity:0;transition:opacity .5s;pointer-events:none}
+#objective.show{opacity:1}
+#objective small{display:block;font-size:10px;letter-spacing:.2em;color:#d8b070;margin-bottom:2px}
+#objective span{font-size:15px;color:#efe6d0;text-shadow:0 0 6px #000}

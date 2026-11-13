@@ -16,6 +16,7 @@ export async function ch1(s) {
   await wait(0.8)
   ui.toast('WASD — chalo · Mouse — dekho · E — baat / use', 5)
   // 1. talk to Mummy
+  ui.objective('Mummy se baat karo · Talk to Mummy')
   const t1 = use(H.local(-2.6, 1.2, -0.9), 'Mummy se baat karo', { r: 3.2, cone: 0.1 })
   await t1
   mom.face(G.player.pos); mom.look(G.camera.position)
@@ -26,12 +27,14 @@ export async function ch1(s) {
   await N('Theek hai.', 'Okay.')
   mom.look(null); mom.face(null)
   // 2. helmets
+  ui.objective('Helmet utha lo (darwaaze ke paas) · Pick up the helmet')
   ui.toast('Helmet utha lo — darwaaze ke paas', 4)
   c.mode = 'follow'; c.pose('stand')
   await use(L.refs.helmetPos, 'Helmet utha lo', { r: 3 })
   audio.clang(L.refs.helmetPos, 0.5)
   await T('Chal, chal. Sab set? Petrol bhi full karwaya tha kal.', 'Come on. All set? Filled up the tank yesterday.')
   await N('Haan, bas thoda ghoom ke aate hain.', 'Yeah, just a little roam.')
+  ui.objective('Darwaaze se bahar nikalo, gate tak · Walk out through the front door to the gate')
   // 3. outside + neighbour
   await gate(() => G.player.pos.z > 11.3 && !H.inside(G.player.pos.x, G.player.pos.z), () => snapTo(2, 12.5))
   const nb = G.addActor('neighbor'); nb.place(11, 15.6, -1.4); nb.face({ x: G.player.pos.x, z: G.player.pos.z }); nb.sfx = false
@@ -41,10 +44,12 @@ export async function ch1(s) {
   await N('Bas ghoomne, uncle. Shaam tak lautenge.', 'Just roaming around, uncle. Back by evening.')
   await say('Padosi', 'Dhyaan se jaana. Aajkal baarish ka bharosa nahi.', 'Go safe. Rain is unpredictable these days.', { pos: nb.pos })
   nb.face(null)
+  ui.objective('Scooter ke paas jao · Go to the scooter')
   // 4. scooter
   const sc = G.scooter
   await use(sc.chassis.position, 'Scooter start karo', { r: 3.2 })
   audio.init()
+  ui.objective('Sadak par chalao · Ride down the road')
   G.rideHint = 'W — aage · A/D — mudo · Space — brake'
   G.dismountPending = false
   G.mount(sc); setTime(17.4, 0, false, true); G.clockRate = 45
@@ -56,6 +61,7 @@ export async function ch1(s) {
   await T('Kal ka match dekha? Arre, last over mein toh...', 'Did you watch yesterday\'s match? That last over...', { dur: 3.4 })
   await N('Haan yaar, kya finish tha!', 'Yeah, what a finish!', { dur: 2.2 })
   await gate(() => sc.chassis.position.x > 52, () => snapTo(53, 14.5))
+  ui.objective(null)
   await ui.fade(1, 1.2)
 }
 

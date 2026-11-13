@@ -112,7 +112,7 @@ export function buildHouse(L, o) {
     for (let i = -1; i <= 1; i++) { const bar = bx(g, 0.02, hh, 0.02, S({ color: '#222', metalness: 0.5 }), pos[0], pos[1] - hh / 2, pos[2] + 0.01); bar.rotation.y = pos[3]; bar.translateX(i * ww / 3.2) }
   }
   // interior walkable & door approach
-  if (interior) { const a = rotPt(rot, x, z, -w / 2 + 0.05, -d / 2 + 0.05), b = rotPt(rot, x, z, w / 2 - 0.05, d / 2 - 0.05); L.walk.rect(a[0], a[1], b[0], b[1], 'in_' + name); const c = rotPt(rot, x, z, doorX - doorW / 2 + 0.12, d / 2 - 0.4), e = rotPt(rot, x, z, doorX + doorW / 2 - 0.12, d / 2 + 1.6); L.walk.rect(c[0], c[1], e[0], e[1], 'door_' + name) }
+  if (interior) { const a = rotPt(rot, x, z, -w / 2 + 0.05, -d / 2 + 0.05), b = rotPt(rot, x, z, w / 2 - 0.05, d / 2 - 0.05); L.walk.rect(a[0], a[1], b[0], b[1], 'in_' + name); const c = rotPt(rot, x, z, doorX - doorW / 2 - 0.4, d / 2 - 1.1), e = rotPt(rot, x, z, doorX + doorW / 2 + 0.4, d / 2 + 2.2); L.walk.rect(c[0], c[1], e[0], e[1], 'door_' + name) }
   // interior bounds for audio/rain
   const a = rotPt(rot, x, z, -w / 2, -d / 2), b = rotPt(rot, x, z, w / 2, d / 2); house.bounds = { x0: Math.min(a[0], b[0]), x1: Math.max(a[0], b[0]), z0: Math.min(a[1], b[1]), z1: Math.max(a[1], b[1]) }
   house.local = (lx, ly, lz) => { const p = rotPt(rot, x, z, lx, lz); return new THREE.Vector3(p[0], ly, p[1]) }
