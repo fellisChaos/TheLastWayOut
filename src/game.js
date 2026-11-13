@@ -80,6 +80,8 @@ G.tickClock = function (dt, rate) { if (G.clockFrozen || !rate) return; G.time +
 
 // ---------------- levels ----------------
 G.loadLevel = async function (name, opts = {}) {
+  document.getElementById('loading').classList.remove('hidden')
+  await new Promise(r => setTimeout(r, 30))
   await preloadPBR()
   if (G.level) { G.level.dispose(); G.level = null }
   G.actors.forEach(a => a.dispose()); G.actors = []; G.comp = null; G.scooter = null
@@ -89,6 +91,7 @@ G.loadLevel = async function (name, opts = {}) {
   G.interacts = []
   const p = G.player; p.pos.set(L.spawn.x, 0, L.spawn.z); p.yaw = L.spawn.yaw; p.pitch = 0
   G.env.indoors = false; G.env.fogMul = 1
+  document.getElementById('loading').classList.add('hidden')
   return L
 }
 G.addActor = function (outfit, over) { const a = new Actor(G, outfit, over); G.actors.push(a); return a }
@@ -216,6 +219,7 @@ G.step = function (dt) {
   updateInteract(dt)
   updateCamera(dt)
   nav.update(dt)
+  if (G._dbg) { G._fps = (G._fps || 60) * 0.95 + (1 / Math.max(dt, 1e-3)) * 0.05; const r = G.renderer.info.render; document.getElementById('dbg').textContent = `fps ${G._fps.toFixed(0)}  calls ${r.calls}  tris ${(r.triangles / 1000).toFixed(0)}k\nlevel ${L.name}  t ${G.time.toFixed(2)}\npos ${p.pos.x.toFixed(1)}, ${p.pos.z.toFixed(1)}  yaw ${p.yaw.toFixed(2)}\ngoal ${G.goal ? G.goal.label : '-'}` }
   updateAudioState(dt)
   G.tickClock(dt, G.clockRate || 0)
   // fear / tired smoothing
@@ -244,6 +248,7 @@ function playerUpdate(dt) {
   else if (p.canLook && !G.paused) { let dx = -lk.x * s; const LL = G.lookLimit; if (LL) { const rel = angDiff(LL.c, p.yaw); if (Math.abs(rel) > LL.w && Math.sign(dx) === Math.sign(rel)) dx *= 0.12 } p.yaw += dx; p.pitch = clamp(p.pitch - lk.y * s, -1.45, 1.45) }
   if (input.hit('KeyF')) { G.setTorch(!G.torchOn) }
   if (input.hit('KeyH')) nav.help()
+  if (input.hit('F3')) { G._dbg = !G._dbg; document.getElementById('dbg').classList.toggle('hidden', !G._dbg) }
   if (input.hit('KeyP')) G.checkPhone()
   if (p.mode === 'ride' || !p.canMove) { if (p.mode !== 'ride') { p.vel = damp(p.vel, 0, 8, dt); p.crouch = damp(p.crouch, input.down('KeyC') && !G.noCrouch ? 1 : 0, 8, dt) } return }
   const ax = input.axis(), run = input.down('Shift') || (input.touch && input.down('ShiftLeft'))
@@ -319,7 +324,7 @@ function updateCamera(dt) {
     p.rideYaw = e.y; p.yaw = e.y + (p.lookOff || 0)
     cam.rotation.order = 'YXZ'; cam.position.set(v.x, v.y + bump, v.z); cam.rotation.set(p.pitch, p.yaw + Math.PI, -sc.lean * 0.5)
     p.pos.set(sc.chassis.position.x, 0, sc.chassis.position.z)
-    cam.fov = lerp(cam.fov, 70 + clamp(Math.abs(spd) / 11, 0, 1) * 10, 0.05); cam.updateProjectionMatrix(); return
+    cam.fov = lerp(cam.fov, (G.cfg.fov || 70) + clamp(Math.abs(spd) / 11, 0, 1) * 10, 0.05); cam.updateProjectionMatrix(); return
   }
   const eye = p.eyeH - p.crouch * 0.75 - p.headDip
   const bob = Math.sin(p.bobT) * 0.035 * (1 - p.crouch * 0.4) * (1 + p.tired * 0.4), sway = Math.cos(p.bobT * 0.5) * 0.02
@@ -327,7 +332,7 @@ function updateCamera(dt) {
   const sh = G.shake; G.shake = Math.max(0, G.shake - dt * 1.2)
   cam.position.set(ex + Math.cos(p.yaw) * sway, ey + (Math.random() - 0.5) * sh * 0.05, ez - Math.sin(p.yaw) * sway)
   cam.rotation.order = 'YXZ'; cam.rotation.set(p.pitch + (Math.random() - 0.5) * sh * 0.02, p.yaw + Math.PI + (Math.random() - 0.5) * sh * 0.02, p.roll + Math.sin(p.bobT * 0.5) * 0.004 * (1 + p.tired))
-  cam.fov = lerp(cam.fov, 70 - p.crouch * 4 + (input.down('ShiftLeft') && p.vel > 2.5 ? 4 : 0), 0.08); cam.updateProjectionMatrix()
+  cam.fov = lerp(cam.fov, (G.cfg.fov || 70) - p.crouch * 4 + (input.down('Shift') && p.vel > 2.5 ? 4 : 0), 0.08); cam.updateProjectionMatrix()
 }
 
 function updateAudioState(dt) {

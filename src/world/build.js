@@ -148,7 +148,29 @@ export function pole(L, x, z, h = 8) { const g = new THREE.Group(); cyl(g, 0.1, 
 export function wires(L, a, b, sag = 0.5) { const pts = []; for (let i = 0; i <= 12; i++) { const t = i / 12; pts.push(new THREE.Vector3(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t - Math.sin(t * Math.PI) * sag, a.z + (b.z - a.z) * t)) } const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: '#111' })); L.add(l) }
 export function streetLight(L, x, z, on = true) { const g = new THREE.Group(); cyl(g, 0.05, 0.08, 6, S({ color: '#444', metalness: 0.5 }), 0, 0, 0, 8); bx(g, 1.2, 0.06, 0.06, S({ color: '#444' }), 0.5, 6, 0); const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.08, 0.2), new THREE.MeshBasicMaterial({ color: on ? '#fff0c0' : '#555' })); lamp.position.set(1.0, 5.95, 0); g.add(lamp); g.position.set(x, 0, z); L.add(g); if (on) { const p = new THREE.PointLight('#ffe0a0', 14, 22, 1.5); p.position.set(x + 1, 5.6, z); L.add(p); L.lights.push(p) } return g }
 export function autoRickshaw() { const g = new THREE.Group(), y = S({ color: '#d8b020', roughness: 0.5 }), k = S({ color: '#1a1a1a' }); bx(g, 1.3, 0.7, 2.0, y, 0, 0.35, -0.2); bx(g, 1.3, 0.1, 1.4, k, 0, 1.45, -0.55); bx(g, 0.05, 0.8, 0.05, k, -0.6, 0.7, 0.2); bx(g, 0.05, 0.8, 0.05, k, 0.6, 0.7, 0.2); bx(g, 0.04, 0.5, 0.8, k, -0.62, 0.9, -0.8); bx(g, 0.04, 0.5, 0.8, k, 0.62, 0.9, -0.8); bx(g, 1.2, 0.1, 0.7, S({ color: '#0e2a14' }), 0, 0.6, -0.8); bx(g, 0.5, 0.5, 0.7, y, 0, 0.5, 1.0); for (const [x, z] of [[-0.55, -0.9], [0.55, -0.9], [0, 1.2]]) { const w = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.12, 14), k); w.rotation.z = Math.PI / 2; w.position.set(x, 0.22, z); g.add(w) } return g }
-export function cow() { const g = new THREE.Group(), m = S({ color: '#e8dfce', roughness: 1 }), sp = S({ color: '#7a5a3a' }); const body = sph(g, 0.5, m, 0, 1.0, 0, 1, 0.85, 1.9); sph(g, 0.22, m, 0, 1.25, 0.95, 1, 1, 1.4); cyl(g, 0.17, 0.12, 0.7, m, 0, 0.9, 0.78); sph(g, 0.2, m, 0, 1.15, 1.2, 1, 0.9, 1.3); const hump = sph(g, 0.2, m, 0, 1.5, 0.45, 1, 0.8, 1.2); sph(g, 0.3, sp, 0.3, 1.1, -0.2, 0.5, 1, 1); for (const [x, z] of [[-0.28, -0.5], [0.28, -0.5], [-0.28, 0.5], [0.28, 0.5]]) cyl(g, 0.06, 0.05, 0.75, m, x, 0, z, 6); cyl(g, 0.02, 0.02, 0.2, S({ color: '#222' }), -0.13, 1.45, 1.0, 5).rotation.z = 0.7; cyl(g, 0.02, 0.02, 0.2, S({ color: '#222' }), 0.13, 1.45, 1.0, 5).rotation.z = -0.7; return g }
+export function cow() {
+  // Indian zebu-style cow: long face, hump, dewlap, horns, drooping ears, patched hide, thin legs, tail
+  const g = new THREE.Group(), m = S({ color: '#d9cdb4', roughness: 1 }), sp = S({ color: '#6e4c30', roughness: 1 }), dk = S({ color: '#2a211a', roughness: 1 }), pink = S({ color: '#b98c80', roughness: 1 })
+  sph(g, 0.48, m, 0, 1.05, 0, 0.95, 0.85, 1.75)                       // barrel
+  sph(g, 0.4, m, 0, 1.08, -0.62, 0.95, 0.95, 0.95)                    // hindquarters
+  sph(g, 0.34, m, 0, 1.12, 0.62, 0.95, 1.0, 1.0)                      // chest
+  sph(g, 0.2, m, 0, 1.52, 0.5, 0.85, 1.0, 1.25)                       // hump
+  sph(g, 0.16, m, 0, 0.78, 0.78, 0.7, 1.4, 1.0)                       // dewlap
+  const neck = cyl(g, 0.17, 0.2, 0.55, m, 0, 1.0, 0.98, 10); neck.rotation.x = -0.9
+  const head = sph(g, 0.17, m, 0, 1.18, 1.3, 0.85, 0.95, 1.45)       // head
+  sph(g, 0.1, pink, 0, 1.08, 1.5, 1.0, 0.85, 0.9)                     // muzzle
+  for (const s of [-1, 1]) {
+    sph(g, 0.05, dk, s * 0.1, 1.2, 1.5, 1, 1, 0.6)                    // eyes/nostril marks
+    const ear = sph(g, 0.07, m, s * 0.2, 1.3, 1.2, 0.35, 0.8, 1.5); ear.rotation.z = s * 0.5
+    const horn = cyl(g, 0.012, 0.035, 0.26, S({ color: '#e6dcc4' }), s * 0.12, 1.36, 1.2, 6); horn.rotation.z = s * 0.9
+  }
+  sph(g, 0.3, sp, 0.28, 1.15, -0.25, 0.45, 0.95, 1.2)                 // hide patches
+  sph(g, 0.26, sp, -0.3, 1.2, 0.3, 0.4, 0.9, 1.0)
+  for (const [x, z] of [[-0.24, -0.58], [0.24, -0.58], [-0.22, 0.58], [0.22, 0.58]]) { cyl(g, 0.065, 0.045, 0.8, m, x, 0.06, z, 8); cyl(g, 0.05, 0.05, 0.1, dk, x, 0, z, 8) }
+  const tail = cyl(g, 0.018, 0.012, 0.85, m, 0, 0.65, -1.0, 5); tail.rotation.x = 0.12; sph(g, 0.06, dk, 0, 0.22, -1.03, 0.8, 1.4, 0.8)
+  g.traverse(o => { if (o.isMesh) { o.castShadow = true } })
+  return g
+}
 export function dogModel() { const g = new THREE.Group(), m = S({ color: '#8a6a3a' }); sph(g, 0.2, m, 0, 0.42, 0, 0.9, 0.8, 1.9); sph(g, 0.12, m, 0, 0.55, 0.42); for (const [x, z] of [[-0.1, -0.2], [0.1, -0.2], [-0.1, 0.2], [0.1, 0.2]]) cyl(g, 0.03, 0.025, 0.3, m, x, 0, z, 5); return g }
 export function truck() {
   const g = new THREE.Group(), body = S({ color: '#c94a1a', roughness: 0.5 }), blue = S({ color: '#1f5fa8' }), k = S({ color: '#161616' })

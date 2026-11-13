@@ -136,3 +136,12 @@ button.primary{border-color:var(--accent)!important;color:#fff!important}
 
 body.map-open #hud,body.map-open #vignette,body.map-open #fear{visibility:hidden}
 #map{background:rgba(0,0,0,.82)}
+
+#loading{background:#000;inset:0;transform:none;left:0;top:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+#loading.hidden{display:none}
+.ld-t{font-weight:300;letter-spacing:.5em;color:#d8b070;font-size:18px}
+.ld-bar{width:220px;height:2px;background:#222;overflow:hidden}.ld-bar i{display:block;width:40%;height:100%;background:#d8b070;animation:ldm 1.2s ease-in-out infinite}
+@keyframes ldm{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+.ld-s{font-size:11px;color:#777}
+#dbg{position:fixed;left:8px;bottom:8px;z-index:70;font:11px/1.4 monospace;color:#9f9;background:rgba(0,0,0,.6);padding:6px 8px;white-space:pre;pointer-events:none}
+#subs-hi{font-size:calc(23px * var(--subsz,1))}#subs-en{font-size:calc(15px * var(--subsz,1))}

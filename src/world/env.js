@@ -34,6 +34,8 @@ export class Env {
       fragmentShader: `varying vec3 vP; uniform vec3 top,hor,sunDir,sunC; uniform float sunI,flash,stars;
         float h(vec3 p){ return fract(sin(dot(p,vec3(12.9898,78.233,37.719)))*43758.5453); }
         void main(){ float t = clamp(vP.y*1.6+0.05,0.0,1.0); vec3 c = mix(hor, top, pow(t,0.65));
+          float hz = smoothstep(0.0,-0.18,vP.y); c = mix(c, hor*0.55, hz);
+          float band = exp(-abs(vP.y)*14.0); c = mix(c, hor, band*0.35);
           float sd = max(dot(normalize(vP), normalize(sunDir)),0.0); c += sunC * (pow(sd,64.0)*0.9 + pow(sd,6.0)*0.18) * clamp(sunI,0.0,1.0);
           vec3 q = floor(vP*220.0); float s = step(0.9972, h(q)) * stars * smoothstep(0.1,0.5,vP.y); c += vec3(s)*(0.5+0.5*h(q+3.0));
           c += vec3(0.55,0.62,0.85)*flash*(0.4+0.6*t); gl_FragColor = vec4(c,1.0);
