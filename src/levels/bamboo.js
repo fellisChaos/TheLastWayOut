@@ -19,7 +19,6 @@ export function build(G, opts = {}) {
   L.refs.seat = new THREE.Vector3(-3, 0.5, 47); L.refs.rock = new THREE.Vector3(3.4, 0.6, 46)
   L.bambooNear = (x, z) => { let m = 99; for (const p of pos) m = Math.min(m, Math.hypot(x - p[0], z - p[1])); return m }
   L.isIndoors = (x, z) => (Math.hypot(x, z - 47) < 6 ? 0.9 : 0)
-  G.addScooter(L, 2.2, 38, 0.3)
   L.spawn = { x: 0, z: -8, yaw: 0 }
   L.surface = () => 'mud'
   let dripT = 0

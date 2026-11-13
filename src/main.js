@@ -116,5 +116,5 @@ G.start()
 const q = new URLSearchParams(location.search)
 renderReport(null)
 if (q.has('ch')) { startGame(+q.get('ch') || 0) } else { ui.fadeInstant(1); showScreen('menu'); ui.show('hud', true); $('m-quit').classList.toggle('hidden', !window.electronAPI) }
-if (q.has('auto')) { G.auto = true; if (q.get('auto') === 'b') G.autoPick = 1; if (q.has('ts')) G.timeScale = +q.get('ts') }
+if (q.has('auto')) { G.auto = true; if (q.get('auto') === 'b') G.autoPick = 1; if (q.has('ts')) G.timeScale = +q.get('ts'); if (q.has('fast')) G.fastSim = +q.get('fast') }
 window.__startGame = startGame

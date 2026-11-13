@@ -26,6 +26,11 @@ export async function load(name, opts = {}, comp = { x: 0, z: 0, outfit: 'nishan
   G.torchOn = false; G.fearT = 0; G.tiredT = opts.tired ?? G.tiredT
   G.player.canMove = true; G.player.canLook = true; G.player.mode = 'walk'; G.player.push = false
   G.camOverride = null; G.clearInteracts(); G.lookLimit = null; G.noRun = false
+  if (opts.scooter && !G.scooter) {
+    const sp = L.spawn, f = { x: Math.sin(sp.yaw), z: Math.cos(sp.yaw) }
+    G.addScooter(L, sp.x + f.x * 1.3, sp.z + f.z * 1.3, sp.yaw)
+    if (opts.push !== false) { G.startPush(); G.noRun = true }
+  }
   return L
 }
 export async function startScene(fadeSec = 1.6) { G.input.enabled = true; G.input.lock(); await ui.fade(0, fadeSec) }
@@ -63,7 +68,7 @@ export const caption = (t, d = 2.4) => ui.caption(t, d)
 
 // ---- movement goals (with a debug autopilot used by headless tests: ?auto=1) ----
 const auto = () => !!G.auto
-function snapTo(x, z) {
+export function snapTo(x, z) {
   const p = G.player
   if (p.mode === 'ride' && G.scooter) { const c = G.scooter.chassis; c.position.set(x, 0.6, z); c.velocity.set(0, 0, 0) }
   else { G.teleportPlayer(x, z); if (G.scooter && p.push) { const c = G.scooter.chassis; c.position.set(x, 0.6, z) } }
@@ -104,3 +109,29 @@ export const lookedAway = (pos, cos = 0.35) => auto() || !G.playerLookingAt3(pos
 export function pushOn() { G.startPush(); G.noRun = true }
 export function pushOff() { G.stopPush(); G.noRun = false }
 export function envSet(n) { G.env.set(n) }
+
+// enable/disable a named trail (walkable corridor + its visible ribbon)
+export function enableTrail(L, name, on = true) { L.walk.set(name, on); const t = (L.trails || []).find(t => t.name === name); if (t && t.mesh) t.mesh.visible = on }
+// a choice that auto-picks in headless test mode
+export async function choose(q, opts, autoIdx) {
+  if (G.auto) { await wait(0.4); return autoIdx !== undefined ? autoIdx : (G.autoPick ?? 0) }
+  return ui.choose(q, opts)
+}
+// make followers keep pace along a trail: list of {a: actor, off: metres ahead(+)/behind(-)}
+export function followAlong(pts, list, speed = 2.1) {
+  G.onUpdate = () => {
+    const d = projDist(pts, G.player.pos.x, G.player.pos.z)
+    for (const f of list) { if (!f.a || f.a.hidden) continue; const q = ptAt(pts, Math.max(0, d + f.off)); const dx = q.x - f.a.pos.x, dz = q.z - f.a.pos.z; if (Math.hypot(dx, dz) > 0.5) { f.a.path = [{ x: q.x, z: q.z }]; f.a.walkSpeed = Math.min(3.6, speed + Math.hypot(dx, dz) * 0.5) } else f.a.path = [] }
+  }
+}
+export const stopFollow = () => { G.onUpdate = null }
+// footsteps from a spot (n steps, gap seconds)
+export async function stepsAt(pos, n = 4, gap = 0.55, surface = 'mud') { for (let i = 0; i < n; i++) { audio.footstep(surface, 0.9, pos); await wait(gap) } }
+// spawn companion-like spare actor
+export function spawn(outfit, x, z, yaw = 0) { const a = G.addActor(outfit); a.place(x, z, yaw); a.sfx = false; return a }
+
+// generic wait-for-condition that the autopilot can skip (snap runs the "player did it" effect)
+export async function gate(fn, snap, timeout = 0) {
+  if (auto()) { await wait(0.5); if (snap) snap(); await wait(0.2); return }
+  return G.until(fn, timeout)
+}

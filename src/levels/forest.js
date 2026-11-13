@@ -29,11 +29,11 @@ export function build(G, opts = {}) {
   const cn2 = can(); cn2.position.set(-6.1, 0.62, 193); cn2.rotation.z = 1.4; L.add(cn2); L.refs.can2 = cn2
   L.refs.canPos = new THREE.Vector3(-6.1, 0.7, 193)
   // hidden thick bush screen that grows over the stem junction (J) once nobody is near
-  const screen = new THREE.Group(); for (let i = 0; i < 7; i++) { const b = bush(1.9); b.position.set(-2.6 + i * 0.9, 0, 64.8 + R.range(-0.4, 0.4)); screen.add(b) } screen.visible = false; L.add(screen)
+  const screen = new THREE.Group(); for (let i = 0; i < 7; i++) { const b = bush(1.9); b.position.set(-2.7 + i * 0.9, 0, 60.6 + R.range(-0.3, 0.3)); screen.add(b) } screen.visible = false; L.add(screen)
   let blocked = false
-  L.blockStem = () => { if (blocked) return; blocked = true; L.walk.set('entry', false); screen.visible = true; const t = T('entry'); if (t.mesh) t.mesh.visible = false; L.walk.circle(0, 65.3, 2.8) }
+  L.blockStem = () => { if (blocked) return; blocked = true; L.walk.set('entry', false); screen.visible = true; const t = T('entry'); if (t.mesh) t.mesh.visible = false; L.walk.box(-3.2, 59.8, 3.2, 61.4) }
   // scooter at road end
-  G.addScooter(L, 2.4, -8, 0)
+  G.addScooter(L, 0.4, -8, 0)
   // roadside
   for (let i = 0; i < 6; i++) { const p = makePalm(R.range(7, 9)); p.position.set(R.range(-14, 14) + (i % 2 ? 14 : -14), 0, R.range(-12, 8)); L.add(p) }
   L.spawn = { x: 0, z: -4, yaw: 0 }

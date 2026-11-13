@@ -176,6 +176,11 @@ function loop(now) {
   let dt = Math.min(0.05, (now - last) / 1000); last = now
   if (!G.running) return
   if (G.paused) { G.renderer.render(G.scene, G.camera); return }
+  if (G.fastSim) { // headless test mode: many simulation steps per frame, render rarely
+    for (let i = 0; i < G.fastSim; i++) { G.lastDt = 0.05; G.step(0.05); input.endFrame() }
+    G._fr = (G._fr || 0) + 1; if (G._fr % 8 === 0) G.renderer.render(G.scene, G.camera)
+    return
+  }
   G.lastDt = dt
   G.step(dt)
   G.renderer.render(G.scene, G.camera)
