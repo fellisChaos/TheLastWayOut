@@ -25,7 +25,7 @@ export class Env {
     this.mood = MOODS.day; this.cur = { ...MOODS.day, topC: C('#000'), horC: C('#000'), sunCc: C('#fff'), hemiSc: C('#fff'), hemiGc: C('#fff'), sunDirV: new THREE.Vector3() }
     this.hemi = new THREE.HemisphereLight(0xffffff, 0x333322, 0.6); sc.add(this.hemi)
     this.sun = new THREE.DirectionalLight(0xffffff, 1); sc.add(this.sun, this.sun.target)
-    this.sun.castShadow = false; this.sun.shadow.mapSize.set(1024, 1024); const s = this.sun.shadow.camera; s.left = -26; s.right = 26; s.top = 26; s.bottom = -26; s.near = 1; s.far = 160; this.sun.shadow.bias = -0.0006
+    this.sun.castShadow = false; this.sun.shadow.mapSize.set(1024, 1024); const s = this.sun.shadow.camera; s.left = -22; s.right = 22; s.top = 22; s.bottom = -22; s.near = 1; s.far = 200; this.sun.shadow.bias = -0.0008; this.sun.shadow.normalBias = 0.04
     this.fog = new THREE.FogExp2(0x000000, 0.02); sc.fog = this.fog
     // sky dome
     const geo = new THREE.SphereGeometry(900, 24, 14)

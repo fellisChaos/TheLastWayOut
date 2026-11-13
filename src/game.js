@@ -25,7 +25,7 @@ ui.G = G
 // ---------------- init ----------------
 G.init = function (canvas) {
   G.canvas = canvas
-  const r = (G.renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' }))
+  const r = (G.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' }))
   r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.05; r.outputColorSpace = THREE.SRGBColorSpace
   G.scene = new THREE.Scene()
   G.camera = new THREE.PerspectiveCamera(70, 1, 0.08, 1200); G.scene.add(G.camera)
@@ -54,7 +54,10 @@ G.setGfx = function (q) {
   G.cfg.gfx = q
   const pr = { low: 0.6, med: 0.85, high: Math.min(devicePixelRatio, 1.5) }[q]; G.renderer.setPixelRatio(pr)
   G.cfg.density = { low: 0.55, med: 0.8, high: 1 }[q]; G.cfg.rain = { low: 0.4, med: 0.75, high: 1 }[q]
-  G.renderer.shadowMap.enabled = false
+  const sh = q !== 'low'
+  G.renderer.shadowMap.enabled = sh; G.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+  if (G.env) { G.env.sun.castShadow = sh; const m = q === 'high' ? 2048 : 1024; if (G.env.sun.shadow.mapSize.x !== m) { G.env.sun.shadow.mapSize.set(m, m); if (G.env.sun.shadow.map) { G.env.sun.shadow.map.dispose(); G.env.sun.shadow.map = null } } }
+  if (G.scene) G.scene.traverse(o => { if (o.material) { const a = Array.isArray(o.material) ? o.material : [o.material]; a.forEach(x => x.needsUpdate = true) } })
 }
 
 // ---------------- timing ----------------
