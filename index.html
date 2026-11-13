@@ -68,6 +68,8 @@
   <label>Ambience <input type="range" id="s-amb" min="0" max="1" step="0.05" value="0.8"></label>
   <label>Effects <input type="range" id="s-sfx" min="0" max="1" step="0.05" value="1"></label>
   <label>Mouse sensitivity <input type="range" id="s-sens" min="0.3" max="2.5" step="0.1" value="1"></label>
+  <label>Voice language
+    <select id="s-vlang"><option value="hi">Hinglish (Hindi voices)</option><option value="en">English voices</option><option value="off">No voice (subtitles only)</option></select></label>
   <label>Subtitles
     <select id="s-subs"><option value="both">Hinglish + English</option><option value="hi">Hinglish</option><option value="en">English</option><option value="off">Off</option></select></label>
   <label>Sound captions <input type="checkbox" id="s-caps" checked></label>
@@ -75,7 +77,6 @@
     <select id="s-gfx"><option value="low">Low</option><option value="med" selected>Medium</option><option value="high">High</option></select></label>
   <label>Reduce camera shake <input type="checkbox" id="s-shake"></label>
   <label>Reduce flashing <input type="checkbox" id="s-flash"></label>
-  <label>Spoken voices (browser TTS, if Hindi voice exists) <input type="checkbox" id="s-tts"></label>
   <button class="back">← Back</button>
 </div></div>
 

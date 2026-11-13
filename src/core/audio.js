@@ -231,6 +231,27 @@ class AudioEngine {
     let tt = t; const N = 15
     for (let i = 0; i < N; i++) { const p = i / N, f0 = 108 + p * 38 + (i % 2) * 6; const s = c.createOscillator(); s.type = 'sawtooth'; s.frequency.setValueAtTime(f0, tt); s.frequency.linearRampToValueAtTime(f0 * 0.92, tt + 0.16); const f1 = this._f('bandpass', 760, 5), f2 = this._f('bandpass', 1150, 6), g = this._g(0), m = this._g(0.9); this._env(g, tt, 0.02, 0.16, 0.5 + p * 0.2); s.connect(f1); s.connect(f2); f1.connect(g); f2.connect(g); g.connect(o); s.start(tt); s.stop(tt + 0.25); tt += 0.2 - p * 0.05 }
   }
+  // ---------- recorded voice clips (Piper TTS, pre-rendered by tools/make_voice.py) ----------
+  async loadClip(url) {
+    if (!this.ctx) return null
+    this._clips = this._clips || new Map()
+    if (this._clips.has(url)) return this._clips.get(url)
+    const p = fetch(url).then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer() }).then(b => this.ctx.decodeAudioData(b)).catch(() => null)
+    this._clips.set(url, p); return p
+  }
+  // plays a decoded clip; pos = {x,y,z} for positional voices (off-screen speakers), null = in-head
+  playClip(buf, pos = null, vol = 1, rate = 1) {
+    if (!this.ctx || !buf) return null
+    const c = this.ctx, src = c.createBufferSource(); src.buffer = buf; src.playbackRate.value = rate
+    const g = this._g(vol), o = this._out(pos, this.busVoice, pos ? 0.15 : 0.04)
+    const an = c.createAnalyser(); an.fftSize = 512; src.connect(g); g.connect(an); an.connect(o)
+    src.start(c.currentTime + 0.02)
+    const h = { src, an, buf, t0: c.currentTime + 0.02, data: new Uint8Array(an.fftSize), stop() { try { src.stop() } catch (e) {} } }
+    h.level = () => { an.getByteTimeDomainData(h.data); let m = 0; for (let i = 0; i < h.data.length; i++) m = Math.max(m, Math.abs(h.data[i] - 128)); return m / 128 }
+    this.voiceNow = h; src.onended = () => { if (this.voiceNow === h) this.voiceNow = null }
+    return h
+  }
+  stopVoice() { if (this.voiceNow) { this.voiceNow.stop(); this.voiceNow = null } }
   voiceTick(pos, f0 = 120, text = '', vol = 1) {
     // speech-like murmur (not words): syllable bursts shaped by vowel formants
     if (!this.ctx) return 0; const c = this.ctx, t0 = c.currentTime + 0.05, o = this._out(pos, this.busVoice, pos ? 0.12 : 0)

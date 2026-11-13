@@ -1,22 +1,38 @@
 import { audio } from './audio.js'
+import { lineId } from './hash.js'
 const $ = (id) => document.getElementById(id)
 const sleep = (ms) => new Promise(r => setTimeout(r, ms))
 const F0 = { Nishan: 118, Nishant: 132, Uncle: 98, Beti: 250, Mummy: 215, Chacha: 105, Papa: 100, Stranger: 112, Aadmi: 108, Chaiwala: 115, Awaaz: 135 }
 
 class UI {
-  constructor() { this.subMode = 'both'; this.caps = true; this.tts = false; this._capT = null; this._toastT = null; this.reduceFlash = false }
-  init() { audio.onCaption = (t, d) => this.caption(t, d) }
+  constructor() { this.subMode = 'both'; this.caps = true; this.tts = false; this._capT = null; this._toastT = null; this.reduceFlash = false; this.voiceLang = 'hi'; this.lines = null }
+  init() {
+    audio.onCaption = (t, d) => this.caption(t, d)
+    fetch('./voice/lines.json').then(r => r.json()).then(j => { this.lines = j }).catch(() => { this.lines = {} })
+  }
+  // resolves a recorded clip for a line (null if the language is off / clip missing)
+  async clipFor(who, hi, id) {
+    if (this.voiceLang === 'off' || !audio.ctx) return null
+    id = id || lineId(who, hi)
+    if (this.lines && !this.lines[id]) return null
+    return audio.loadClip(`./voice/${this.voiceLang}/${id}.ogg`)
+  }
   show(id, on = true) { $(id).classList.toggle('hidden', !on) }
   async say(who, hi, en, opts = {}) {
     const mode = this.subMode, len = (hi || '').length
-    const dur = opts.dur || Math.max(1.6, 0.9 + len * 0.05)
+    let dur = opts.dur || Math.max(1.6, 0.9 + len * 0.05)
     $('subs-who').textContent = who || ''
     if (mode === 'en') { $('subs-hi').textContent = en || hi; $('subs-en').textContent = '' }
     else { $('subs-hi').textContent = mode === 'off' ? '' : hi; $('subs-en').textContent = mode === 'hi' || mode === 'off' ? '' : (en || '') }
     $('subs').classList.toggle('show', mode !== 'off')
-    if (opts.voice !== false && audio.ctx) audio.voiceTick(opts.pos || null, opts.f0 || F0[who] || 120, hi, 0.8)
-    if (this.tts && window.speechSynthesis) { try { const u = new SpeechSynthesisUtterance(hi); u.lang = 'hi-IN'; u.rate = 0.95; speechSynthesis.cancel(); speechSynthesis.speak(u) } catch (e) {} }
-    try { await this.G.waitSkippable(dur) } finally { if (!opts.keep) $('subs').classList.remove('show') }
+    let clip = null
+    if (opts.voice !== false) {
+      clip = await this.clipFor(who, hi, opts.id)
+      if (clip) { audio.stopVoice(); this._cur = audio.playClip(clip, opts.pos || null, opts.vol ?? 1); dur = Math.max(clip.duration + 0.25, 0.9); this.G.speaking = { who, h: this._cur } }
+      else if (opts.voice !== false && this.voiceLang !== 'off' && audio.ctx && this.lines && !this.lines[opts.id || lineId(who, hi)]) dur = dur
+    }
+    if (!clip && this.tts && window.speechSynthesis) { try { const u = new SpeechSynthesisUtterance(this.voiceLang === 'en' ? en : hi); u.lang = this.voiceLang === 'en' ? 'en-IN' : 'hi-IN'; speechSynthesis.cancel(); speechSynthesis.speak(u) } catch (e) {} }
+    try { await this.G.waitSkippable(dur) } finally { if (!opts.keep) $('subs').classList.remove('show'); if (this._cur && this.G.speaking && this.G.speaking.h === this._cur) { this._cur.stop(); this.G.speaking = null } }
     if (opts.gap !== 0) await this.G.wait(opts.gap === undefined ? 0.12 : opts.gap)
   }
   hideSubs() { $('subs').classList.remove('show') }

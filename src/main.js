@@ -13,7 +13,7 @@ import { CHAPTERS, play, stopStory } from './story/story.js'
 
 const $ = (id) => document.getElementById(id)
 const SKEY = 'tlwo_settings_v1'
-const defaults = { master: 0.8, voice: 1, amb: 0.8, sfx: 1, sens: 1, subs: 'both', caps: true, gfx: 'med', shake: false, flash: false, tts: false }
+const defaults = { master: 0.8, voice: 1, amb: 0.8, sfx: 1, sens: 1, subs: 'both', caps: true, gfx: 'med', shake: false, flash: false, tts: false, vlang: 'hi' }
 let S = { ...defaults, ...(() => { try { return JSON.parse(localStorage.getItem(SKEY) || '{}') } catch (e) { return {} } })() }
 let inGame = false, screenStack = [], pausedNow = false
 
@@ -26,13 +26,13 @@ let backTo = 'menu'
 // ---------- settings ----------
 function applySettings() {
   audio.vol.master = +S.master; audio.vol.voice = +S.voice; audio.vol.amb = +S.amb; audio.vol.sfx = +S.sfx; audio.applyVolumes()
-  input.sens = +S.sens; ui.subMode = S.subs; ui.caps = !!S.caps; ui.tts = !!S.tts
+  input.sens = +S.sens; ui.subMode = S.subs; ui.caps = !!S.caps; ui.tts = false; ui.voiceLang = S.vlang
   G.cfg.reduceShake = !!S.shake; G.cfg.reduceFlash = !!S.flash; ui.reduceFlash = !!S.flash
   if (G.renderer) G.setGfx(S.gfx); else G.cfg.gfx = S.gfx
   localStorage.setItem(SKEY, JSON.stringify(S))
 }
 function bindSettings() {
-  const map = { 's-master': 'master', 's-voice': 'voice', 's-amb': 'amb', 's-sfx': 'sfx', 's-sens': 'sens', 's-subs': 'subs', 's-caps': 'caps', 's-gfx': 'gfx', 's-shake': 'shake', 's-flash': 'flash', 's-tts': 'tts' }
+  const map = { 's-master': 'master', 's-voice': 'voice', 's-amb': 'amb', 's-sfx': 'sfx', 's-sens': 'sens', 's-subs': 'subs', 's-caps': 'caps', 's-gfx': 'gfx', 's-shake': 'shake', 's-flash': 'flash', 's-vlang': 'vlang' }
   for (const [id, k] of Object.entries(map)) {
     const el = $(id); if (el.type === 'checkbox') el.checked = !!S[k]; else el.value = S[k]
     el.addEventListener('input', () => { S[k] = el.type === 'checkbox' ? el.checked : (el.tagName === 'SELECT' ? el.value : +el.value); applySettings() })

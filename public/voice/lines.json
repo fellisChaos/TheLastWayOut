@@ -1,0 +1,1460 @@
+{
+ "1lxzu3p06dl": {
+  "who": "Nishan",
+  "hi": "Mummy, hum Nishant ke saath thoda ghoomne ja rahe hain.",
+  "en": "Mom, Nishant and I are going out for a ride.",
+  "src": "act1.js"
+ },
+ "2bci55r043y": {
+  "who": "Nishan",
+  "hi": "Shaam tak aa jayenge. Zyada late nahi hoga.",
+  "en": "Back by evening. Won't be late.",
+  "src": "act1.js"
+ },
+ "2vmj64wqls": {
+  "who": "Nishan",
+  "hi": "Theek hai.",
+  "en": "Okay.",
+  "src": "act1.js"
+ },
+ "2asyiqqkjho": {
+  "who": "Nishant",
+  "hi": "Chal, chal. Sab set? Petrol bhi full karwaya tha kal.",
+  "en": "Come on. All set? Filled up the tank yesterday.",
+  "src": "act1.js"
+ },
+ "234lrn3tvs": {
+  "who": "Nishan",
+  "hi": "Haan, bas thoda ghoom ke aate hain.",
+  "en": "Yeah, just a little roam.",
+  "src": "act1.js"
+ },
+ "29o0iof1iv6": {
+  "who": "Nishan",
+  "hi": "Bas ghoomne, uncle. Shaam tak lautenge.",
+  "en": "Just roaming around, uncle. Back by evening.",
+  "src": "act1.js"
+ },
+ "hg381nf5ml": {
+  "who": "Nishant",
+  "hi": "Chal bhai. Aaj toh road khali milegi.",
+  "en": "Let's go. The road should be empty today.",
+  "src": "act1.js"
+ },
+ "1ijbnquyjhn": {
+  "who": "Nishant",
+  "hi": "Kal ka match dekha? Arre, last over mein toh...",
+  "en": "Did you watch yesterday's match? That last over...",
+  "src": "act1.js"
+ },
+ "dduc6lqdm5": {
+  "who": "Nishan",
+  "hi": "Haan yaar, kya finish tha!",
+  "en": "Yeah, what a finish!",
+  "src": "act1.js"
+ },
+ "13cvh23syl": {
+  "who": "Nishant",
+  "hi": "Yaar, kitne dino baad aise nikle hain.",
+  "en": "Man, it's been so long since we did this.",
+  "src": "act1.js"
+ },
+ "a6aw0y77w3": {
+  "who": "Nishan",
+  "hi": "Aaj poora din bahar hi rehte hain. Ghar pe toh bas TV aur phone.",
+  "en": "Let's stay out all day. At home it's just TV and phone.",
+  "src": "act1.js"
+ },
+ "10nozbe5kfm": {
+  "who": "Nishant",
+  "hi": "Ha ha, mummy ko bata diya na, shaam tak?",
+  "en": "Ha ha, you told mom — by evening, right?",
+  "src": "act1.js"
+ },
+ "jfj9g1d85r": {
+  "who": "Nishan",
+  "hi": "Yaar, dukaane khatam ho gayi. Itni door aa gaye?",
+  "en": "The shops are gone. Have we come this far?",
+  "src": "act1.js"
+ },
+ "1n4zqq8jw4h": {
+  "who": "Nishant",
+  "hi": "Aage ek jungle jaisa hai na? Mere cousin ne bataya tha, bahut sundar jagah hai.",
+  "en": "There's a forest ahead, right? My cousin said it's beautiful.",
+  "src": "act1.js"
+ },
+ "1fajk8polv4": {
+  "who": "Mummy",
+  "hi": "Kitni der mein aaoge? Shaam ko mausi aane wali hain.",
+  "en": "When will you be back? Aunty is coming this evening.",
+  "src": "act1.js"
+ },
+ "r8yowffkuo": {
+  "who": "Mummy",
+  "hi": "Theek hai. Phone kar dena agar late ho.",
+  "en": "Okay. Call me if you get late.",
+  "src": "act1.js"
+ },
+ "digiza2cyq": {
+  "who": "Padosi",
+  "hi": "Arre Nishan, kahan chale subah-subah?",
+  "en": "Hey Nishan, where to?",
+  "src": "act1.js"
+ },
+ "1ysvs41sl8r": {
+  "who": "Padosi",
+  "hi": "Dhyaan se jaana. Aajkal baarish ka bharosa nahi.",
+  "en": "Go safe. Rain is unpredictable these days.",
+  "src": "act1.js"
+ },
+ "ws8dxi52uc": {
+  "who": "Nishant",
+  "hi": "Wah yaar, kitni shaant jagah hai.",
+  "en": "Wow, this place is so peaceful.",
+  "src": "act2.js"
+ },
+ "gko7jbtx3j": {
+  "who": "Nishan",
+  "hi": "Scooter yahin laga dete hain. Aage ka raasta patla hai.",
+  "en": "Let's park it here. The path ahead is narrow.",
+  "src": "act2.js"
+ },
+ "1e0g5dbu4cb": {
+  "who": "Nishant",
+  "hi": "Chal, ek chakkar maar ke aate hain. Mere cousin ne kaha tha ek khuli jagah hai andar.",
+  "en": "Come on, let's take a walk. My cousin said there's a clearing inside.",
+  "src": "act2.js"
+ },
+ "wkpwa3wut4": {
+  "who": "Nishant",
+  "hi": "Ha ha! Tera muh toh band hi nahi hota. Ek aur?",
+  "en": "Ha ha! You never keep a straight face. One more?",
+  "src": "act2.js"
+ },
+ "1uxjuw4codi": {
+  "who": "Nishan",
+  "hi": "Plastic jungle mein nahi chhodte. Par ye chhota sa hai — wapas aate waqt utha lenge.",
+  "en": "Not leaving plastic in the forest. I'll pick it up on the way back.",
+  "src": "act2.js"
+ },
+ "1su2riu4jf4": {
+  "who": "Nishant",
+  "hi": "Yaar, andhera hone laga hai. Chalein?",
+  "en": "Man, it's getting dark. Shall we go?",
+  "src": "act2.js"
+ },
+ "7cubtduc7l": {
+  "who": "Nishan",
+  "hi": "Haan. Mummy ko shaam tak bola tha.",
+  "en": "Yeah. I told Mom by evening.",
+  "src": "act2.js"
+ },
+ "2dpg8w2m3m5": {
+  "who": "Nishan",
+  "hi": "Network aa raha hai?",
+  "en": "Is there network?",
+  "src": "act2.js"
+ },
+ "20o7zjl2oni": {
+  "who": "Nishant",
+  "hi": "Nahi. Ek baar aur try karta hoon.",
+  "en": "No. Let me try once more.",
+  "src": "act2.js"
+ },
+ "1t9ydftdf2h": {
+  "who": "Nishan",
+  "hi": "Shaam tak pahunchne bole the. Ab ghar pe tension hoga.",
+  "en": "We said we'd be back by evening. They'll be worried now.",
+  "src": "act2.js"
+ },
+ "ut4h612wet": {
+  "who": "Nishant",
+  "hi": "Pehle bahar nikalte hain. Phir call kar lenge.",
+  "en": "Let's get out first. We'll call after.",
+  "src": "act2.js"
+ },
+ "21kztgb7mtc": {
+  "who": "Nishant",
+  "hi": "Ruk... yahan toh raasta tha na?",
+  "en": "Wait... wasn't there a path here?",
+  "src": "act2.js"
+ },
+ "jezji15y03": {
+  "who": "Nishan",
+  "hi": "Haan, hum yahin se toh aaye the. Ye jhaadiyaan...",
+  "en": "Yes, we came right through here. These bushes...",
+  "src": "act2.js"
+ },
+ "29okprtgcww": {
+  "who": "Nishant",
+  "hi": "Andhera hai, shayad mod chhoot gaya. Doosra raasta dekhte hain.",
+  "en": "It's dark, we must have missed a turn. Let's look for another way.",
+  "src": "act2.js"
+ },
+ "uv6bus0a67": {
+  "who": "Nishant",
+  "hi": "Ruk... ye ped pehle bhi dekha hai.",
+  "en": "Wait... I've seen this tree before.",
+  "src": "act2.js"
+ },
+ "1q057z0sidn": {
+  "who": "Nishan",
+  "hi": "Jungle mein sab ped same lagte hain.",
+  "en": "All trees look the same in a forest.",
+  "src": "act2.js"
+ },
+ "1q8p8q3viv7": {
+  "who": "Nishant",
+  "hi": "Nahi. Iske side mein woh tooti hui branch thi. Hum idhar se pehle nikal chuke hain.",
+  "en": "No. There was that broken branch on its side. We've passed here already.",
+  "src": "act2.js"
+ },
+ "1we68mg22gk": {
+  "who": "Nishan",
+  "hi": "Toh hum circle mein aa rahe hain kya?",
+  "en": "So are we going in circles?",
+  "src": "act2.js"
+ },
+ "xe8iduh4xv": {
+  "who": "Nishant",
+  "hi": "Chal, ulti taraf try karte hain.",
+  "en": "Come on, let's try the other direction.",
+  "src": "act2.js"
+ },
+ "1kxxgu79bxi": {
+  "who": "Nishant",
+  "hi": "Ye... ye kya hai?",
+  "en": "What... is that?",
+  "src": "act2.js"
+ },
+ "rzm5yjkme5": {
+  "who": "Nishan",
+  "hi": "Ye toh wahi can hai. Wahi, usi tarah ka... jaise humne wahan chhoda tha.",
+  "en": "That's the same can. Just like the one we left back there.",
+  "src": "act2.js"
+ },
+ "noopjxysvf": {
+  "who": "Nishant",
+  "hi": "Pagal mat ban. Yahan kaun aur chhodega?",
+  "en": "Don't be silly. Who else would leave one here?",
+  "src": "act2.js"
+ },
+ "zv0xwrjw77": {
+  "who": "Nishan",
+  "hi": "Yaar... mujhe thik nahi lag raha.",
+  "en": "Man... I don't like this.",
+  "src": "act2.js"
+ },
+ "2eba9tqjwvv": {
+  "who": "Nishant",
+  "hi": "Baarish aa rahi hai. Kahin chhup jaana padega.",
+  "en": "Rain is coming. We'll have to find cover.",
+  "src": "act2.js"
+ },
+ "b8jjkweme5": {
+  "who": "Nishant",
+  "hi": "Wahan dekh — baans ka jhund. Wahin ruk jaate hain.",
+  "en": "Look there — a bamboo grove. Let's wait there.",
+  "src": "act2.js"
+ },
+ "1qbm9mjkqyw": {
+  "who": "Nishan",
+  "hi": "Gila hai sab. Koi jagah dikhti hai?",
+  "en": "Everything's soaked. Can you see any place?",
+  "src": "act2.js"
+ },
+ "20nbqta1pn9": {
+  "who": "Nishant",
+  "hi": "Bas baans, patte, keechad... aur kuch nahi.",
+  "en": "Just bamboo, leaves, mud... nothing else.",
+  "src": "act2.js"
+ },
+ "237fv5h21qq": {
+  "who": "Nishan",
+  "hi": "Abhi bahar jaana bekaar hai. Baarish kam hone do.",
+  "en": "Going out is pointless now. Let the rain ease first.",
+  "src": "act2.js"
+ },
+ "1o13xmq3fi7": {
+  "who": "Nishant",
+  "hi": "Subah tak rukna pada toh?",
+  "en": "What if we have to wait till morning?",
+  "src": "act2.js"
+ },
+ "6u60wmud4i": {
+  "who": "Nishan",
+  "hi": "Pehle baarish rukne de. Phir kuch sochenge.",
+  "en": "Let the rain stop first. Then we'll think.",
+  "src": "act2.js"
+ },
+ "1qv51kp8a90": {
+  "who": "Nishant",
+  "hi": "Ghar pe kya bolenge?",
+  "en": "What will we tell them at home?",
+  "src": "act2.js"
+ },
+ "182srbgf07y": {
+  "who": "Nishan",
+  "hi": "Network aane de. Sabse pehle call karenge.",
+  "en": "Let the network come. First thing, we call.",
+  "src": "act2.js"
+ },
+ "f3jcnteh6t": {
+  "who": "Nishant",
+  "hi": "Woh kaun tha?",
+  "en": "Who was that?",
+  "src": "act2.js"
+ },
+ "119a05r0xqa": {
+  "who": "Nishan",
+  "hi": "Pata nahi. Idhar is time kaun ghoomega?",
+  "en": "No idea. Who walks around here at this hour?",
+  "src": "act2.js"
+ },
+ "2fd8ar0lkh5": {
+  "who": "Nishant",
+  "hi": "Peeche jaayein?",
+  "en": "Should we follow?",
+  "src": "act2.js"
+ },
+ "1lq3nn2qhn6": {
+  "who": "Nishan",
+  "hi": "Pagal hai? Hum khud raasta bhool gaye hain. Yahin reh.",
+  "en": "Are you mad? We ourselves are lost. Stay here.",
+  "src": "act2.js"
+ },
+ "21qqf0yaw74": {
+  "who": "Nishant",
+  "hi": "Tune suna? Ye... aunty ki awaaz jaisi thi.",
+  "en": "Did you hear that? It sounded like Mom.",
+  "src": "act2.js"
+ },
+ "23gh2cehp4r": {
+  "who": "Nishan",
+  "hi": "Mummy yahan kaise aayengi? Torch dikha.",
+  "en": "How could Mom be here? Shine the torch.",
+  "src": "act2.js"
+ },
+ "r4cewfgh": {
+  "who": "Nishan",
+  "hi": "Koi nahi hai.",
+  "en": "There's nobody.",
+  "src": "act2.js"
+ },
+ "15qszgcy9yn": {
+  "who": "Nishant",
+  "hi": "Ab dusri taraf se? Direction hi samajh nahi aa rahi.",
+  "en": "Now from the other side? I can't make out the direction at all.",
+  "src": "act2.js"
+ },
+ "6y0hclfdxy": {
+  "who": "Nishan",
+  "hi": "Hum jaante hain wo yahan nahi hain. Fir bhi awaaz itni jaani-pehchaani...",
+  "en": "We know they're not here. Yet the voice feels so familiar...",
+  "src": "act2.js"
+ },
+ "1tepten1sie": {
+  "who": "Nishant",
+  "hi": "Kadam... chaar? Nahi, paanch...",
+  "en": "Footsteps... four? No, five...",
+  "src": "act2.js"
+ },
+ "1xm8aa9r4qq": {
+  "who": "Nishant",
+  "hi": "Kaan ke paas... kisi ne phoonk maari!",
+  "en": "Something blew right near my ear!",
+  "src": "act2.js"
+ },
+ "2fys8ns1sqq": {
+  "who": "Nishan",
+  "hi": "Wo kya tha?! Kuch... guzra torch ke saamne.",
+  "en": "What was that?! Something crossed the beam.",
+  "src": "act2.js"
+ },
+ "10w3fitkoqs": {
+  "who": "Nishant",
+  "hi": "Yahan nahi ruk sakte. Chal, kahin roshni dhoondte hain — shayad road tak pahunch jaayein.",
+  "en": "We can't stay here. Come on, let's look for a light — maybe it leads to a road.",
+  "src": "act2.js"
+ },
+ "5d66loyfm5": {
+  "who": "Nishan",
+  "hi": "Theek hai. Scooter saath le chalte hain.",
+  "en": "Okay. We'll take the scooter along.",
+  "src": "act2.js"
+ },
+ "2r08hkh2cf": {
+  "who": "Awaaz",
+  "hi": "Nishaaan... ghar aa ja beta...",
+  "en": "(a familiar voice calls: come home, son...)",
+  "src": "act2.js"
+ },
+ "1ef7zyi4gvi": {
+  "who": "Awaaz",
+  "hi": "Nishant... Nishaaan... idhar aao...",
+  "en": "(another familiar voice, from the other side...)",
+  "src": "act2.js"
+ },
+ "22c38zwixg8": {
+  "who": "Nishant",
+  "hi": "Roshni dhoondhni hai. Koi ghar, koi sadak... kuch bhi.",
+  "en": "We need to find a light. A house, a road... anything.",
+  "src": "act3.js"
+ },
+ "1o4iif2occ4": {
+  "who": "Nishan",
+  "hi": "Torch jalaye rakh. Dheere chalte hain.",
+  "en": "Keep the torch on. We go slow.",
+  "src": "act3.js"
+ },
+ "inrei6pfpr": {
+  "who": "Nishant",
+  "hi": "...",
+  "en": "(Nishant glances at you. The man hasn't done anything wrong.)",
+  "src": "act3.js"
+ },
+ "le8rvcikwy": {
+  "who": "Nishant",
+  "hi": "Ruk...",
+  "en": "Hold on...",
+  "src": "act3.js"
+ },
+ "1rbivzwrq3s": {
+  "who": "Nishant",
+  "hi": "Tune suna?",
+  "en": "Did you hear that?",
+  "src": "act3.js"
+ },
+ "23g0i57lvet": {
+  "who": "Nishan",
+  "hi": "Kya?",
+  "en": "What?",
+  "src": "act3.js"
+ },
+ "wcm7530b8q": {
+  "who": "Nishant",
+  "hi": "Jaise koi chal raha tha.",
+  "en": "Like someone was walking.",
+  "src": "act3.js"
+ },
+ "2el0zv4fzn5": {
+  "who": "Nishan",
+  "hi": "Hum dono hi toh chal rahe hain.",
+  "en": "We are the ones walking.",
+  "src": "act3.js"
+ },
+ "xad7fywhkg": {
+  "who": "Nishant",
+  "hi": "Nahi... rukne ke baad bhi awaaz aa rahi thi.",
+  "en": "No... the sound kept coming after we stopped.",
+  "src": "act3.js"
+ },
+ "24rg2jmycib": {
+  "who": "Nishan",
+  "hi": "Kaan ke paas se hawa... ya kisi ne...",
+  "en": "Wind right by my ear... or someone...",
+  "src": "act3.js"
+ },
+ "g5us519tr3": {
+  "who": "Nishant",
+  "hi": "Hawa hi hogi. Chalte raho.",
+  "en": "It must be the wind. Keep walking.",
+  "src": "act3.js"
+ },
+ "1d182khd25t": {
+  "who": "Nishant",
+  "hi": "Wo jhaadi... hili na?",
+  "en": "That bush... it moved, didn't it?",
+  "src": "act3.js"
+ },
+ "va5g7qotwf": {
+  "who": "Nishan",
+  "hi": "Koi chuha ya nevla hoga.",
+  "en": "Probably a rat or a mongoose.",
+  "src": "act3.js"
+ },
+ "2bln0yemuhk": {
+  "who": "Nishant",
+  "hi": "Wahan... koi khada hai.",
+  "en": "Someone... is standing there.",
+  "src": "act3.js"
+ },
+ "26etiqtgren": {
+  "who": "Nishan",
+  "hi": "Torch daal.",
+  "en": "Shine the torch.",
+  "src": "act3.js"
+ },
+ "245vf3k91fx": {
+  "who": "Nishan",
+  "hi": "Ped hai bas. Tedha sa.",
+  "en": "It's just a tree. A crooked one.",
+  "src": "act3.js"
+ },
+ "bkcvu70xys": {
+  "who": "Nishant",
+  "hi": "Hum jaante hain. Phir bhi dil ghabra raha hai.",
+  "en": "We know. My heart still races.",
+  "src": "act3.js"
+ },
+ "26eqqch0ih3": {
+  "who": "Nishan",
+  "hi": "Yahan khade rehne se kuch nahi hoga. Chalte hain.",
+  "en": "Standing still isn't helping. Let's go on.",
+  "src": "act3.js"
+ },
+ "uci2jur450": {
+  "who": "Nishant",
+  "hi": "Dekh, peepal ka bada ped. Thodi der baith lete hain.",
+  "en": "Look, a big peepal tree. Let's rest a moment.",
+  "src": "act3.js"
+ },
+ "fqctpg624d": {
+  "who": "Nishan",
+  "hi": "Saans phool gayi hai. Do minute.",
+  "en": "I'm out of breath. Two minutes.",
+  "src": "act3.js"
+ },
+ "x3hg3xpzxr": {
+  "who": "Nishant",
+  "hi": "Phone dekh.",
+  "en": "Check the phone.",
+  "src": "act3.js"
+ },
+ "2gn22jnuq9t": {
+  "who": "Nishan",
+  "hi": "Ab bhi koi network nahi.",
+  "en": "Still no network.",
+  "src": "act3.js"
+ },
+ "1gxgqy4xba": {
+  "who": "Nishant",
+  "hi": "Log kehte hain peepal ke neeche raat ko nahi rukte...",
+  "en": "People say you shouldn't stay under a peepal at night...",
+  "src": "act3.js"
+ },
+ "25gzeu0pgsj": {
+  "who": "Nishan",
+  "hi": "Gila hone se behtar hai ek ped ke neeche hona. Kahaniyaan baad mein.",
+  "en": "Better a tree than getting soaked. Stories can wait.",
+  "src": "act3.js"
+ },
+ "hagukewdqv": {
+  "who": "Nishant",
+  "hi": "Wo dekh! Roshni!",
+  "en": "Look there! A light!",
+  "src": "act3.js"
+ },
+ "1jajtrv8quc": {
+  "who": "Nishan",
+  "hi": "Chhoti si hai... jhilmilaa rahi hai.",
+  "en": "It's small... it flickers.",
+  "src": "act3.js"
+ },
+ "1smj7nxcttn": {
+  "who": "Nishant",
+  "hi": "Kisi ghar ki lagti hai. Ya lantern.",
+  "en": "Looks like a house. Or a lantern.",
+  "src": "act3.js"
+ },
+ "1zlw9gy9boh": {
+  "who": "Nishan",
+  "hi": "Chal, paas jaake dekhte hain.",
+  "en": "Come on, let's go and see.",
+  "src": "act3.js"
+ },
+ "czlu9pn6he": {
+  "who": "Nishant",
+  "hi": "Ye toh... gaon jaisa lag raha hai. Kai roshniyaan.",
+  "en": "This looks like a village. Several lights.",
+  "src": "act3.js"
+ },
+ "1u0i9jkterb": {
+  "who": "Nishan",
+  "hi": "Jungle ke beech gaon? Yahan?",
+  "en": "A village in the middle of a forest? Here?",
+  "src": "act3.js"
+ },
+ "1a95u9rfxso": {
+  "who": "Nishant",
+  "hi": "Tune woh videos dekhe hain na? Roshni ke peeche gaye, aur...",
+  "en": "You've seen those videos, right? People who followed a light, and...",
+  "src": "act3.js"
+ },
+ "18mc5tjio9t": {
+  "who": "Nishan",
+  "hi": "Ulta chalte hain. Jahan se aaye, uske ulta.",
+  "en": "Let's go the other way. Opposite to this.",
+  "src": "act3.js"
+ },
+ "1k0mcthevhp": {
+  "who": "Nishan",
+  "hi": "...",
+  "en": "(for a while you both sit quietly)",
+  "src": "act4.js"
+ },
+ "fny1gylfea": {
+  "who": "Nishan",
+  "hi": "Humne toh ulta rasta liya tha.",
+  "en": "We took the opposite route.",
+  "src": "act3.js"
+ },
+ "hkr18c20bn": {
+  "who": "Nishant",
+  "hi": "Haan. Phir wahi roshni kaise?",
+  "en": "Yes. Then how is it the same light?",
+  "src": "act3.js"
+ },
+ "1g5mok62ym8": {
+  "who": "Nishan",
+  "hi": "Ho sakta hai doosri side se dikh raha ho.",
+  "en": "Maybe it just looks like that from the other side.",
+  "src": "act3.js"
+ },
+ "255j2n3bywq": {
+  "who": "Nishant",
+  "hi": "Ya hum phir wahi aa gaye.",
+  "en": "Or we've come back to the same spot.",
+  "src": "act3.js"
+ },
+ "3keyi2yu96": {
+  "who": "Nishan",
+  "hi": "Hum aise baarish mein bhatakte nahi reh sakte.",
+  "en": "We can't keep wandering in this rain.",
+  "src": "act3.js"
+ },
+ "1nyk93fx32a": {
+  "who": "Nishant",
+  "hi": "Chal. Kuch bhi ho, kisi se madad toh maangni hi padegi.",
+  "en": "Come on. Whatever happens, we have to ask someone for help.",
+  "src": "act3.js"
+ },
+ "10nxe1z05ap": {
+  "who": "Nishan",
+  "hi": "Gaon hi hai. Ghar, gali, lalten.",
+  "en": "It is a village. Houses, lanes, lanterns.",
+  "src": "act3.js"
+ },
+ "21i7m5hgedj": {
+  "who": "Nishant",
+  "hi": "Na khambe, na taar. Bijli nahi lagti yahan.",
+  "en": "No poles, no wires. They don't seem to have electricity.",
+  "src": "act3.js"
+ },
+ "ea5rh5pxby": {
+  "who": "Nishan",
+  "hi": "Us khidki mein... kuch safed sa tha. Aankhon jaisa.",
+  "en": "In that window... something white. Like eyes.",
+  "src": "act3.js"
+ },
+ "10x2oy17l8z": {
+  "who": "Nishant",
+  "hi": "Mat dekh. Pehle madad dhoondh.",
+  "en": "Don't look. Find help first.",
+  "src": "act3.js"
+ },
+ "1v9g8et7685": {
+  "who": "Nishant",
+  "hi": "Koi nahi aaya.",
+  "en": "Nobody came.",
+  "src": "act3.js"
+ },
+ "1guawxorc5v": {
+  "who": "Nishan",
+  "hi": "Uncle! Koi hai?",
+  "en": "Hello! Anyone home?",
+  "src": "act3.js"
+ },
+ "1b5q08dtnm6": {
+  "who": "Nishan",
+  "hi": "Namaste uncle. Hum log raasta bhatak gaye hain.",
+  "en": "Namaste, uncle. We've lost our way.",
+  "src": "act3.js"
+ },
+ "kfw5b04kan": {
+  "who": "Nishant",
+  "hi": "Jungle mein aa gaye the. Ab bahar nikalne ka raasta nahi mil raha.",
+  "en": "We came into the forest. Now we can't find the way out.",
+  "src": "act3.js"
+ },
+ "23ivcnhpu1d": {
+  "who": "Nishan",
+  "hi": "Phone mein network bhi nahi hai. Ghar pe bata nahi paaye.",
+  "en": "There's no phone network either. We couldn't tell home.",
+  "src": "act3.js"
+ },
+ "bl2l1agmnq": {
+  "who": "Nishan",
+  "hi": "Maaf kijiye uncle.",
+  "en": "I'm sorry, uncle.",
+  "src": "act3.js"
+ },
+ "1ujr6i9nq4": {
+  "who": "Nishant",
+  "hi": "Yahan aas-paas koi doctor ya hospital hai kya?",
+  "en": "Is there a doctor or hospital nearby?",
+  "src": "act3.js"
+ },
+ "sfg6mc6f7l": {
+  "who": "Nishan",
+  "hi": "Aur bijli? Phone?",
+  "en": "And electricity? Phones?",
+  "src": "act3.js"
+ },
+ "1fuga1w3daj": {
+  "who": "Nishant",
+  "hi": "Accha laga. Garm sa.",
+  "en": "That was good. Warming.",
+  "src": "act3.js"
+ },
+ "26oxlajiyxr": {
+  "who": "Nishan",
+  "hi": "Shukriya uncle.",
+  "en": "Thank you, uncle.",
+  "src": "act3.js"
+ },
+ "17mcwlsram4": {
+  "who": "Nishan",
+  "hi": "Uncle, aapke paas phone hai? Hum ghar par bata dein.",
+  "en": "Uncle, do you have a phone? We need to tell home.",
+  "src": "act3.js"
+ },
+ "6l9hb245cz": {
+  "who": "Nishan",
+  "hi": "Uncle, aap humein abhi road tak chhod dijiye. Ghar pe sab pareshan ho rahe honge.",
+  "en": "Uncle, please take us to the road now. Everyone at home will be worried.",
+  "src": "act3.js"
+ },
+ "1qg8audbtvt": {
+  "who": "Nishant",
+  "hi": "Lekin ghar pe kisi ko pata nahi hum kahan hain.",
+  "en": "But nobody at home knows where we are.",
+  "src": "act3.js"
+ },
+ "1u1gxttdkao": {
+  "who": "Nishan",
+  "hi": "Nahi uncle, please. Abhi jaana zaroori hai.",
+  "en": "No uncle, please. We have to go now.",
+  "src": "act3.js"
+ },
+ "209wv5d26fs": {
+  "who": "Nishant",
+  "hi": "Yaar... kitni thakaan ho rahi hai. Pair bhaari ho gaye.",
+  "en": "Man... so tired. My legs feel heavy.",
+  "src": "act3.js"
+ },
+ "iw6m8frshy": {
+  "who": "Nishan",
+  "hi": "Bheeg ke aaye hain, thand lagi hogi. Chalna padega.",
+  "en": "We came soaked, it's the cold. We have to move.",
+  "src": "act3.js"
+ },
+ "1dj28is3d90": {
+  "who": "Nishant",
+  "hi": "Uncle aur unke dost... itni raat ko hamare liye nikle. Shukriya.",
+  "en": "The uncle and his friends... coming out at this hour for us. Thank you.",
+  "src": "act4.js"
+ },
+ "ev6vfwe843": {
+  "who": "Nishan",
+  "hi": "Raasta... patla hota ja raha hai.",
+  "en": "The path... it keeps getting narrower.",
+  "src": "act4.js"
+ },
+ "57omx6rlyi": {
+  "who": "Nishant",
+  "hi": "Mujhe nahi lagta road is taraf hogi. Par aur kya karein.",
+  "en": "I don't think the road is this way. But what else can we do.",
+  "src": "act4.js"
+ },
+ "kk3sgw0067": {
+  "who": "Nishant",
+  "hi": "Uncle, woh dono kahan gaye?",
+  "en": "Uncle, where did those two go?",
+  "src": "act4.js"
+ },
+ "204a2n97khh": {
+  "who": "Nishan",
+  "hi": "Par abhi toh saath hi chal rahe the.",
+  "en": "But they were walking with us just now.",
+  "src": "act4.js"
+ },
+ "1blomfd5hc4": {
+  "who": "Nishant",
+  "hi": "Jhaadi ke peeche se... fusfusahat.",
+  "en": "From behind the bush... a whisper.",
+  "src": "act4.js"
+ },
+ "1e36ufahg98": {
+  "who": "Nishan",
+  "hi": "Kutta... bahut door.",
+  "en": "A dog... very far.",
+  "src": "act4.js"
+ },
+ "w9fbrozqw1": {
+  "who": "Nishan",
+  "hi": "Saanp! Ruk!",
+  "en": "Snake! Stop!",
+  "src": "act4.js"
+ },
+ "1pigbv7403k": {
+  "who": "Nishant",
+  "hi": "Chala gaya. Bas ek lakeer jaisa.",
+  "en": "Gone. Just a dark streak.",
+  "src": "act4.js"
+ },
+ "izhyxofgzd": {
+  "who": "Nishant",
+  "hi": "Kadam... do se zyada logon ke.",
+  "en": "Footsteps... more than two people's.",
+  "src": "act4.js"
+ },
+ "2d73lc2cvq9": {
+  "who": "Nishan",
+  "hi": "Torch band mat karna.",
+  "en": "Don't switch off the torch.",
+  "src": "act4.js"
+ },
+ "25bu0ftjral": {
+  "who": "Nishant",
+  "hi": "Wo kya tha? Aadmi? Janwar?",
+  "en": "What was that? A man? An animal?",
+  "src": "act4.js"
+ },
+ "ckvbxt7vah": {
+  "who": "Nishan",
+  "hi": "Uncle?",
+  "en": "Uncle?",
+  "src": "act4.js"
+ },
+ "2ctvzo2q7z9": {
+  "who": "Nishant",
+  "hi": "Ye toh... shamshan hai. Mukti Dham.",
+  "en": "This is... a cremation ground. Mukti Dham.",
+  "src": "act4.js"
+ },
+ "rz7yj25hfn": {
+  "who": "Nishan",
+  "hi": "Kam se kam jaani-pehchaani jagah. Road paas hi hogi.",
+  "en": "At least a known kind of place. The road must be near.",
+  "src": "act4.js"
+ },
+ "191hx0osq0k": {
+  "who": "Nishant",
+  "hi": "Uncle, ek baat poochhein?",
+  "en": "Uncle, may we ask something?",
+  "src": "act4.js"
+ },
+ "jn3lkzcia4": {
+  "who": "Nishan",
+  "hi": "Aap bura mat maniyega... par aap logon ka gaon bahut ajeeb hai.",
+  "en": "Please don't mind... but your village is very strange.",
+  "src": "act4.js"
+ },
+ "15u4ipejgzz": {
+  "who": "Nishant",
+  "hi": "Wahan kisi ke paas phone nahi, bijli nahi, hospital nahi...",
+  "en": "No phones, no electricity, no hospital there...",
+  "src": "act4.js"
+ },
+ "2a5aevuprcf": {
+  "who": "Nishan",
+  "hi": "Aur humne khidkiyon mein kuch safed aankhon jaisa bhi dekha.",
+  "en": "And we saw something like white eyes in the windows.",
+  "src": "act4.js"
+ },
+ "14r7aruh89j": {
+  "who": "Nishant",
+  "hi": "Sach sach bataiye uncle... aap bhoot toh nahi hain?",
+  "en": "Tell us the truth, uncle... you are not a ghost, are you?",
+  "src": "act4.js"
+ },
+ "1im1x121g2w": {
+  "who": "Nishan",
+  "hi": "Kaun? Kaun aa raha hai? Unko kaise pata chala?",
+  "en": "Who? Who is coming? How would they know?",
+  "src": "act4.js"
+ },
+ "bhw9s4dug9": {
+  "who": "Nishant",
+  "hi": "Kitni door, uncle?",
+  "en": "How far, uncle?",
+  "src": "act4.js"
+ },
+ "21b81d4qpii": {
+  "who": "Nishan",
+  "hi": "...Uncle?",
+  "en": "...Uncle?",
+  "src": "act4.js"
+ },
+ "14p2it4tvxp": {
+  "who": "Nishant",
+  "hi": "Gayab. Koi aawaz nahi. Koi parchhai nahi.",
+  "en": "Gone. No sound. No figure.",
+  "src": "act4.js"
+ },
+ "1uddxdxups9": {
+  "who": "Nishan",
+  "hi": "Ye shamshan hai. Shayad yahi sabse safe jagah hai. Mujhe bhoot-vhoot pe yakeen nahi.",
+  "en": "This is a cremation ground. Maybe it's the safest place. I don't believe in ghosts.",
+  "src": "act4.js"
+ },
+ "1adygogzqwi": {
+  "who": "Nishant",
+  "hi": "Par ghar? Sab hamari raah dekh rahe honge. Aur network abhi bhi nahi hai.",
+  "en": "But home? Everyone is waiting. And there is still no network.",
+  "src": "act4.js"
+ },
+ "29wbkisvcl9": {
+  "who": "Nishan",
+  "hi": "Chal. Jo bhi ho, rukna theek nahi.",
+  "en": "Let's go. Whatever happens, waiting isn't right.",
+  "src": "act4.js"
+ },
+ "3uccxtvzt7": {
+  "who": "Nishant",
+  "hi": "Scooter uthaate hain.",
+  "en": "Let's take the scooter.",
+  "src": "act4.js"
+ },
+ "2awlfcumtpg": {
+  "who": "Nishan",
+  "hi": "Hum yahin rukte hain. Pehchaani jagah hai, subah ka intezaar karte hain.",
+  "en": "We stay here. It's a known place. We wait for morning.",
+  "src": "act4.js"
+ },
+ "17649pjt57m": {
+  "who": "Nishant",
+  "hi": "Theek hai. Par sote nahi.",
+  "en": "Okay. But we don't sleep.",
+  "src": "act4.js"
+ },
+ "213rapwr91u": {
+  "who": "Nishan",
+  "hi": "Uncle ne jis taraf kaha tha, usi taraf.",
+  "en": "The direction the uncle pointed. Only that.",
+  "src": "act4.js"
+ },
+ "20q1lublqlh": {
+  "who": "Nishant",
+  "hi": "Pata nahi sahi hai ya nahi.",
+  "en": "No idea if it's right.",
+  "src": "act4.js"
+ },
+ "1fnanhq4o68": {
+  "who": "Nishant",
+  "hi": "Suna?",
+  "en": "Heard that?",
+  "src": "act4.js"
+ },
+ "18e7iopnu5o": {
+  "who": "Nishan",
+  "hi": "Saanp!",
+  "en": "Snake!",
+  "src": "act4.js"
+ },
+ "1990md4gdjk": {
+  "who": "Nishant",
+  "hi": "Wahan koi khada hai...",
+  "en": "Someone is standing there...",
+  "src": "act4.js"
+ },
+ "1wxhy2k73vh": {
+  "who": "Nishan",
+  "hi": "Ped. Bas ped.",
+  "en": "A tree. Only a tree.",
+  "src": "act4.js"
+ },
+ "1lztw1tsj60": {
+  "who": "Nishant",
+  "hi": "Mera naam bhi... kisi ne liya?",
+  "en": "Did it say my name too?",
+  "src": "act4.js"
+ },
+ "1ixp1p32a4j": {
+  "who": "Nishan",
+  "hi": "Aah! Pair phisla... Kaanta!",
+  "en": "Ah! My foot slipped... thorns!",
+  "src": "act4.js"
+ },
+ "bym452pw9e": {
+  "who": "Nishant",
+  "hi": "Scooter ka tyre... puncture ho gaya.",
+  "en": "The scooter's tyre... it's punctured.",
+  "src": "act4.js"
+ },
+ "1klbzgarujx": {
+  "who": "Nishan",
+  "hi": "Kapde phat gaye, haath chheel gaye. Chalte raho. Road paas hi hai.",
+  "en": "Clothes torn, hands scraped. Keep going. The road must be close.",
+  "src": "act4.js"
+ },
+ "pf9zzm1qn7": {
+  "who": "Nishan",
+  "hi": "Network aa gaya! Ghar pe call laga.",
+  "en": "Network is back! Call home.",
+  "src": "act4.js"
+ },
+ "1hdxu0ec839": {
+  "who": "Nishant",
+  "hi": "Mummy ko bol, hum safe hain. Bas aa rahe hain.",
+  "en": "Tell Mom we're safe. We're just coming.",
+  "src": "act4.js"
+ },
+ "1g2appwwg23": {
+  "who": "Nishan",
+  "hi": "Ghar aake sab batate hain.",
+  "en": "We'll tell everything when we get home.",
+  "src": "act4.js"
+ },
+ "255yhode6cr": {
+  "who": "Nishant",
+  "hi": "Scooter ko yahin kinare laga dete hain. Kal aake le jaayenge.",
+  "en": "Let's leave the scooter by the roadside. We'll fetch it tomorrow.",
+  "src": "act4.js"
+ },
+ "11j1m27g1iy": {
+  "who": "Nishan",
+  "hi": "Mummy... ghar aa gaye.",
+  "en": "Mom... we're home.",
+  "src": "act4.js"
+ },
+ "fxfq4rpqxs": {
+  "who": "Nishan",
+  "hi": "Hum jungle mein chale gaye the. Raasta bhool gaye. Raaste baar-baar wahin aa rahe the.",
+  "en": "We went into the forest. Got lost. The paths kept repeating.",
+  "src": "act4.js"
+ },
+ "2etk62qqius": {
+  "who": "Nishant",
+  "hi": "Phir ek gaon mila. Ek uncle ne darwaza khola. Unki beti thi, patni guzar chuki thi.",
+  "en": "Then we found a village. An uncle opened his door. He had a daughter; his wife had died.",
+  "src": "act4.js"
+ },
+ "9zfc6q4pcn": {
+  "who": "Nishan",
+  "hi": "Unhone laal sharbat jaisa kuch pilaya. Rukne ko bole. Hum nahi ruke.",
+  "en": "He gave us something red like sharbat. He told us to stay. We didn't.",
+  "src": "act4.js"
+ },
+ "l9abmss61x": {
+  "who": "Nishant",
+  "hi": "Unke do dost saath chale, phir gayab ho gaye. Shamshan mein uncle bhi gayab. Bole, \"Woh log aa rahe hain.\"",
+  "en": "His two friends came along, then vanished. At the cremation ground he vanished too. He said \"They are coming.\"",
+  "src": "act4.js"
+ },
+ "17tgve8wthi": {
+  "who": "Nishan",
+  "hi": "Kya? Hum toh...",
+  "en": "What? We...",
+  "src": "act4.js"
+ },
+ "zjnls5zr4d": {
+  "who": "Nishant",
+  "hi": "Lekin hum ek ghar mein gaye the. Ek uncle the...",
+  "en": "But we went into a house. There was an uncle...",
+  "src": "act4.js"
+ },
+ "rqnxrxqozq": {
+  "who": "Nishan",
+  "hi": "Ek baat... us uncle ne humein jo pilaya tha, woh kya tha?",
+  "en": "One thing... what was it that uncle gave us to drink?",
+  "src": "act4.js"
+ },
+ "1cim8fslv0q": {
+  "who": "Nishant",
+  "hi": "Sharbat jaisa kuch tha.",
+  "en": "Something like sharbat.",
+  "src": "act4.js"
+ },
+ "iyz6lcqjpe": {
+  "who": "Nishan",
+  "hi": "Taste yaad hai?",
+  "en": "Do you remember the taste?",
+  "src": "act4.js"
+ },
+ "hzz5fbg9y1": {
+  "who": "Nishant",
+  "hi": "Nahi. Kuch bhi clear yaad nahi.",
+  "en": "No. I can't clearly remember anything.",
+  "src": "act4.js"
+ },
+ "2fd9t8mz9hj": {
+  "who": "Nishant",
+  "hi": "Sote nahi, theek hai? Mujhe is jagah mein neend nahi chahiye.",
+  "en": "We don't sleep, okay? I don't want to sleep in this place.",
+  "src": "act4.js"
+ },
+ "18qae2cogfz": {
+  "who": "Nishan",
+  "hi": "Haan. Baat karte rehte hain.",
+  "en": "Yes. Keep talking.",
+  "src": "act4.js"
+ },
+ "io30icer6b": {
+  "who": "Nishant",
+  "hi": "Mera sar bhaari ho raha hai...",
+  "en": "My head is getting heavy...",
+  "src": "act4.js"
+ },
+ "2cu3zk8r1tm": {
+  "who": "Nishan",
+  "hi": "Aankhein khuli rakh...",
+  "en": "Keep your eyes open...",
+  "src": "act4.js"
+ },
+ "11s3vnt6tcg": {
+  "who": "Nishan",
+  "hi": "Nishant? ...Nishant?",
+  "en": "Nishant? ...Nishant?",
+  "src": "act4.js"
+ },
+ "1qdgdo4dmnf": {
+  "who": "Nishan",
+  "hi": "Scooter yahin hai. Matlab paidal gaya hai. Par kahan?",
+  "en": "The scooter is here. So he went on foot. But where?",
+  "src": "act4.js"
+ },
+ "qnh7xstjqu": {
+  "who": "Nishan",
+  "hi": "Koi... samadhi tod raha hai. Mitti nikaal raha hai.",
+  "en": "Someone... is breaking a samadhi. Digging out the soil.",
+  "src": "act4.js"
+ },
+ "1hisg627ikq": {
+  "who": "Nishan",
+  "hi": "Itni der se ek hi jagah... Nahi, paas jaana theek nahi.",
+  "en": "All this time on one spot... No, going closer isn't right.",
+  "src": "act4.js"
+ },
+ "12o191lqf7z": {
+  "who": "Nishan",
+  "hi": "(dheere) Nishant... jaldi aa...",
+  "en": "(under his breath) Nishant... come back soon...",
+  "src": "act4.js"
+ },
+ "1kst11hoinp": {
+  "who": "Nishant",
+  "hi": "Chup. Awaaz mat kar.",
+  "en": "Shh. Not a sound.",
+  "src": "act4.js"
+ },
+ "2c85mo9ash7": {
+  "who": "Nishan",
+  "hi": "Tu kahan chala gaya tha?",
+  "en": "Where did you go?",
+  "src": "act4.js"
+ },
+ "85fbstcx8n": {
+  "who": "Nishan",
+  "hi": "Woh kaun hai?",
+  "en": "Who is that?",
+  "src": "act4.js"
+ },
+ "14nhn2iraxf": {
+  "who": "Nishant",
+  "hi": "Pata nahi. Bahut der se ek hi jagah maar raha hai.",
+  "en": "No idea. He's been hitting one spot for ages.",
+  "src": "act4.js"
+ },
+ "224p9xwcysy": {
+  "who": "Nishan",
+  "hi": "Samadhi toot kyun nahi rahi?",
+  "en": "Why isn't the samadhi breaking?",
+  "src": "act4.js"
+ },
+ "27xjw6z0g2p": {
+  "who": "Nishant",
+  "hi": "Aur usko thakaan bhi nahi ho rahi.",
+  "en": "And he isn't getting tired.",
+  "src": "act4.js"
+ },
+ "2dg68qz48zk": {
+  "who": "Nishan",
+  "hi": "Kya hum phir kisi loop mein phans gaye?",
+  "en": "Have we got stuck in another loop?",
+  "src": "act4.js"
+ },
+ "1g49eggiqh1": {
+  "who": "Nishant",
+  "hi": "Par ye shamshan hai. Yahan toh aisa nahi hona chahiye...",
+  "en": "But this is a cremation ground. This shouldn't happen here...",
+  "src": "act4.js"
+ },
+ "1tt4qi9c1xq": {
+  "who": "Nishant",
+  "hi": "(fusfusakar) Peeche mat dekh.",
+  "en": "(whispering) Don't look back.",
+  "src": "act4.js"
+ },
+ "1be1knjmg0j": {
+  "who": "Nishan",
+  "hi": "(fusfusakar) Agar mudein toh wo nazar se hat jaayega.",
+  "en": "(whispering) If we turn, we might lose sight of him.",
+  "src": "act4.js"
+ },
+ "cck0p4urol": {
+  "who": "Nishant",
+  "hi": "Isne humare naam liye...",
+  "en": "It said our names...",
+  "src": "act4.js"
+ },
+ "1iwozz06tc6": {
+  "who": "Nishan",
+  "hi": "Yahan kisi ko hamare naam nahi pata.",
+  "en": "Nobody here knows our names.",
+  "src": "act4.js"
+ },
+ "26gwo9nrg4i": {
+  "who": "Nishan",
+  "hi": "Gayab...",
+  "en": "Gone...",
+  "src": "act4.js"
+ },
+ "n1qipmrrdg": {
+  "who": "Nishant",
+  "hi": "(fusfusakar) Mat mudna.",
+  "en": "(whispering) Don't turn.",
+  "src": "act4.js"
+ },
+ "22w03qsnh4w": {
+  "who": "Nishan",
+  "hi": "Insaan jaisa lag raha hai... par...",
+  "en": "He sounds like a person... but...",
+  "src": "act4.js"
+ },
+ "c95ozdz5gw": {
+  "who": "Nishant",
+  "hi": "Haath... asli lag rahe hain.",
+  "en": "Hands... they feel real.",
+  "src": "act4.js"
+ },
+ "1qa4y2vyry5": {
+  "who": "Nishan",
+  "hi": "Toh insaan hi hoga. Mudte hain.",
+  "en": "Then it must be a person. Let's turn.",
+  "src": "act4.js"
+ },
+ "200ns04v0ym": {
+  "who": "Nishan",
+  "hi": "...kaun?",
+  "en": "...who?",
+  "src": "act4.js"
+ },
+ "1sqxz87a9hl": {
+  "who": "Nishant",
+  "hi": "Hum jungle mein bhatak gaye the... raat bhar.",
+  "en": "We got lost in the forest... all night.",
+  "src": "act4.js"
+ },
+ "hq8k05rnqj": {
+  "who": "Nishan",
+  "hi": "Nahi. Haan, uth sakte hain. Bas chheel gaya hai. Mere dost ko bukhaar lag raha hai.",
+  "en": "No. Yes, we can stand. Just scrapes. My friend feels feverish.",
+  "src": "act4.js"
+ },
+ "yerey6i7wl": {
+  "who": "Nishan",
+  "hi": "(aap dono ne poori raat ki kahani sunayi...)",
+  "en": "(You both tell him everything, piece by piece...)",
+  "src": "act4.js"
+ },
+ "17l43wzoved": {
+  "who": "Nishan",
+  "hi": "Shukriya bhaiya.",
+  "en": "Thank you, brother.",
+  "src": "act4.js"
+ },
+ "1ewyel419kl": {
+  "who": "Nishant",
+  "hi": "Network aa gaya! Ghar pe phone kar.",
+  "en": "Network is back! Call home.",
+  "src": "act4.js"
+ },
+ "25hzrj7ihsj": {
+  "who": "Nishan",
+  "hi": "Mummy, hum theek hain. Bas aa rahe hain. Aake sab batayenge.",
+  "en": "Mom, we're fine. We're on our way. We'll explain everything when we arrive.",
+  "src": "act4.js"
+ },
+ "142t2p9wq1u": {
+  "who": "Nishan",
+  "hi": "Haan, do chai.",
+  "en": "Yes, two teas.",
+  "src": "act4.js"
+ },
+ "1fi6utpng63": {
+  "who": "Nishan",
+  "hi": "Ek baat bata...",
+  "en": "Tell me something...",
+  "src": "act4.js"
+ },
+ "7wcvhgxyul": {
+  "who": "Nishant",
+  "hi": "Kya?",
+  "en": "What?",
+  "src": "act4.js"
+ },
+ "1kvn06t70ub": {
+  "who": "Nishan",
+  "hi": "Us uncle ne humein kuch pilaya tha na?",
+  "en": "That uncle gave us something to drink, didn't he?",
+  "src": "act4.js"
+ },
+ "1dori04xu3h": {
+  "who": "Nishant",
+  "hi": "Haan... laal sa tha. Sharbat jaisa.",
+  "en": "Yes... it was reddish. Like sharbat.",
+  "src": "act4.js"
+ },
+ "13obrdhcdtj": {
+  "who": "Nishan",
+  "hi": "Humne us aadmi ko ye bataya tha?",
+  "en": "Did we tell that man (the stranger) this?",
+  "src": "act4.js"
+ },
+ "2822ss7bfq5": {
+  "who": "Nishant",
+  "hi": "Nahi.",
+  "en": "No.",
+  "src": "act4.js"
+ },
+ "1enfecgqlqp": {
+  "who": "Nishan",
+  "hi": "Aur us stranger ne bhi toh nahi poocha ki humne kuch piya tha.",
+  "en": "And that stranger never asked whether we'd had anything to drink.",
+  "src": "act4.js"
+ },
+ "260x5dl137e": {
+  "who": "Nishant",
+  "hi": "Toh... humne piya kya tha?",
+  "en": "So... what did we drink?",
+  "src": "act4.js"
+ },
+ "7fsyyvotwy": {
+  "who": "Dost",
+  "hi": "Humne baar-baar darwaza khatkhatate suna. Socha, koi musibat mein hai.",
+  "en": "We heard the knocking again and again. We thought someone was in trouble.",
+  "src": "act4.js"
+ },
+ "3k86gld2db": {
+  "who": "Awaaz",
+  "hi": "Nishaan...",
+  "en": "(something like your name, from the dark)",
+  "src": "act4.js"
+ },
+ "t14wnaotri": {
+  "who": "Ghar waala",
+  "hi": "Tum dono kahan the? Pata hai kitni chinta ho rahi thi?",
+  "en": "Where were you two? Do you know how worried we were?",
+  "src": "act4.js"
+ },
+ "1ku32yzcjau": {
+  "who": "Mummy",
+  "hi": "Beta! Dono ko dekho... ye kya haal bana rakha hai!",
+  "en": "Look at you both! What state are you in!",
+  "src": "act4.js"
+ },
+ "1amyq3jriay": {
+  "who": "Mummy",
+  "hi": "Ab bolo, hua kya tha?",
+  "en": "Now tell me, what happened?",
+  "src": "act4.js"
+ },
+ "1n31p3d014r": {
+  "who": "Mummy",
+  "hi": "Tumhara tiffin toh ghar pe hi pada tha.",
+  "en": "Your tiffin was left right here at home.",
+  "src": "act4.js"
+ },
+ "gcxyyegtoq": {
+  "who": "Chacha",
+  "hi": "Us taraf koi gaon nahi hai. Jis jagah ka tum log bata rahe ho, wahan toh shamshan ghat hai.",
+  "en": "There is no village that way. The place you describe is just a cremation ground.",
+  "src": "act4.js"
+ },
+ "garn6s0qv4": {
+  "who": "Chacha",
+  "hi": "Wahan koi ghar nahi hai.",
+  "en": "There is no house there.",
+  "src": "act4.js"
+ },
+ "b2ld5ww97g": {
+  "who": "Awaaz",
+  "hi": "Yahan kya kar rahe ho?",
+  "en": "What are you doing here?",
+  "src": "act4.js"
+ },
+ "1t785pyhhj7": {
+  "who": "Awaaz",
+  "hi": "Nishaan... Nishaant...",
+  "en": "Nishan... Nishant...",
+  "src": "act4.js"
+ },
+ "1kapo9qafso": {
+  "who": "Awaaz",
+  "hi": "Bhai... rasta kho gaya hoon. Tum dono ko rasta pata hai kya?",
+  "en": "Brother... I've lost my way. Do you two know the way?",
+  "src": "act4.js"
+ },
+ "25ggk7ikp7u": {
+  "who": "Awaaz",
+  "hi": "Bhai, sun rahe ho? Main rasta kho gaya hoon. Help kar do. Poochna hai toh muro.",
+  "en": "Brother, are you listening? I've lost my way. Help me. If you want to ask, turn around.",
+  "src": "act4.js"
+ },
+ "3ly87sszmb": {
+  "who": "Ajnabi",
+  "hi": "Utho bhai... utho. Paani chhidak raha hoon. Aankhein kholo.",
+  "en": "Get up, brother... wake up. I'm sprinkling water. Open your eyes.",
+  "src": "act4.js"
+ },
+ "aq6ma4nk6b": {
+  "who": "Ajnabi",
+  "hi": "Pehle ye batao - kahan se aaye ho? Shamshan mein raat ko kya kar rahe the?",
+  "en": "First tell me - where have you come from? What were you doing in the cremation ground at night?",
+  "src": "act4.js"
+ },
+ "27pd08tlgg9": {
+  "who": "Ajnabi",
+  "hi": "Kisi samadhi ko haath toh nahi lagaya? Chot toh nahi lagi? Khade ho sakte ho?",
+  "en": "You didn't touch any samadhi? Are you hurt? Can you stand?",
+  "src": "act4.js"
+ },
+ "12r9ihxrkux": {
+  "who": "Ajnabi",
+  "hi": "Haan, tap hai thoda. Cheelein bhi hain. Ab batao, poori raat ki baat, ek-ek karke.",
+  "en": "Yes, a little fever. Scratches too. Now tell me the whole night, one thing at a time.",
+  "src": "act4.js"
+ },
+ "1cpr3e09qvo": {
+  "who": "Ajnabi",
+  "hi": "Raat, baarish, thakaan aur andhera milkar cheezon ko waise dikhate hain jaise woh hoti nahi hain. Tum dono bahut der se bhatak rahe the.",
+  "en": "Night, rain, tiredness and darkness together show you things as they are not. You two were wandering a long time.",
+  "src": "act4.js"
+ },
+ "26yjme70qtg": {
+  "who": "Ajnabi",
+  "hi": "Chal sakte ho? Wo kachchi sadak seedhi road tak jaati hai. Subah ho rahi hai. Ghar waalon ko phone kar dena.",
+  "en": "Can you walk? That dirt track leads straight to the road. It's getting light. Call your families.",
+  "src": "act4.js"
+ },
+ "zwrn7xayn": {
+  "who": "Mummy",
+  "hi": "Kahan the tum log?! Seedhe ghar aao!",
+  "en": "Where were you?! Come straight home!",
+  "src": "act4.js"
+ },
+ "22arm6ra8s7": {
+  "who": "Chaiwala",
+  "hi": "Aao bhaiya, baitho. Do chai?",
+  "en": "Come, sit, brothers. Two teas?",
+  "src": "act4.js"
+ },
+ "coefcqr9g8": {
+  "who": "Chaiwala",
+  "hi": "Lo bhaiya, garam chai.",
+  "en": "Here, brothers, hot tea.",
+  "src": "act4.js"
+ }
+}
