@@ -85,3 +85,9 @@ Cards unlock as you meet each event and are saved in localStorage.
 - **Not yet verified:** a real GPU (frame rate), the Electron window, and AppImage/deb building. They were not run in this sandbox.
 - Known visual bug (NOT fixed): at night, in forest/cremation-ground scenes, a ragged row of dark tree-trunk stubs shows along the far horizon. They are darker than the fog/sky behind them. I lowered tree polygon counts and put the sky through tone-mapping, but the screenshot after that still shows it. Next step is to make the fog colour match the sky horizon, or add a dense fog wall at the edge of each level's bounds.
 - Other rough edges: low-poly look, face textures, companion AI, and the cow model looks like a sheep. Triangle counts in forest levels are high. If it stutters, lower the quality in Settings.
+
+
+## Navigation (new)
+- `M` full map (you, facing cone, route, goal, Nishant, scooter; wheel/+/- zoom), minimap + compass always on HUD, gold diamond in the world.
+- `H` hint, `H` twice = hop a few metres ahead along the route if you are ever stuck. `Shift` sprint with stamina bar.
+- Settings > Navigation aid to choose full / compass only / off.

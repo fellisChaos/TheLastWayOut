@@ -32,3 +32,10 @@
 - Night horizon "comb", cow looks like a sheep, ceiling/wall smear, bare street in home.js.
 - No soft-lock hints on later gates; no full real-input playthrough beyond ch1 (autopilot runs verified).
 - AppImage/deb not rebuilt this session (`npm run dist`); texture/voice assets add ~50 MB.
+
+
+## Update: navigation, sprint, road end (latest)
+- **Map / direction**: minimap (heading-up, rim arrow to goal), compass strip with gold waypoint, in-world gold diamond with distance, full map on `M` (north-up, you + facing cone, route, goal, Nishant, scooter, zoom). Goal is fed automatically by `go/goTrail/use/gate` and a base goal for the road ride. Setting: Navigation aid (full / compass only / off).
+- **Shift+W cutting out**: (1) stamina hysteresis + visible stamina bar, (2) Shift state is now read from every key/mouse event's `shiftKey` (a lost keyup or focus change can no longer leave sprint dead), (3) a toast explains when running is disabled (pushing the scooter).
+- **Stuck where the road ends**: drivable corridor extended 45 m past the last road point; wall contact now slides instead of braking to a halt; verified with an async real-step run road -> forest -> dismount. New safety nets: toast after 18 s without progress; `H` = hint, `H` twice = hop ahead along the route.
+- Still open: night horizon comb, cow model, procedural (not photoreal) characters, post-processing, UI polish, AppImage/deb rebuild.
