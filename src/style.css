@@ -101,3 +101,7 @@ button.primary{border-color:var(--accent)!important;color:#fff!important}
 #objective.show{opacity:1}
 #objective small{display:block;font-size:10px;letter-spacing:.2em;color:#d8b070;margin-bottom:2px}
 #objective span{font-size:15px;color:#efe6d0;text-shadow:0 0 6px #000}
+
+#stam{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);width:140px;height:4px;background:rgba(255,255,255,.14);border-radius:3px;opacity:0;transition:opacity .4s;pointer-events:none;z-index:6}
+#stam i{display:block;height:100%;width:100%;background:#e8d6a0;border-radius:3px}
+#stam.winded i{background:#c0553a}

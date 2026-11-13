@@ -245,8 +245,11 @@ function playerUpdate(dt) {
   const ax = input.axis(), run = input.down('ShiftLeft') || input.down('ShiftRight')
   const tiredF = 1 - p.tired * 0.28
   let sp = 1.55 * tiredF
-  const canRun = run && p.stamina > 0.05 && !p.push && ax.y > 0.3 && !G.noRun
-  if (canRun) { sp = 3.5 * tiredF; p.stamina = Math.max(0, p.stamina - dt * (0.16 + p.tired * 0.1)) } else p.stamina = Math.min(1, p.stamina + dt * (0.12 - p.tired * 0.06) * (ax.x || ax.y ? 0.5 : 1.4))
+  // stamina with hysteresis: after exhaustion you must regain 30% before sprinting again (no flicker)
+  if (p.stamina <= 0.02) p.winded = true; else if (p.stamina > 0.3) p.winded = false
+  const canRun = run && !p.winded && !p.push && ax.y > 0.3 && !G.noRun
+  if (canRun) { sp = 3.5 * tiredF; p.stamina = Math.max(0, p.stamina - dt * (0.07 + p.tired * 0.05)) } else p.stamina = Math.min(1, p.stamina + dt * (0.22 - p.tired * 0.08) * (ax.x || ax.y ? 0.6 : 1.5))
+  { const sb = document.getElementById('stam'); if (sb) { sb.style.opacity = (p.stamina < 0.98 || canRun) ? 0.85 : 0; sb.firstElementChild.style.width = (p.stamina * 100).toFixed(0) + '%'; sb.classList.toggle('winded', !!p.winded) } }
   if (p.push) sp = 1.25 * tiredF * (G.mudSlow || 1)
   p.crouch = damp(p.crouch, (input.down('KeyC') || G.forceCrouch) && !p.push && !G.noCrouch ? 1 : 0, 9, dt); sp *= 1 - p.crouch * 0.55
   sp *= p.speedMul
@@ -264,7 +267,7 @@ function playerUpdate(dt) {
   if (moving) { p.bobT += dt * (canRun ? 11.5 : 7.6) * (1 - p.tired * 0.12); p.stepT += dt * (canRun ? 11.5 : 7.6) ; if (p.stepT >= Math.PI) { p.stepT -= Math.PI; if (audio.ctx) audio.footstep(L.surface ? L.surface(p.pos.x, p.pos.z) : 'dirt', canRun ? 1.15 : 0.8 - p.crouch * 0.4) } }
   audio.st.breathRate = canRun ? 0.9 : moving ? 0.38 + p.tired * 0.12 : 0.24 + G.fear * 0.2
   audio.st.breathDepth = canRun ? 1.0 : moving ? 0.35 + p.tired * 0.2 : 0.16 + G.fear * 0.4 + p.tired * 0.2
-  if (p.stamina < 0.12 && run) audio.st.breathDepth = 1.2
+  if (p.winded && run) audio.st.breathDepth = 1.2
 }
 
 function pushScooter(dt) {

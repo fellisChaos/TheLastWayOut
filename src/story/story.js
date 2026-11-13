@@ -6,7 +6,7 @@ import { ch5, ch6, ch7 } from './act3.js'
 import { ch9, ch10, ch11, ch12a, ch13a, ch12b, ch13b, ch14b } from './act4.js'
 
 export const CHAPTERS = [
-  { id: 'c1', title: 'Ek aam din — A normal day', run: async (s) => { await ch1(s); await ch1b(s) } },
+  { id: 'c1', title: 'Ek aam din — A normal day', run: async (s) => { if (!(typeof location !== 'undefined' && /[?&]ride=1/.test(location.search))) await ch1(s); await ch1b(s) } },
   { id: 'c2', title: 'Jungle ki taraf — The forest outing', run: ch2 },
   { id: 'c3', title: 'Baans ki chhaaon — The bamboo shade', run: ch3 },
   { id: 'c4', title: 'Raat ke 2 baje — The man and the voices', run: ch4 },
