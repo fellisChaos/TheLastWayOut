@@ -185,7 +185,7 @@ G.step = function (dt) {
   const p = G.player, L = G.level
   if (!L) return
   // timers
-  for (let i = G.timers.length - 1; i >= 0; i--) { const t = G.timers[i]; t.t -= dt; if (t.skippable) { t.el += dt; if (t.el > 0.5 && (input.hit('Space') || input.hit('Enter'))) t.t = 0 } if (t.t <= 0) { G.timers.splice(i, 1); t.res() } }
+  for (let i = G.timers.length - 1; i >= 0; i--) { const t = G.timers[i]; t.t -= dt * (G.timeScale || 1); if (t.skippable) { t.el += dt; if (t.el > 0.5 && (input.hit('Space') || input.hit('Enter'))) t.t = 0 } if (t.t <= 0) { G.timers.splice(i, 1); t.res() } }
   for (let i = G.untils.length - 1; i >= 0; i--) { const u = G.untils[i]; u.el += dt; let ok = false; try { ok = u.fn() } catch (e) { console.error(e) } if (ok || (u.t && u.el >= u.t)) { G.untils.splice(i, 1); u.res(ok) } }
   // player
   playerUpdate(dt)
@@ -223,7 +223,7 @@ function playerUpdate(dt) {
   // look
   const lk = input.consumeLook(), s = 0.0022 * input.sens * (input.touch ? 1.1 : 1)
   if (p.mode === 'ride') { p.lookOff = clamp((p.lookOff || 0) - lk.x * s, -1.9, 1.9); p.pitch = clamp(p.pitch - lk.y * s, -0.8, 0.5); if (!lk.x) p.lookOff *= Math.exp(-dt * 0.6) }
-  else if (p.canLook && !G.paused) { p.yaw -= lk.x * s; p.pitch = clamp(p.pitch - lk.y * s, -1.45, 1.45) }
+  else if (p.canLook && !G.paused) { let dx = -lk.x * s; const LL = G.lookLimit; if (LL) { const rel = angDiff(LL.c, p.yaw); if (Math.abs(rel) > LL.w && Math.sign(dx) === Math.sign(rel)) dx *= 0.12 } p.yaw += dx; p.pitch = clamp(p.pitch - lk.y * s, -1.45, 1.45) }
   if (input.hit('KeyF')) { G.setTorch(!G.torchOn) }
   if (input.hit('KeyP')) G.checkPhone()
   if (p.mode === 'ride' || !p.canMove) { if (p.mode !== 'ride') { p.vel = damp(p.vel, 0, 8, dt); p.crouch = damp(p.crouch, input.down('KeyC') && !G.noCrouch ? 1 : 0, 8, dt) } return }

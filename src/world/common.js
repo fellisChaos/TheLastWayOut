@@ -41,7 +41,7 @@ export function forestLevel(G, o) {
   L.ground(gs[0], gs[1], o.ground || 'grass', 7, gs[2], gs[3], o.groundColor || 0xffffff)
   for (const t of o.trails) {
     t.pts = smoothPts(t.pts, 6)
-    L.ribbon(t.pts, t.hw * 0.95, t.tex || 'mud', t.rep || 3, t.y || 0.012, t.color || 0xffffff)
+    if (!t.noRibbon) t.mesh = L.ribbon(t.pts, t.hw * 0.95, t.tex || 'mud', t.rep || 3, t.y || 0.012, t.color || 0xffffff)
     if (!t.noWalk) L.walk.corridor(t.pts, t.hw, t.name || 'trail')
   }
   if (o.bounds) L.add(scatterForest(G, { bounds: o.bounds, trails: o.trails, density: o.density || 0.05, seed: o.seed || 3, avoid: o.avoid || [], walk: L.walk, tint: o.tint }))
@@ -51,3 +51,9 @@ export function forestLevel(G, o) {
   return L
 }
 export const V3 = (x, y, z) => new THREE.Vector3(x, y, z)
+
+// point at distance d along polyline, offset sideways by off (positive = left of travel direction)
+export function sideAt(pts, d, off = 0) {
+  const p = ptAt(pts, d), nx = Math.cos(p.yaw), nz = -Math.sin(p.yaw)
+  return { x: p.x + nx * -off, z: p.z + nz * -off, yaw: p.yaw }
+}
