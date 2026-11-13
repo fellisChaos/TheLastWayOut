@@ -17,3 +17,18 @@
 - UI overhaul (menu 3D background, loading screen, settings polish) not started; only the objective HUD and the voice-language option were added.
 - No soft-lock guards on the other chapters' interact gates; the full real-input playthrough of all chapters was not run.
 - Voice clips: see /tmp/mv.log status in the summary.
+
+
+## Status update (latest session)
+### Fixed / done
+- Voice: 243 Hinglish + 240 English Piper neural clips rendered (the rest are silent "..." / stage-direction lines by design). Transcribed samples back word-for-word in both languages; both languages load and play in-browser with no errors. Settings > Voice language (Hinglish / English / None).
+- Lip-sync: the speaking character's mouth opens from the clip amplitude.
+- Chapter 4 (bamboo/storm) no longer black: per-mood exposure is now wired to the renderer, ambient raised, torch wider/brighter (mean luminance 12 -> ~19/255; bamboo, path and torch pool are readable).
+- Graphics: 17 Poly Haven CC0 PBR sets (diffuse + normal + roughness) now drive plaster, mud, brick, roof tile, tin, wood, cement, floor tile, earth, stone, bark, grass, road; world-scaled UVs on boxes; MSAA; soft sun shadows (Medium/High); woven-cloth normal map on clothes; capsule limbs and smoother heads.
+- Earlier: ch1 door exit, scooter tipping, objective HUD.
+### Still open (honest)
+- Not GTA-5 fidelity: characters are still procedural (smoother, but stylised). No skinned glTF humans, no post-processing (SSAO/bloom), no HDRI sky, no glTF vegetation.
+- Chapters 3-6 are still dark by design (~12-23/255); no UI overhaul (menu 3D bg, loading screen, rebinding); F3 debug overlay not built.
+- Night horizon "comb", cow looks like a sheep, ceiling/wall smear, bare street in home.js.
+- No soft-lock hints on later gates; no full real-input playthrough beyond ch1 (autopilot runs verified).
+- AppImage/deb not rebuilt this session (`npm run dist`); texture/voice assets add ~50 MB.

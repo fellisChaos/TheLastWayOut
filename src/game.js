@@ -204,6 +204,11 @@ G.step = function (dt) {
   if (G.scooter) { const sc = G.scooter; if (p.mode === 'ride') { const ax = input.axis(); sc.drive(dt, ax.y, ax.x, input.down('Space'), G.rideMax || 11); sc.uprightCheck(dt); rideBound(sc) } else if (p.push) pushScooter(dt); else sc.park(); sc.sync(dt); audio.st.rpm = clamp(Math.abs(sc.speed) / 11, 0, 1); ui.show('speedo', p.mode === 'ride'); if (p.mode === 'ride') document.getElementById('speedo-v').textContent = Math.round(Math.abs(sc.speed) * 3.6) }
   L.update(dt)
   for (const a of G.actors) a.update(dt)
+  { // lip-sync: open the mouth of the speaking actor from the clip level
+    const sp = G.speaking; let who = null, lv = 0
+    if (sp && sp.h && sp.h.level) { lv = sp.h.level(); who = sp.who === 'Nishant' ? G.comp : sp.who === 'Nishan' ? null : G.actors.filter(a => a !== G.comp && !a.hidden && a.P.mouthM).sort((a, b) => Math.hypot(a.pos.x - p.pos.x, a.pos.z - p.pos.z) - Math.hypot(b.pos.x - p.pos.x, b.pos.z - p.pos.z))[0] }
+    for (const a of G.actors) a.P.mouth = a === who ? lv : a.P.mouth * 0.7
+  }
   companionUpdate(dt)
   G.env.update(dt, G.camera.position)
   updateInteract(dt)

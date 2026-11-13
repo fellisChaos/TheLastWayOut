@@ -1,6 +1,6 @@
 // Procedural Indian characters (humanoid rigs built from primitives + painted face textures)
 import * as THREE from 'three'
-import { tex } from './textures.js'
+import { tex, fabricNormal } from './textures.js'
 import { clamp, damp, lerp, R } from '../core/util.js'
 
 const M = (o) => new THREE.MeshStandardMaterial({ roughness: 0.9, metalness: 0, ...o })
@@ -51,6 +51,7 @@ export function makePerson(name, over = {}) {
   const topTex = o.saree ? tex.saree(o.saree[0], o.saree[1]) : (o.top ? tex.cloth(o.top[0], o.top[1], o.top[2]) : null)
   const topM = M({ map: topTex, color: 0xffffff, roughness: 0.95 })
   const botM = M({ color: o.bottom || '#333', roughness: 0.95 })
+  { const fn = fabricNormal(5, 4); if (fn) { topM.normalMap = fn; topM.normalScale.set(0.9, 0.9); botM.normalMap = fn; botM.normalScale.set(0.9, 0.9) } }
   if (o.saree) botM.map = tex.saree(o.saree[0], o.saree[1])
   if (o.flat) { skinM.color.set('#040404'); topM.color.set('#040404'); topM.map = null; botM.color.set('#040404') }
   const shoeM = M({ color: o.shoes || o.skin, roughness: 0.7 })
@@ -61,7 +62,7 @@ export function makePerson(name, over = {}) {
   const pelvisW = 0.2 * sc * thin * (o.female ? 1.05 : 1)
   // torso
   const torso = new THREE.Group(); hips.add(torso)
-  const chest = mk(cyl(0.2 * sc * thin, 0.17 * sc * thin, torsoL, 12), topM, torso, 0, torsoL / 2, 0); chest.scale.z = 0.62
+  const chest = mk(cyl(0.2 * sc * thin, 0.17 * sc * thin, torsoL, 24), topM, torso, 0, torsoL / 2, 0); chest.scale.z = 0.62
   if (o.kurta || o.saree) { const skirtLen = o.saree ? 0.75 * sc : 0.38 * sc; const sk = mk(cyl(0.17 * sc * thin, o.saree ? 0.26 * sc : 0.23 * sc, skirtLen, 12), o.saree ? botM : topM, hips, 0, -skirtLen / 2 + 0.05, 0); sk.scale.z = 0.8 }
   const hipM = mk(cyl(0.165 * sc * thin, 0.17 * sc * thin, 0.2 * sc, 12), botM, hips, 0, -0.02, 0); hipM.scale.z = 0.7
   if (o.apron) { const ap = mk(new THREE.BoxGeometry(0.34 * sc, 0.6 * sc, 0.03), M({ color: '#5e564a' }), torso, 0, torsoL * 0.4, 0.17 * sc) }
@@ -71,10 +72,13 @@ export function makePerson(name, over = {}) {
   mk(cyl(0.045 * sc, 0.055 * sc, neck + 0.05, 8), skinM, torso, 0, torsoL + 0.0, 0)
   const headR = 0.112 * sc * (o.tallFace ? 0.9 : 1)
   const headM = new THREE.MeshStandardMaterial({ map: headTexture(o), roughness: 0.75 })
-  const head = new THREE.Mesh(new THREE.SphereGeometry(headR, 28, 20), headM); head.scale.set(0.86 * thin * 1.1, 1.15, 1.0); head.position.y = headR * 1.05; head.castShadow = true; headG.add(head)
+  const head = new THREE.Mesh(new THREE.SphereGeometry(headR, 40, 28), headM); head.scale.set(0.86 * thin * 1.1, 1.15, 1.0); head.position.y = headR * 1.05; head.castShadow = true; headG.add(head)
   // ears + nose bump for silhouette
   ;[-1, 1].forEach(s => mk(new THREE.SphereGeometry(headR * 0.2, 8, 6), skinM, headG, s * headR * 0.88 * thin, headR * 1.05, -0.005))
   mk(new THREE.SphereGeometry(headR * 0.16, 8, 6), skinM, headG, 0, headR * 0.98, headR * 0.98).scale.set(0.8, 1.1, 1.0)
+  // speaking mouth (opened by the voice clip level)
+  let mouthM = null
+  if (!o.flat && !o.tallFace) { mouthM = new THREE.Mesh(new THREE.CircleGeometry(headR * 0.14, 14), new THREE.MeshBasicMaterial({ color: '#2a0c09' })); mouthM.position.set(0, headR * 0.4, headR * 0.835); mouthM.rotation.x = 0.55; mouthM.scale.set(1, 0.001, 1); mouthM.visible = false; headG.add(mouthM) }
   // hair
   const hs = o.hairStyle
   if (hs !== 'bald') {
@@ -93,10 +97,11 @@ export function makePerson(name, over = {}) {
   for (const s of [-1, 1]) {
     const sh = new THREE.Group(); sh.position.set(s * (0.205 * sc * thin + 0.035), torsoL - 0.06, 0); torso.add(sh)
     const upL = 0.29 * sc, loL = 0.27 * sc
-    mk(cyl(0.045 * sc, 0.04 * sc, upL, 8), o.saree || o.top ? topM : skinM, sh, 0, -upL / 2, 0)
+    mk(new THREE.SphereGeometry(0.05 * sc, 14, 10), o.saree || o.top ? topM : skinM, sh, 0, 0, 0)
+    mk(new THREE.CapsuleGeometry(0.043 * sc, upL - 0.086 * sc, 4, 12), o.saree || o.top ? topM : skinM, sh, 0, -upL / 2, 0)
     const el = new THREE.Group(); el.position.y = -upL; sh.add(el)
-    mk(cyl(0.04 * sc, 0.032 * sc, loL, 8), sleeveLong ? topM : skinM, el, 0, -loL / 2, 0)
-    const hand = mk(new THREE.SphereGeometry(0.043 * sc, 8, 6), skinM, el, 0, -loL - 0.02, 0); hand.scale.set(0.9, 1.25, 0.6)
+    mk(new THREE.CapsuleGeometry(0.036 * sc, loL - 0.072 * sc, 4, 12), sleeveLong ? topM : skinM, el, 0, -loL / 2, 0)
+    const hand = mk(new THREE.SphereGeometry(0.043 * sc, 14, 10), skinM, el, 0, -loL - 0.02, 0); hand.scale.set(0.9, 1.25, 0.6)
     if (o.bangles) for (let i = 0; i < 3; i++) { const b = mk(new THREE.TorusGeometry(0.034 * sc, 0.006, 5, 10), M({ color: i % 2 ? '#c8a21a' : '#2a8a4a', metalness: 0.7, roughness: 0.3 }), el, 0, -loL + 0.01 - i * 0.012, 0); b.rotation.x = Math.PI / 2 }
     arms.push({ sh, el })
   }
@@ -106,19 +111,20 @@ export function makePerson(name, over = {}) {
     const hp = new THREE.Group(); hp.position.set(s * pelvisW * 0.55, -0.04, 0); hips.add(hp)
     const thL = legL * 0.5, shL = legL * 0.5 - 0.06
     const trouser = o.lungi ? botM : botM
-    const th = mk(cyl(0.085 * sc * thin, 0.065 * sc * thin, thL, 8), trouser, hp, 0, -thL / 2, 0)
+    const th = mk(new THREE.CapsuleGeometry(0.075 * sc * thin, Math.max(0.05, thL - 0.15 * sc * thin), 4, 14), trouser, hp, 0, -thL / 2, 0)
     const kn = new THREE.Group(); kn.position.y = -thL; hp.add(kn)
-    mk(cyl(0.062 * sc * thin, 0.05 * sc * thin, shL, 8), o.lungi ? skinM : trouser, kn, 0, -shL / 2, 0)
-    const foot = mk(new THREE.BoxGeometry(0.095 * sc, 0.06 * sc, 0.25 * sc), shoeM, kn, 0, -shL - 0.025, 0.05 * sc)
+    mk(new THREE.CapsuleGeometry(0.052 * sc * thin, Math.max(0.05, shL - 0.104 * sc * thin), 4, 14), o.lungi ? skinM : trouser, kn, 0, -shL / 2, 0)
+    const foot = mk(new THREE.SphereGeometry(0.06 * sc, 14, 10), shoeM, kn, 0, -shL - 0.03, 0.06 * sc); foot.scale.set(0.85, 0.55, 2.1)
     legs.push({ hp, kn, foot })
   }
   if (o.lungi) { const l = mk(cyl(0.2 * sc, 0.25 * sc, 0.62 * sc, 12), botM, hips, 0, -0.3 * sc, 0); l.scale.z = 0.8; l.material = M({ map: tex.cloth(o.bottom, '#d9d2b0', 'check') }) }
 
   const P = {
-    root, body, hips, torso, headG, arms, legs, o, sc, legL, phase: 0, speed: 0, pose: 'stand', crouch: 0, lookY: 0, lookX: 0, tremble: 0, held: null, t: Math.random() * 10, headR,
+    root, body, hips, torso, headG, arms, legs, o, sc, legL, mouthM, mouth: 0, phase: 0, speed: 0, pose: 'stand', crouch: 0, lookY: 0, lookX: 0, tremble: 0, held: null, t: Math.random() * 10, headR,
     setPose(p) { this.pose = p },
     hold(obj, side = 1, off = [0, -0.3, 0.12]) { if (this.held) this.held.parent && this.held.parent.remove(this.held); this.held = obj; if (obj) { arms[side > 0 ? 1 : 0].el.add(obj); obj.position.set(...off.map(v => v * sc)) } },
     update(dt, speed = 0) {
+      if (mouthM) { const m = this.mouth; mouthM.visible = m > 0.06; mouthM.scale.y = 0.12 + clamp(m * 2.6, 0, 1) * 1.1 }
       this.t += dt; this.speed = damp(this.speed, speed, 8, dt)
       const sp = this.speed, w = clamp(sp / 1.6, 0, 1.4), ph = (this.phase += dt * sp * 2.6)
       const idleB = Math.sin(this.t * 1.7) * 0.012

@@ -294,13 +294,15 @@ const loadImg = (url) => new Promise((res) => { const im = new Image(); im.onloa
 let _pbrP = null
 export function preloadPBR() {
   if (_pbrP) return _pbrP
-  const slugs = [...new Set(Object.values(SETS).map(s => s.slug))]
+  const slugs = [...new Set([...Object.values(SETS).map(s => s.slug), 'rough_linen'])]
   _pbrP = Promise.all(slugs.map(async (slug) => {
     const [d, n, r] = await Promise.all(['diff', 'nor', 'rough'].map(k => loadImg(`./tex/${slug}_${k}.jpg`)))
     if (!d) return
     const mk = (im, srgb) => { const t = new THREE.Texture(im); t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8; t.needsUpdate = true; return t }
     const avg = (() => { const c = mk0(8); const g = c.getContext('2d'); g.drawImage(d, 0, 0, 8, 8); const a = g.getImageData(0, 0, 8, 8).data; let R = 0, G = 0, B = 0; for (let i = 0; i < a.length; i += 4) { R += a[i]; G += a[i + 1]; B += a[i + 2] } const k = a.length / 4; return [R / k, G / k, B / k] })()
-    pbrTex[slug] = { diff: mk(d, true), nrm: n ? mk(n, false) : null, rgh: r ? mk(r, false) : null, img: d, avg }
+    const shrink = (im) => { if (!im) return null; const c = document.createElement('canvas'); c.width = c.height = 512; c.getContext('2d').drawImage(im, 0, 0, 512, 512); return c }
+    const mkc = (c) => { if (!c) return null; const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.NoColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8; return t }
+    pbrTex[slug] = { diff: mk(d, true), nrm: mkc(shrink(n)), rgh: mkc(shrink(r)), img: d, avg }
   })).then(() => installPBR())
   return _pbrP
 }
@@ -346,3 +348,9 @@ export function withPBR(m) {
   return m
 }
 export const worldUV = (mat) => (mat && mat.map && mat.map.userData && mat.map.userData.world) || 0
+
+// woven-cloth normal map for clothing (null until PBR sets are loaded)
+export function fabricNormal(rx = 4, ry = 3) {
+  const P = pbrTex.rough_linen; if (!P || !P.nrm) return null
+  const t = P.nrm.clone(); t.needsUpdate = true; t.repeat.set(rx, ry); return t
+}
