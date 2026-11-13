@@ -66,8 +66,12 @@ for k, l in L.items():
         if os.path.exists(ogg) and not FORCE:
             l['d_' + lang] = round(dur(ogg), 2); continue
         wav = f'/tmp/vo/{lang}_{k}.wav'
-        piper(model, text, wav, length)
-        post(wav, ogg, pitch, tp, whisper, 22050)
+        try:
+            piper(model, text, wav, length)
+            post(wav, ogg, pitch, tp, whisper, 22050)
+        except Exception as e:
+            print('SKIP', k, lang, repr(text)[:60], str(e)[:80], flush=True)
+            l.pop('d_' + lang, None); continue
         l['d_' + lang] = round(dur(ogg), 2); n += 1
         os.remove(wav)
     if n % 20 == 0: print(n, k, l['who'], flush=True)
