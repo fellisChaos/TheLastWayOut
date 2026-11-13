@@ -15,3 +15,5 @@ sa=सा saamne=सामने saanp=साँप saans=साँस saath=स
 taar=तार tak=तक tap=टप taraf=तरफ़ tarah=तरह taste=टेस्ट tedha=टेढ़ा tension=टेंशन tera=तेरा thakaan=थकान thand=ठंड the=थे theek=ठीक thi=थी thik=ठीक thoda=थोड़ा thodi=थोड़ी tiffin=टिफ़िन time=टाइम tod=तोड़ toh=तो toot=टूट tooti=टूटी torch=टॉर्च try=ट्राई tu=तू tum=तुम tumhara=तुम्हारा tune=तूने tv=टीवी tyre=टायर
 ulta=उल्टा ulti=उल्टी uncle=अंकल unhone=उन्होंने unke=उनके unki=उनकी unko=उनको us=उस usi=उसी uske=उसके usko=उसको uth=उठ utha=उठा uthaate=उठाते utho=उठो vhoot=भूत videos=वीडियोज़ waalon=वालों wah=वाह wahan=वहाँ wahi=वही wahin=वहीं waise=वैसे wali=वाली wapas=वापस waqt=वक़्त wo=वो woh=वो ya=या yaad=याद yaar=यार yahan=यहाँ yahi=यही yahin=यहीं yakeen=यक़ीन ye=ये zaroori=ज़रूरी zyada=ज़्यादा
 muro=मुड़ो tha=था
+
+bachpan=बचपन bimari=बीमारी board=बोर्ड bula=बुला chalo=चलो chalta=चलता chune=चुने dikkat=दिक्कत dunga=दूँगा gine=गिने isse=इससे jaao=जाओ jaayegi=जाएगी jao=जाओ jeena=जीना laane=लाने leta=लेता maa=माँ maane=माने meri=मेरी nuksaan=नुकसान piyo=पियो poochho=पूछो ruko=रुको seedha=सीधा seekh=सीख shak=शक shehar=शहर shhh=श्श्श technology=टेक्नोलॉजी tumhare=तुम्हारे un=उन unhe=उन्हें ussi=उसी utar=उतर waale=वाले

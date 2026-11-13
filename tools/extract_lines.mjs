@@ -5,10 +5,10 @@ const str = String.raw`(?:'(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*")`
 const ev = (s) => new Function('return ' + s)()
 const lines = {}
 const files = fs.readdirSync('src/story').filter(f => /^act\d\.js$/.test(f))
-const NAMES = { N: 'Nishan', T: 'Nishant' }
+const NAMES = { N: 'Nishan', T: 'Nishant', U: 'Uncle' }
 for (const f of files) {
   const src = fs.readFileSync('src/story/' + f, 'utf8')
-  const re2 = new RegExp(String.raw`(?<![\w.])(N|T)\(\s*(${str})\s*,\s*(${str})`, 'g')
+  const re2 = new RegExp(String.raw`(?<![\w.])(N|T|U)\(\s*(${str})\s*,\s*(${str})`, 'g')
   const re3 = new RegExp(String.raw`(?<![\w])(?:say|ui\.say)\(\s*(${str})\s*,\s*(${str})\s*,\s*(${str})`, 'g')
   let m
   while ((m = re2.exec(src))) { const who = NAMES[m[1]], hi = ev(m[2]), en = ev(m[3]); lines[lineId(who, hi)] = { who, hi, en, src: f } }
