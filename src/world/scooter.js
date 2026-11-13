@@ -34,11 +34,11 @@ export class Scooter {
     // physics
     const w = G.world
     this.chassis = new CANNON.Body({ mass: 150, material: G.mat.vehicle, allowSleep: false, linearDamping: 0.03, angularDamping: 0.45 })
-    this.chassis.addShape(new CANNON.Box(new CANNON.Vec3(0.2, 0.22, 0.85)), new CANNON.Vec3(0, 0.05, 0))
+    this.chassis.addShape(new CANNON.Box(new CANNON.Vec3(0.2, 0.15, 0.85)), new CANNON.Vec3(0, -0.12, 0)); this.chassis.angularFactor.set(0.12, 1, 0.12)
     this.chassis.position.set(0, 0.7, 0)
     this.vehicle = new CANNON.RaycastVehicle({ chassisBody: this.chassis, indexRightAxis: 0, indexUpAxis: 1, indexForwardAxis: 2 })
-    const o = { radius: 0.21, directionLocal: new CANNON.Vec3(0, -1, 0), axleLocal: new CANNON.Vec3(-1, 0, 0), suspensionStiffness: 32, suspensionRestLength: 0.22, frictionSlip: 3.4, dampingRelaxation: 2.4, dampingCompression: 4.4, maxSuspensionForce: 1e5, rollInfluence: 0.01, maxSuspensionTravel: 0.22, customSlidingRotationalSpeed: -30, useCustomSlidingRotationalSpeed: true }
-    ;[[0.07, 0.62], [-0.07, 0.62], [0.07, -0.62], [-0.07, -0.62]].forEach(([x, z]) => this.vehicle.addWheel({ ...o, chassisConnectionPointLocal: new CANNON.Vec3(x, 0.02, z) }))
+    const o = { radius: 0.21, directionLocal: new CANNON.Vec3(0, -1, 0), axleLocal: new CANNON.Vec3(-1, 0, 0), suspensionStiffness: 45, suspensionRestLength: 0.22, frictionSlip: 3.4, dampingRelaxation: 3.6, dampingCompression: 5.2, maxSuspensionForce: 1e5, rollInfluence: 0, maxSuspensionTravel: 0.22, customSlidingRotationalSpeed: -30, useCustomSlidingRotationalSpeed: true }
+    ;[[0.24, 0.62], [-0.24, 0.62], [0.24, -0.62], [-0.24, -0.62]].forEach(([x, z]) => this.vehicle.addWheel({ ...o, chassisConnectionPointLocal: new CANNON.Vec3(x, 0.02, z) }))
     this.vehicle.addToWorld(w)
     this.headLight = new THREE.SpotLight('#fff1cf', 0, 55, 0.5, 0.55, 1.4); this.headLight.position.set(0, 0.93, 0.6); this.headTarget = new THREE.Object3D(); this.headTarget.position.set(0, 0.5, 6); this.lean_g.add(this.headLight, this.headTarget); this.headLight.target = this.headTarget
     this.sit = new THREE.Object3D(); this.sit.position.set(0, 0.66, -0.2); this.lean_g.add(this.sit)    // rider hip
@@ -63,9 +63,18 @@ export class Scooter {
   get speed() { return this.vehicle.currentVehicleSpeedKmHour / 3.6 }
   fwd() { const y = this.yaw; return new THREE.Vector3(Math.sin(y), 0, Math.cos(y)) }
   setPunctured(v) { this.punctured = v; const s = v ? 0.55 : 1; this.wheelR.scale.set(1, s, 1); this.wheelR.position.y = v ? 0.17 : 0.21 }
+  stabilize(dt) {
+    const q = this.chassis.quaternion, qq = new THREE.Quaternion(q.x, q.y, q.z, q.w)
+    const up = new THREE.Vector3(0, 1, 0).applyQuaternion(qq)
+    const ax = new THREE.Vector3().crossVectors(up, new THREE.Vector3(0, 1, 0)) // axis that rotates up -> world up
+    const k = 40, av = this.chassis.angularVelocity
+    av.x += ax.x * k * dt; av.z += ax.z * k * dt
+    av.x *= 1 - Math.min(1, 6 * dt); av.z *= 1 - Math.min(1, 6 * dt)
+  }
   uprightCheck(dt) {
+    this.stabilize(dt)
     const up = new THREE.Vector3(0, 1, 0).applyQuaternion(new THREE.Quaternion(this.chassis.quaternion.x, this.chassis.quaternion.y, this.chassis.quaternion.z, this.chassis.quaternion.w))
-    if (up.y < 0.45) { this._tip = (this._tip || 0) + dt; if (this._tip > 1.2) { const p = this.chassis.position; this.place(p.x, p.z, this.yaw); this._tip = 0 } } else this._tip = 0
+    if (up.y < 0.6) { this._tip = (this._tip || 0) + dt; if (this._tip > 0.5) { const p = this.chassis.position; this.place(p.x, p.z, this.yaw); this._tip = 0 } } else this._tip = 0
   }
   // controls: throttle -1..1, steer -1..1, brake bool, maxSpeed m/s
   drive(dt, throttle, steer, brake, maxSpeed = 11) {
