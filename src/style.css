@@ -133,3 +133,6 @@ button.primary{border-color:var(--accent)!important;color:#fff!important}
 .map-btns{display:flex;gap:8px;margin:12px 0}.map-btns button{min-width:0!important;margin:0!important;padding:8px 12px!important}
 @media (max-width:900px){.map-body{flex-direction:column}#map-c{width:100%}#minimap-w{width:120px;top:56px;right:10px}#minimap{width:120px;height:120px}#minimap-hint{display:none}}
 #touch #b-map{right:calc(6vw + 148px);bottom:8vh}#touch #b-help{right:calc(6vw + 74px);bottom:calc(8vh + 74px)}
+
+body.map-open #hud,body.map-open #vignette,body.map-open #fear{visibility:hidden}
+#map{background:rgba(0,0,0,.82)}

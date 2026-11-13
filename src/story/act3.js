@@ -164,13 +164,13 @@ export async function ch7(s) {
   ui.toast('Lane ke aakhir tak chalo', 4)
   await N('Gaon hi hai. Ghar, gali, lalten.', 'It is a village. Houses, lanes, lanterns.', { dur: 3 })
   await T('Na khambe, na taar. Bijli nahi lagti yahan.', 'No poles, no wires. They don\'t seem to have electricity.', { dur: 3.2 })
-  await gate(() => trailD(L.lanePts) > 20, () => snapTo(0, 22))
+  await gate(() => trailD(L.lanePts) > 20, () => snapTo(0, 22), 0, [0, 22, 'Gali mein aage chalo · Walk down the lane'])
   caption('[no traffic, no TV, no dogs - only the dripping of rain from the roofs]', 3.6)
   await wait(2)
   await N('Us khidki mein... kuch safed sa tha. Aankhon jaisa.', 'In that window... something white. Like eyes.', { dur: 3.2 })
   await T('Mat dekh. Pehle madad dhoondh.', 'Don\'t look. Find help first.', { dur: 2.4 })
   reveal('village', 'eyes')
-  await gate(() => G.distToPlayer(0, 52) < 5, () => snapTo(0, 52))
+  await gate(() => G.distToPlayer(0, 52) < 5, () => snapTo(0, 52), 0, [0, 52, 'Gali ke aakhir mein ghar · The house at the end of the lane'])
   pushOff()
   G.scooter.place(-2.9, 53, 0.4); G.noRun = false
   c.mode = 'follow'
@@ -204,7 +204,7 @@ export async function ch7(s) {
   // ---------------- CH 8: inside
   ui.toast('Andar chalo', 3)
   un.walkTo(L.refs.uncleSpot.x, L.refs.uncleSpot.z, 1.2)
-  await gate(() => H.inside(p.pos.x, p.pos.z), () => snapTo(L.refs.doorIn.x, L.refs.doorIn.z))
+  await gate(() => H.inside(p.pos.x, p.pos.z), () => snapTo(L.refs.doorIn.x, L.refs.doorIn.z), 0, [L.refs.doorIn.x, L.refs.doorIn.z, 'Ghar ke andar chalo · Go inside'])
   await wait(0.5)
   ui.titleCard('CHAPTER 8', 'Ghar ke andar', '3:30 AM', 3)
   G.clockRate = 5

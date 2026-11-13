@@ -16,8 +16,11 @@ export function build(G, opts = {}) {
   L.ground(700, 1100, 'grass', 7, 0, 380, 0xe0e8d0)
   L.ribbon(pts, 3.1, 'road', 6, 0.012)
   L.ribbon(pts.map(p => ({ x: p.x - 0.02, z: p.z })), 4.1, 'mud', 4, 0.006)
-  L.rideCorr = { pts, hw: 3.7 }
-  L.walk.corridor(pts, 3.7, 'road')
+  // extend the drivable corridor 45 m past the last point so the scooter never hits a hard dead end before the story gate
+  const la = pts[pts.length - 1], lb = pts[pts.length - 2], ll = Math.hypot(la.x - lb.x, la.z - lb.z) || 1
+  const ext = [...pts, { x: la.x + (la.x - lb.x) / ll * 45, z: la.z + (la.z - lb.z) / ll * 45 }]
+  L.rideCorr = { pts: ext, hw: 3.7 }
+  L.walk.corridor(ext, 3.7, 'road')
   L.projDist = (x, z) => projDist(pts, x, z)
   L.surface = () => 'road'
   const side = (d, off) => { // point offset from road at distance d

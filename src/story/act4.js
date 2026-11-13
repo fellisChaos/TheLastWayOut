@@ -101,7 +101,7 @@ export async function ch10(s) {
   ui.toast('Ped aur jhaadiyon ke peeche chhup jao', 5)
   c.mode = 'follow'
   un.walkTo(L.refs.hide.x + 0.9, L.refs.hide.z - 0.4, 2)
-  await gate(() => G.distToPlayer(L.refs.hide.x, L.refs.hide.z) < 1.8, () => snapTo(L.refs.hide.x, L.refs.hide.z))
+  await gate(() => G.distToPlayer(L.refs.hide.x, L.refs.hide.z) < 1.8, () => snapTo(L.refs.hide.x, L.refs.hide.z), 0, [L.refs.hide.x, L.refs.hide.z, 'Ped ke peeche chhup jao · Hide behind the tree'])
   G.noRun = true
   c.mode = 'hold'; c.holdPos = { x: L.refs.hide.x - 0.8, z: L.refs.hide.z + 0.3 }
   await U('Shhh.', 'Shhh.', { pos: un.pos, dur: 1.2 })
@@ -148,7 +148,7 @@ export async function ch11(s) {
   un.walkTo(L.refs.rest.x + 2.6, L.refs.rest.z + 0.3, 1.3)
   c.mode = 'hold'; c.holdPos = { x: L.refs.rest.x + 0.5, z: L.refs.rest.z - 1.5 }
   ui.toast('Ped ke neeche thodi der baith jao', 4.5)
-  await gate(() => G.distToPlayer(L.refs.rest.x, L.refs.rest.z) < 4.5, () => snapTo(L.refs.rest.x + 0.6, L.refs.rest.z - 0.4))
+  await gate(() => G.distToPlayer(L.refs.rest.x, L.refs.rest.z) < 4.5, () => snapTo(L.refs.rest.x + 0.6, L.refs.rest.z - 0.4), 0, [L.refs.rest.x, L.refs.rest.z, 'Ped ke neeche baith jao · Rest under the tree'])
   p.canMove = false; G.noRun = false
   un.face(p.pos)
   await wait(1.8)
@@ -379,7 +379,7 @@ export async function ch12b(s) {
   await wait(8)
   await N('Itni der se ek hi jagah... Nahi, paas jaana theek nahi.', 'All this time on one spot... No, going closer isn\'t right.', { dur: 3.6 })
   ui.toast('Ped ke paas wapas laut aao', 4)
-  await gate(() => G.distToPlayer(R.rest.x, R.rest.z) < 2.6, () => snapTo(R.rest.x + 0.2, R.rest.z - 0.3))
+  await gate(() => G.distToPlayer(R.rest.x, R.rest.z) < 2.6, () => snapTo(R.rest.x + 0.2, R.rest.z - 0.3), 0, [R.rest.x, R.rest.z, 'Ped ke paas wapas aao · Come back to the tree'])
   await N('(dheere) Nishant... jaldi aa...', '(under his breath) Nishant... come back soon...', { dur: 2.8 })
   await wait(8)
   // a hand on the shoulder from behind

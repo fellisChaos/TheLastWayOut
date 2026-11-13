@@ -18,7 +18,11 @@ export const input = {
   endFrame() { this.pressed.clear() },
   init(canvas, hooks) {
     this.canvas = canvas; this.hooks = hooks
+    // Shift state straight from the event (immune to lost keyup / focus changes)
+    const syncShift = e => { if (e.shiftKey !== undefined) this.keys.Shift = !!e.shiftKey }
+    addEventListener('keyup', syncShift, true); addEventListener('mousemove', syncShift, true); addEventListener('mousedown', syncShift, true)
     addEventListener('keydown', e => {
+      syncShift(e)
       if (e.repeat) { if (this.enabled) e.preventDefault(); return }
       this.keys[e.code] = true; this.pressed.add(e.code)
       if (e.code === 'Escape' && this.enabled) hooks.onPause && hooks.onPause()

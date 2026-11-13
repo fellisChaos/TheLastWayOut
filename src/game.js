@@ -10,6 +10,7 @@ import { makeTorch } from './world/people.js'
 import { clamp, damp, lerp, angDiff, fmtClock, R, nearestOnPoly } from './core/util.js'
 import { Scooter } from './world/scooter.js'
 import { preloadPBR } from './world/textures.js'
+import { nav } from './core/nav.js'
 
 const LEVELS = import.meta.glob('./levels/*.js')
 
@@ -24,6 +25,7 @@ ui.G = G
 
 // ---------------- init ----------------
 G.init = function (canvas) {
+  nav.init(G); G.nav = nav
   G.canvas = canvas
   const r = (G.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' }))
   r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.05; r.outputColorSpace = THREE.SRGBColorSpace
@@ -213,6 +215,7 @@ G.step = function (dt) {
   G.env.update(dt, G.camera.position)
   updateInteract(dt)
   updateCamera(dt)
+  nav.update(dt)
   updateAudioState(dt)
   G.tickClock(dt, G.clockRate || 0)
   // fear / tired smoothing
@@ -231,7 +234,7 @@ function rideBound(sc) {
     return
   }
   const c = sc.chassis, n = nearestOnPoly(L.rideCorr.pts, c.position.x, c.position.z)
-  if (n.d > L.rideCorr.hw) { const k = L.rideCorr.hw / n.d; const nx = n.x + (c.position.x - n.x) * k, nz = n.z + (c.position.z - n.z) * k; c.position.x = nx; c.position.z = nz; c.velocity.x *= 0.9; c.velocity.z *= 0.9; if (!G._edgeT || performance.now() - G._edgeT > 1500) { G._edgeT = performance.now(); ui.toast('Raaste par hi raho.', 2) } }
+  if (n.d > L.rideCorr.hw) { const k = L.rideCorr.hw / n.d; const nx = n.x + (c.position.x - n.x) * k, nz = n.z + (c.position.z - n.z) * k; c.position.x = nx; c.position.z = nz; { const ox = (c.position.x - n.x) / (L.rideCorr.hw || 1), oz = (c.position.z - n.z) / (L.rideCorr.hw || 1), vn = c.velocity.x * ox + c.velocity.z * oz; if (vn > 0) { c.velocity.x -= ox * vn; c.velocity.z -= oz * vn } } if (!G._edgeT || performance.now() - G._edgeT > 1500) { G._edgeT = performance.now(); ui.toast('Raaste par hi raho.', 2) } }
 }
 function playerUpdate(dt) {
   const p = G.player, L = G.level
@@ -240,13 +243,15 @@ function playerUpdate(dt) {
   if (p.mode === 'ride') { p.lookOff = clamp((p.lookOff || 0) - lk.x * s, -1.9, 1.9); p.pitch = clamp(p.pitch - lk.y * s, -0.8, 0.5); if (!lk.x) p.lookOff *= Math.exp(-dt * 0.6) }
   else if (p.canLook && !G.paused) { let dx = -lk.x * s; const LL = G.lookLimit; if (LL) { const rel = angDiff(LL.c, p.yaw); if (Math.abs(rel) > LL.w && Math.sign(dx) === Math.sign(rel)) dx *= 0.12 } p.yaw += dx; p.pitch = clamp(p.pitch - lk.y * s, -1.45, 1.45) }
   if (input.hit('KeyF')) { G.setTorch(!G.torchOn) }
+  if (input.hit('KeyH')) nav.help()
   if (input.hit('KeyP')) G.checkPhone()
   if (p.mode === 'ride' || !p.canMove) { if (p.mode !== 'ride') { p.vel = damp(p.vel, 0, 8, dt); p.crouch = damp(p.crouch, input.down('KeyC') && !G.noCrouch ? 1 : 0, 8, dt) } return }
-  const ax = input.axis(), run = input.down('ShiftLeft') || input.down('ShiftRight')
+  const ax = input.axis(), run = input.down('Shift') || (input.touch && input.down('ShiftLeft'))
   const tiredF = 1 - p.tired * 0.28
   let sp = 1.55 * tiredF
   // stamina with hysteresis: after exhaustion you must regain 30% before sprinting again (no flicker)
   if (p.stamina <= 0.02) p.winded = true; else if (p.stamina > 0.3) p.winded = false
+  if (run && ax.y > 0.3 && (p.push || G.noRun) && !(G._rt > performance.now() - 6000)) { G._rt = performance.now(); ui.toast('Abhi daud nahi sakte · Can\'t run right now', 2) }
   const canRun = run && !p.winded && !p.push && ax.y > 0.3 && !G.noRun
   if (canRun) { sp = 3.5 * tiredF; p.stamina = Math.max(0, p.stamina - dt * (0.07 + p.tired * 0.05)) } else p.stamina = Math.min(1, p.stamina + dt * (0.22 - p.tired * 0.08) * (ax.x || ax.y ? 0.6 : 1.5))
   { const sb = document.getElementById('stam'); if (sb) { sb.style.opacity = (p.stamina < 0.98 || canRun) ? 0.85 : 0; sb.firstElementChild.style.width = (p.stamina * 100).toFixed(0) + '%'; sb.classList.toggle('winded', !!p.winded) } }

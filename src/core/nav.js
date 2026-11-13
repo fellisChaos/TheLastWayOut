@@ -151,6 +151,8 @@ export const nav = {
     // objective text (explicit chapter objective wins, otherwise the active goal's label) + distance line
     const want = ui.objText || (goal && goal.label) || null
     if (want !== this._obj) { this._obj = want; const e = $('objective'); if (want) { $('objective-t').textContent = want; e.classList.add('show') } else e.classList.remove('show') }
+    this.wp(pose, goal)
+    this.stuckCheck(pose, goal, dt)
     this.mmT -= dt; if (this.mmT > 0) return; this.mmT = 0.05
     let info = null
     if (goal && this.route) {
@@ -162,6 +164,43 @@ export const nav = {
     this.info = info
     if (this.mode !== 'off') this.drawCompass(pose, info)
     if (this.mode === 'full') this.drawMini(pose, goal, info)
+  },
+  // on-screen waypoint diamond (projected from the 3D goal position)
+  wp(pose, goal) {
+    const G = this.G, el = $('wp'); if (!el) return
+    if (!goal || this.mode === 'off' || G.paused || !G.camera) { el.style.opacity = 0; return }
+    const cam = G.camera; cam.updateMatrixWorld()
+    const v = new G.THREE.Vector3(goal.x, (goal.y ?? 0) + 1.6, goal.z).project(cam)
+    if (v.z > 1 || Math.abs(v.x) > 0.96 || Math.abs(v.y) > 0.92) { el.style.opacity = 0; return }
+    el.style.left = ((v.x * 0.5 + 0.5) * innerWidth).toFixed(0) + 'px'; el.style.top = ((-v.y * 0.5 + 0.5) * innerHeight).toFixed(0) + 'px'
+    const d = Math.hypot(goal.x - pose.x, goal.z - pose.z); $('wp-d').textContent = Math.round(d) + ' m'
+    el.style.opacity = d < 3.5 ? 0 : 0.95
+  },
+  // no progress for a long time -> gentle nudge toward the H key
+  stuckCheck(pose, goal, dt) {
+    if (!goal || this.G.paused) { this._sk = null; return }
+    if (!this._sk || this._sk.goal !== goal) { this._sk = { goal, x: pose.x, z: pose.z, t: 0 }; return }
+    const s = this._sk; s.t += dt
+    if (Math.hypot(pose.x - s.x, pose.z - s.z) > 3) { s.x = pose.x; s.z = pose.z; s.t = 0; return }
+    if (s.t > 18) { s.t = 0; this.G.ui.toast('Atak gaye? Sunhari nishaan ki taraf chalo — ya H dabao (do baar = aage le jayega) · Stuck? Press H (twice = hop ahead)', 6) }
+  },
+  // H: first press = hint, second press within 3 s = hop a few metres ahead along the route
+  help() {
+    const G = this.G, ui = G.ui, pose = this.pose(), g = G.goal
+    if (!g) { ui.toast('Abhi koi khaas manzil nahi — kahani aage badhegi. · No waypoint right now.', 3); return }
+    if (this._hT !== undefined && this.t - this._hT < 3 && this.t - this._hT > 0.35) { this._hT = undefined; return this.hop(pose, g) }
+    this._hT = this.t
+    const i = this.info
+    ui.toast(`${g.label || 'Agla padaav'}  ·  ${i ? Math.round(i.dist) + ' m, ' + this.dirWord(i.rel) : ''}\n(H dobara = aage hop)`, 4.5)
+  },
+  hop(pose, g) {
+    const G = this.G, p = G.player
+    this.updateRoute(pose, g, true)
+    const la = this.lookAhead(pose, 9); if (!la) return
+    const yaw = Math.atan2(la.x - pose.x, la.z - pose.z)
+    if (p.mode === 'ride' && G.scooter) { G.scooter.place(la.x, la.z, yaw); G.scooter.chassis.velocity.set(0, 0, 0) }
+    else { G.teleportPlayer(la.x, la.z, yaw); if (G.scooter && p.push) { const c = G.scooter.chassis; c.position.set(la.x + Math.sin(yaw) * 1.05, 0.6, la.z + Math.cos(yaw) * 1.05); c.velocity.set(0, 0, 0) } }
+    this.routeAt = null; G.ui.toast('Aage badh gaye · Hopped ahead', 1.8)
   },
   dirWord(rel) {
     const a = Math.abs(rel)

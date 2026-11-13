@@ -5,7 +5,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms))
 const F0 = { Nishan: 118, Nishant: 132, Uncle: 98, Beti: 250, Mummy: 215, Chacha: 105, Papa: 100, Stranger: 112, Aadmi: 108, Chaiwala: 115, Awaaz: 135 }
 
 class UI {
-  constructor() { this.subMode = 'both'; this.caps = true; this.tts = false; this._capT = null; this._toastT = null; this.reduceFlash = false; this.voiceLang = 'hi'; this.lines = null }
+  constructor() { this.subMode = 'both'; this.caps = true; this.tts = false; this._capT = null; this._toastT = null; this.reduceFlash = false; this.voiceLang = 'hi'; this.lines = null; this.objText = null }
   init() {
     audio.onCaption = (t, d) => this.caption(t, d)
     fetch('./voice/lines.json').then(r => r.json()).then(j => { this.lines = j }).catch(() => { this.lines = {} })
@@ -43,7 +43,7 @@ class UI {
     if (p.dataset.t !== text + key) { $('prompt-t').textContent = text; p.querySelector('kbd').textContent = key; p.dataset.t = text + key }
     p.classList.add('show')
   }
-  objective(t) { const e = $('objective'); if (!t) { e.classList.remove('show'); return } $('objective-t').textContent = t; e.classList.add('show') }
+  objective(t) { this.objText = t || null }
   hold(v) { const h = $('holdbar'); h.style.opacity = v > 0 ? 1 : 0; h.firstElementChild.style.width = (v * 100) + '%' }
   clock(txt, frozen = false, show = true) { const c = $('clock'); $('clock-t').textContent = txt; c.classList.toggle('show', show); c.classList.toggle('frozen', frozen) }
   fade(to = 1, sec = 1.2) { const f = $('fade'); f.style.transition = `opacity ${sec}s ease`; f.style.opacity = to; return sleep(sec * 1000 + 30) }

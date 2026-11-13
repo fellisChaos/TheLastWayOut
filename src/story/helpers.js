@@ -25,7 +25,7 @@ export async function load(name, opts = {}, comp = { x: 0, z: 0, outfit: 'nishan
   }
   G.torchOn = false; G.fearT = 0; G.tiredT = opts.tired ?? G.tiredT
   G.player.canMove = true; G.player.canLook = true; G.player.mode = 'walk'; G.player.push = false
-  G.camOverride = null; G.clearInteracts(); G.lookLimit = null; G.noRun = false
+  G.camOverride = null; G.clearInteracts(); G.lookLimit = null; G.noRun = false; G.goal = null; G.skipFn = null
   if (opts.scooter && !G.scooter) {
     const sp = L.spawn, f = { x: Math.sin(sp.yaw), z: Math.cos(sp.yaw) }
     G.addScooter(L, sp.x + f.x * 1.3, sp.z + f.z * 1.3, sp.yaw)
@@ -73,23 +73,33 @@ export function snapTo(x, z) {
   if (p.mode === 'ride' && G.scooter) { const c = G.scooter.chassis; c.position.set(x, 0.6, z); c.velocity.set(0, 0, 0) }
   else { G.teleportPlayer(x, z); if (G.scooter && p.push) { const c = G.scooter.chassis; c.position.set(x, 0.6, z) } }
 }
+// ---- waypoint goal (drives the map / compass / on-screen marker) ----
+const setGoal = (g) => { g.prev = G.goal || null; G.goal = g; return g }
+const endGoal = (g) => { if (G.goal === g) G.goal = g.prev || null }
+// persistent base goal for a whole stretch (nested gates temporarily override it)
+export const baseGoal = (x, z, label, pts, d) => { G.goal = { x, z, label, pts, d, skip: () => snapTo(x, z) } }
+const DEF_LABEL = 'Raaste par aage badho · Follow the path'
+const atGoal = (at, skip) => { if (!at) return null; const o = Array.isArray(at) ? { x: at[0], z: at[1], label: at[2] } : at; return { label: DEF_LABEL, ...o, skip } }
 // wait until player is within r of (x,z)
-export async function go(x, z, r = 2.4) {
+export async function go(x, z, r = 2.4, label) {
   if (auto()) { await wait(0.5); snapTo(x, z); await wait(0.3); return }
-  await G.until(() => G.distToPlayer(x, z) < r)
+  const g = setGoal({ x, z, label: label || DEF_LABEL, skip: () => snapTo(x, z) }); G.skipFn = g.skip
+  try { await G.until(() => G.distToPlayer(x, z) < r) } finally { endGoal(g) }
 }
 // wait until the player has travelled to distance d along a trail polyline
-export async function goTrail(pts, d, back = 0) {
+export async function goTrail(pts, d, back = 0, label) {
   if (auto()) { await wait(0.5); const q = ptAt(pts, d); snapTo(q.x, q.z); await wait(0.3); return }
-  await G.until(() => projDist(pts, G.player.pos.x, G.player.pos.z) >= d)
+  const q = ptAt(pts, d), g = setGoal({ x: q.x, z: q.z, pts, d, label: label || DEF_LABEL, skip: () => { const e = ptAt(pts, d); snapTo(e.x, e.z) } }); G.skipFn = g.skip
+  try { await G.until(() => projDist(pts, G.player.pos.x, G.player.pos.z) >= d) } finally { endGoal(g) }
 }
 export const trailD = (pts) => projDist(pts, G.player.pos.x, G.player.pos.z)
 export const trailLen = (pts) => { let l = 0; for (let i = 1; i < pts.length; i++) l += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].z - pts[i - 1].z); return l }
 // interact with auto-press
 export async function use(pos, label, o) {
   const pr = G.interact(pos, label, o)
-  if (auto()) { await wait(0.5); G.player.pos.x = pos.x + 0.3; G.player.pos.z = pos.z + 0.3; G.interacts.forEach(i => i.res && i.res()); G.interacts = [] }
-  return pr
+  if (auto()) { await wait(0.5); G.player.pos.x = pos.x + 0.3; G.player.pos.z = pos.z + 0.3; G.interacts.forEach(i => i.res && i.res()); G.interacts = []; return pr }
+  const g = setGoal({ x: pos.x, z: pos.z, label: label + ' · [E]', skip: () => { G.teleportPlayer(pos.x + 0.9, pos.z + 0.9) } }); G.skipFn = g.skip
+  try { return await pr } finally { endGoal(g) }
 }
 // race two interactions; returns 0 or 1
 export async function either(a, b) {
@@ -131,7 +141,9 @@ export async function stepsAt(pos, n = 4, gap = 0.55, surface = 'mud') { for (le
 export function spawn(outfit, x, z, yaw = 0) { const a = G.addActor(outfit); a.place(x, z, yaw); a.sfx = false; return a }
 
 // generic wait-for-condition that the autopilot can skip (snap runs the "player did it" effect)
-export async function gate(fn, snap, timeout = 0) {
+export async function gate(fn, snap, timeout = 0, at) {
   if (auto()) { await wait(0.5); if (snap) snap(); await wait(0.2); return }
-  return G.until(fn, timeout)
+  const g = at ? setGoal(atGoal(at, snap)) : null
+  if (snap) G.skipFn = snap
+  try { return await G.until(fn, timeout) } finally { if (g) endGoal(g) }
 }

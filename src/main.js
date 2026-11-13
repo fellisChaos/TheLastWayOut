@@ -10,15 +10,16 @@ import { input } from './core/input.js'
 import { ui } from './core/ui.js'
 import { REALITY, getUnlocked } from './reality.js'
 import { CHAPTERS, play, stopStory } from './story/story.js'
+import { nav } from './core/nav.js'
 
 const $ = (id) => document.getElementById(id)
 const SKEY = 'tlwo_settings_v1'
-const defaults = { master: 0.8, voice: 1, amb: 0.8, sfx: 1, sens: 1, subs: 'both', caps: true, gfx: 'med', shake: false, flash: false, tts: false, vlang: 'hi' }
+const defaults = { master: 0.8, voice: 1, amb: 0.8, sfx: 1, sens: 1, subs: 'both', caps: true, gfx: 'med', shake: false, flash: false, tts: false, vlang: 'hi', nav: 'full' }
 let S = { ...defaults, ...(() => { try { return JSON.parse(localStorage.getItem(SKEY) || '{}') } catch (e) { return {} } })() }
 let inGame = false, screenStack = [], pausedNow = false
 
 // ---------- screens ----------
-const SCREENS = ['menu', 'chapters', 'settings', 'controls', 'pause', 'report', 'endcard']
+const SCREENS = ['menu', 'chapters', 'settings', 'controls', 'pause', 'report', 'endcard', 'map']
 function showScreen(id) { SCREENS.forEach(s => $(s).classList.toggle('hidden', s !== id)); screenStack.push(id) }
 function hideScreens() { SCREENS.forEach(s => $(s).classList.add('hidden')); screenStack = [] }
 let backTo = 'menu'
@@ -27,12 +28,13 @@ let backTo = 'menu'
 function applySettings() {
   audio.vol.master = +S.master; audio.vol.voice = +S.voice; audio.vol.amb = +S.amb; audio.vol.sfx = +S.sfx; audio.applyVolumes()
   input.sens = +S.sens; ui.subMode = S.subs; ui.caps = !!S.caps; ui.tts = false; ui.voiceLang = S.vlang
+  nav.setMode(S.nav);
   G.cfg.reduceShake = !!S.shake; G.cfg.reduceFlash = !!S.flash; ui.reduceFlash = !!S.flash
   if (G.renderer) G.setGfx(S.gfx); else G.cfg.gfx = S.gfx
   localStorage.setItem(SKEY, JSON.stringify(S))
 }
 function bindSettings() {
-  const map = { 's-master': 'master', 's-voice': 'voice', 's-amb': 'amb', 's-sfx': 'sfx', 's-sens': 'sens', 's-subs': 'subs', 's-caps': 'caps', 's-gfx': 'gfx', 's-shake': 'shake', 's-flash': 'flash', 's-vlang': 'vlang' }
+  const map = { 's-master': 'master', 's-voice': 'voice', 's-amb': 'amb', 's-sfx': 'sfx', 's-sens': 'sens', 's-subs': 'subs', 's-caps': 'caps', 's-gfx': 'gfx', 's-shake': 'shake', 's-flash': 'flash', 's-vlang': 'vlang', 's-nav': 'nav' }
   for (const [id, k] of Object.entries(map)) {
     const el = $(id); if (el.type === 'checkbox') el.checked = !!S[k]; else el.value = S[k]
     el.addEventListener('input', () => { S[k] = el.type === 'checkbox' ? el.checked : (el.tagName === 'SELECT' ? el.value : +el.value); applySettings() })
@@ -58,7 +60,7 @@ function renderReport(head, onlyUnlocked = false) {
 
 // ---------- pause ----------
 function pauseGame() {
-  if (!inGame || pausedNow) return
+  if (!inGame || pausedNow || mapOpen) return
   pausedNow = true; G.paused = true; input.enabled = false; input.unlock(); if (audio.ctx) audio.ctx.suspend()
   backTo = 'pause'; showScreen('pause')
 }
@@ -67,6 +69,28 @@ function resumeGame() {
   pausedNow = false; hideScreens(); G.paused = false; input.enabled = true; if (audio.ctx) audio.ctx.resume(); input.lock()
 }
 addEventListener('keydown', e => { if (e.code === 'Escape' && pausedNow && !$('settings').classList.contains('hidden') === false && !$('controls').classList.contains('hidden') === false) resumeGame() })
+
+// ---------- map ----------
+let mapOpen = false
+function openMap() {
+  if (!inGame || pausedNow || mapOpen || !G.level || input.locked === undefined) return
+  mapOpen = true; pausedNow = true; G.paused = true; input.enabled = false; input.unlock(); if (audio.ctx) audio.ctx.suspend()
+  document.body.classList.add('map-open'); backTo = 'pause'; showScreen('map'); $('map-title').textContent = 'Naksha · ' + nav.title()
+  nav.fullK = 1; drawMap()
+}
+function drawMap() { nav.drawFull($('map-c')); $('map-obj').innerHTML = nav.fullInfo() }
+function closeMap() {
+  if (!mapOpen) return
+  mapOpen = false; document.body.classList.remove('map-open'); pausedNow = false; hideScreens(); G.paused = false; input.enabled = true; if (audio.ctx) audio.ctx.resume(); input.lock()
+}
+addEventListener('keydown', e => {
+  if (e.repeat) return
+  if (e.code === 'KeyM') { if (mapOpen) closeMap(); else openMap() }
+  else if (e.code === 'Escape' && mapOpen) { e.stopImmediatePropagation(); closeMap() }
+  else if (mapOpen && (e.code === 'Equal' || e.code === 'NumpadAdd')) { nav.fullK = Math.min(8, nav.fullK * 1.35); drawMap() }
+  else if (mapOpen && (e.code === 'Minus' || e.code === 'NumpadSubtract')) { nav.fullK = Math.max(1, nav.fullK / 1.35); drawMap() }
+}, true)
+window.__openMap = openMap
 
 // ---------- game start ----------
 async function startGame(chIdx = 0) {
@@ -80,7 +104,7 @@ async function startGame(chIdx = 0) {
   } catch (e) { if (e !== 'abort') console.error(e) }
 }
 function toMenu() {
-  stopStory(); inGame = false; pausedNow = false; G.paused = false; input.enabled = false; input.unlock()
+  mapOpen = false; document.body.classList.remove('map-open'); stopStory(); inGame = false; pausedNow = false; G.paused = false; input.enabled = false; input.unlock()
   ui.show('hud', false); ui.fadeInstant(1); if (audio.ctx) { audio.ctx.resume(); audio.st.engine = 0 }
   renderReport(null); backTo = 'menu'; showScreen('menu'); $('m-quit').classList.toggle('hidden', !window.electronAPI)
 }
@@ -99,6 +123,12 @@ function wire() {
   $('m-quit').onclick = () => window.electronAPI && window.electronAPI.quit()
   document.querySelectorAll('.back').forEach(b => b.onclick = () => showScreen(backTo))
   $('p-resume').onclick = resumeGame
+  $('map-close').onclick = closeMap
+  $('map-zi').onclick = () => { nav.fullK = Math.min(8, nav.fullK * 1.35); drawMap() }
+  $('map-zo').onclick = () => { nav.fullK = Math.max(1, nav.fullK / 1.35); drawMap() }
+  $('map-c').addEventListener('wheel', e => { e.preventDefault(); nav.fullK = e.deltaY < 0 ? Math.min(8, nav.fullK * 1.2) : Math.max(1, nav.fullK / 1.2); drawMap() }, { passive: false })
+  const tb = (id, fn) => { const b = $(id); if (b) b.addEventListener('touchstart', e => { fn(); e.preventDefault() }, { passive: false }) }
+  tb('b-map', () => (mapOpen ? closeMap() : openMap())); tb('b-help', () => nav.help())
   $('p-settings').onclick = () => { backTo = 'pause'; showScreen('settings') }
   $('p-controls').onclick = () => { backTo = 'pause'; showScreen('controls') }
   $('p-menu').onclick = toMenu

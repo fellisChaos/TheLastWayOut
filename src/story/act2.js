@@ -1,5 +1,5 @@
 // Chapters 2-4: forest outing + loop, storm in the bamboo shade, the man and the voices.
-import { G, ui, audio, THREE, N, T, say, wait, load, startScene, endScene, setTime, compHold, compFollow, reveal, fear, tired, use, gate, snapTo, go, goTrail, trailLen, lookFor, focus, around, stepsAt, spawn, caption, shake } from './helpers.js'
+import { baseGoal, G, ui, audio, THREE, N, T, say, wait, load, startScene, endScene, setTime, compHold, compFollow, reveal, fear, tired, use, gate, snapTo, go, goTrail, trailLen, lookFor, focus, around, stepsAt, spawn, caption, shake } from './helpers.js'
 import { ptAt } from '../world/common.js'
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z)
@@ -15,13 +15,13 @@ export async function ch2(s) {
   ui.titleCard('CHAPTER 2', 'Jungle ki taraf', 'Shaam · Evening', 3.2)
   G.clockRate = 12
   await T('Wah yaar, kitni shaant jagah hai.', 'Wow, this place is so peaceful.', { dur: 3 })
-  await goTrail(L.stemPts, 50, 0)
+  await goTrail(L.stemPts, 50, 0, 'Jungle ke kachche raaste par scooter chalao · Ride up the forest track')
   G.dismount(); G.rideHint = null; G.rideMax = 11
   ui.toast('Ab paidal — raaste par chalo', 4)
   await N('Scooter yahin laga dete hain. Aage ka raasta patla hai.', 'Let\'s park it here. The path ahead is narrow.')
   await T('Chal, ek chakkar maar ke aate hain. Mere cousin ne kaha tha ek khuli jagah hai andar.', 'Come on, let\'s take a walk. My cousin said there\'s a clearing inside.')
   // walk the ring to clearing A
-  await gate(() => G.distToPlayer(0, 114) < 6, () => snapTo(0, 113))
+  await gate(() => G.distToPlayer(0, 114) < 6, () => snapTo(0, 113), 0, [0, 114, 'Khuli jagah (clearing) tak paidal chalo · Walk to the clearing'])
   setTime(18.7, 0, false, true)
   ui.toast('Selfie ke liye E dabao', 3.5)
   await use(V(4.5, 1.3, 120.5), 'Selfie lo — split tree ke saath', { r: 6, cone: -1 })
@@ -40,11 +40,11 @@ export async function ch2(s) {
   await T('Pehle bahar nikalte hain. Phir call kar lenge.', 'Let\'s get out first. We\'ll call after.')
   L.blockStem(); G.env.set('night')
   ui.toast('Jis raaste se aaye the — wapas chalo', 4)
-  await gate(() => G.distToPlayer(0, 65.5) < 8.5, () => snapTo(0, 66))
+  await gate(() => G.distToPlayer(0, 65.5) < 8.5, () => snapTo(0, 66), 0, [0, 65.5, 'Jis mod se aaye the, wahan wapas · Back to the junction'])
   await T('Ruk... yahan toh raasta tha na?', 'Wait... wasn\'t there a path here?')
   await N('Haan, hum yahin se toh aaye the. Ye jhaadiyaan...', 'Yes, we came right through here. These bushes...')
   await T('Andhera hai, shayad mod chhoot gaya. Doosra raasta dekhte hain.', 'It\'s dark, we must have missed a turn. Let\'s look for another way.')
-  await gate(() => G.distToPlayer(0, 114) < 7, () => snapTo(0, 113))
+  await gate(() => G.distToPlayer(0, 114) < 7, () => snapTo(0, 113), 0, [0, 114, 'Doosra raasta dhoondho — ring ke upar wala mod · Find another way'])
   setTime(19.9, 0, false, true)
   const tree = V(4.5, 5, 123)
   await lookFor(tree, 0.8, 0.9)
@@ -56,7 +56,7 @@ export async function ch2(s) {
   reveal('loop', 'lost')
   await T('Chal, ulti taraf try karte hain.', 'Come on, let\'s try the other direction.', { dur: 2.6 })
   ui.toast('Uttar ki taraf ka patla raasta', 4)
-  await goTrail(L.tbPts, trailLen(L.tbPts) - 4)
+  await goTrail(L.tbPts, trailLen(L.tbPts) - 4, 0, 'Uttar ki taraf patla raasta · Follow the narrow trail north')
   G.env.set('drizzle')
   G.alertComp(L.refs.canPos, 3)
   await T('Ye... ye kya hai?', 'What... is that?', { dur: 2 })
@@ -81,7 +81,7 @@ export async function ch3(s) {
   G.clockRate = 20; fear(0.2); tired(0.5)
   await T('Wahan dekh — baans ka jhund. Wahin ruk jaate hain.', 'Look there — a bamboo grove. Let\'s wait there.', { dur: 3 })
   ui.toast('Scooter dhakelte hue andar chalo', 4)
-  await gate(() => G.distToPlayer(0, 44) < 5, () => snapTo(0, 44))
+  await gate(() => G.distToPlayer(0, 44) < 5, () => snapTo(0, 44), 0, [0, 44, 'Baans ke jhund mein scooter dhakelo · Push the scooter into the bamboo'])
   G.stopPush(); G.noRun = false
   const sc = G.scooter; sc.place(2.6, 41, 0.35)
   c.mode = 'hold'; c.holdPos = { x: -2.2, z: 45 }
