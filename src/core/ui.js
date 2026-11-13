@@ -1,6 +1,7 @@
 import { audio } from './audio.js'
 const $ = (id) => document.getElementById(id)
 const sleep = (ms) => new Promise(r => setTimeout(r, ms))
+const F0 = { Nishan: 118, Nishant: 132, Uncle: 98, Beti: 250, Mummy: 215, Chacha: 105, Papa: 100, Stranger: 112, Aadmi: 108, Chaiwala: 115, Awaaz: 135 }
 
 class UI {
   constructor() { this.subMode = 'both'; this.caps = true; this.tts = false; this._capT = null; this._toastT = null; this.reduceFlash = false }
@@ -13,6 +14,7 @@ class UI {
     if (mode === 'en') { $('subs-hi').textContent = en || hi; $('subs-en').textContent = '' }
     else { $('subs-hi').textContent = mode === 'off' ? '' : hi; $('subs-en').textContent = mode === 'hi' || mode === 'off' ? '' : (en || '') }
     $('subs').classList.toggle('show', mode !== 'off')
+    if (opts.voice !== false && audio.ctx) audio.voiceTick(opts.pos || null, opts.f0 || F0[who] || 120, hi, 0.8)
     if (this.tts && window.speechSynthesis) { try { const u = new SpeechSynthesisUtterance(hi); u.lang = 'hi-IN'; u.rate = 0.95; speechSynthesis.cancel(); speechSynthesis.speak(u) } catch (e) {} }
     try { await this.G.waitSkippable(dur) } finally { if (!opts.keep) $('subs').classList.remove('show') }
     if (opts.gap !== 0) await this.G.wait(opts.gap === undefined ? 0.12 : opts.gap)
