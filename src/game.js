@@ -10,6 +10,8 @@ import { makeTorch } from './world/people.js'
 import { clamp, damp, lerp, angDiff, fmtClock, R, nearestOnPoly } from './core/util.js'
 import { Scooter } from './world/scooter.js'
 
+const LEVELS = import.meta.glob('./levels/*.js')
+
 export const G = {
   cfg: { density: 1, rain: 1, shadows: false, ambBoost: 1, reduceShake: false, reduceFlash: false, engineSign: -1, gfx: 'med' },
   input, ui, audio, THREE, CANNON, running: false, paused: false, stopped: false, runId: 0,
@@ -75,7 +77,7 @@ G.loadLevel = async function (name, opts = {}) {
   if (G.level) { G.level.dispose(); G.level = null }
   G.actors.forEach(a => a.dispose()); G.actors = []; G.comp = null; G.scooter = null
   // purge any leftover rain/torch state
-  const mod = await import('./levels/' + name + '.js')
+  const mod = await LEVELS['./levels/' + name + '.js']()
   const L = mod.build(G, opts); G.level = L; G.scene.add(L.group)
   G.interacts = []
   const p = G.player; p.pos.set(L.spawn.x, 0, L.spawn.z); p.yaw = L.spawn.yaw; p.pitch = 0
