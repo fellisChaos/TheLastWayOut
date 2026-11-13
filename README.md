@@ -82,10 +82,12 @@ Cards unlock as you meet each event and are saved in localStorage.
 ## Status
 
 - Verified in headless Chromium (software WebGL): every chapter and both full endings run to the end card with no console errors. I checked screenshots of several scenes.
-- **Not yet verified:** a real GPU (frame rate), the Electron window, and AppImage/deb building. They were not run in this sandbox.
-- Known visual bug (NOT fixed): at night, in forest/cremation-ground scenes, a ragged row of dark tree-trunk stubs shows along the far horizon. They are darker than the fog/sky behind them. I lowered tree polygon counts and put the sky through tone-mapping, but the screenshot after that still shows it. Next step is to make the fog colour match the sky horizon, or add a dense fog wall at the edge of each level's bounds.
-- Other rough edges: low-poly look, face textures, companion AI, and the cow model looks like a sheep. Triangle counts in forest levels are high. If it stutters, lower the quality in Settings.
-
+- Full autoplay QA, both endings: Ending A (ch1 -> 13a end card) and Ending B (-> 14b end card) run clean, no console errors. This is scripted autopilot, NOT a human playthrough.
+- Packages built in this sandbox: `release/The Last Way Out-1.0.0.AppImage` (169 MB) and `release/the-last-way-out_1.0.0_amd64.deb` (132 MB). `dpkg-deb -I` reads the deb fine.
+- **Not verified:** the Electron window was not launched (the sandbox has no libgtk-3), and no real GPU / frame-rate test. Test on your machine. If the window fails, `./run.sh` (browser/Electron dev) is the fallback. deb needs: `sudo apt install ./release/the-last-way-out_1.0.0_amd64.deb`; AppImage: `chmod +x` then run (add `--no-sandbox` if your kernel blocks user namespaces).
+- Building the deb in a low-RAM box: `TMPDIR=$HOME/tmpbuild npx electron-builder --linux deb` (a small /tmp tmpfs breaks the fpm tar step).
+- Visuals: night horizon checked in a screenshot (clean, no comb); cow redrawn as a zebu (hump, horns, dewlap) but still a primitive-shape model; characters are still procedural/stylised, NOT GTA-5 fidelity; no bloom/SSAO.
+- UI added: Settings has FOV and subtitle-size sliders, loading overlay between levels, F3 debug overlay. Key rebinding and a 3D menu background are NOT done.
 
 ## Navigation (new)
 - `M` full map (you, facing cone, route, goal, Nishant, scooter; wheel/+/- zoom), minimap + compass always on HUD, gold diamond in the world.

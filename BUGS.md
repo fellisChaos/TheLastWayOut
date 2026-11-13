@@ -39,3 +39,8 @@
 - **Shift+W cutting out**: (1) stamina hysteresis + visible stamina bar, (2) Shift state is now read from every key/mouse event's `shiftKey` (a lost keyup or focus change can no longer leave sprint dead), (3) a toast explains when running is disabled (pushing the scooter).
 - **Stuck where the road ends**: drivable corridor extended 45 m past the last road point; wall contact now slides instead of braking to a halt; verified with an async real-step run road -> forest -> dismount. New safety nets: toast after 18 s without progress; `H` = hint, `H` twice = hop ahead along the route.
 - Still open: night horizon comb, cow model, procedural (not photoreal) characters, post-processing, UI polish, AppImage/deb rebuild.
+
+## Update: final pass
+- Ending A and Ending B autoplay both reach their end cards, no errors.
+- Done: night horizon (screenshot-checked), zebu cow, FOV + subtitle size settings, loading overlay, F3 debug, AppImage + deb rebuilt.
+- NOT done (honest): key rebinding, menu 3D background, post-processing, skinned/realistic characters, more detailed houses, home street dressing, any human-played test, Electron window launch test.
