@@ -104,7 +104,7 @@ export function buildHouse(L, o) {
   for (const wd of windows) {
     const side = wd.side || 's', ww = wd.w || 0.8, hh = wd.h || 0.9, y = wd.y || 1.1, px = wd.x || 0
     const pos = side === 's' ? [px, y, d / 2 + t + 0.012, 0] : side === 'n' ? [px, y, -d / 2 - t - 0.012, Math.PI] : side === 'e' ? [w / 2 + t + 0.012, y, px, Math.PI / 2] : [-w / 2 - t - 0.012, y, px, -Math.PI / 2]
-    const pane = new THREE.Mesh(new THREE.PlaneGeometry(ww, hh), new THREE.MeshBasicMaterial({ color: wd.lit ? '#d9a050' : '#06080b' })); pane.position.set(pos[0], pos[1], pos[2]); pane.rotation.y = pos[3]; g.add(pane)
+    const pane = new THREE.Mesh(new THREE.PlaneGeometry(ww, hh), new THREE.MeshBasicMaterial({ color: wd.color || (wd.lit ? '#d9a050' : '#06080b') })); pane.position.set(pos[0], pos[1], pos[2]); pane.rotation.y = pos[3]; g.add(pane)
     const fr = bx(g, ww + 0.1, 0.05, 0.05, S({ color: '#3a2a1c' }), pos[0], pos[1] + hh / 2, pos[2]); fr.rotation.y = pos[3]
     if (wd.pale) { // two pale eye-like gaps seen through the shutter
       for (const s of [-1, 1]) { const e = new THREE.Mesh(new THREE.CircleGeometry(0.045, 10), new THREE.MeshBasicMaterial({ color: '#e8efe8', transparent: true, opacity: 0.5, fog: true })); e.scale.set(1.5, 0.8, 1); e.position.set(pos[0], pos[1], pos[2] + 0.004); e.rotation.y = pos[3]; e.translateX(s * 0.13); e.translateY(0.05); g.add(e); e.userData.pale = true }

@@ -208,7 +208,13 @@ G.step = function (dt) {
 }
 
 function rideBound(sc) {
-  const L = G.level; if (!L.rideCorr) return
+  const L = G.level
+  if (!L.rideCorr) {
+    if (L.rideWalk === false) return
+    const c = sc.chassis, q = L.walk.query(c.position.x, c.position.z, 0.45)
+    if (q.d > 0) { c.position.x = q.x; c.position.z = q.z; c.velocity.x *= 0.85; c.velocity.z *= 0.85; if (!G._edgeT || performance.now() - G._edgeT > 1800) { G._edgeT = performance.now(); ui.toast('Raaste par hi raho.', 2) } }
+    return
+  }
   const c = sc.chassis, n = nearestOnPoly(L.rideCorr.pts, c.position.x, c.position.z)
   if (n.d > L.rideCorr.hw) { const k = L.rideCorr.hw / n.d; const nx = n.x + (c.position.x - n.x) * k, nz = n.z + (c.position.z - n.z) * k; c.position.x = nx; c.position.z = nz; c.velocity.x *= 0.9; c.velocity.z *= 0.9; if (!G._edgeT || performance.now() - G._edgeT > 1500) { G._edgeT = performance.now(); ui.toast('Raaste par hi raho.', 2) } }
 }
