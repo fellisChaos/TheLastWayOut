@@ -23,7 +23,10 @@
   <div id="subs"><div id="subs-who"></div><div id="subs-hi"></div><div id="subs-en"></div></div>
   <div id="toast"></div>
   <div id="stam"><i></i></div>
-  <div id="objective"><small>OBJECTIVE · लक्ष्य</small><span id="objective-t"></span></div>
+  <div id="objective"><small>OBJECTIVE · लक्ष्य</small><span id="objective-t"></span><em id="objective-d"></em></div>
+  <div id="compass"><canvas id="compass-c" width="720" height="48"></canvas><div id="compass-t"></div></div>
+  <div id="minimap-w"><canvas id="minimap" width="340" height="340"></canvas><div id="minimap-hint"><kbd>M</kbd> map · <kbd>H</kbd> madad</div></div>
+  <div id="wp"><i></i><b id="wp-d"></b></div>
   <div id="speedo" class="hidden"><b id="speedo-v">0</b><small>km/h</small></div>
 </div>
 
@@ -36,7 +39,7 @@
 <div id="touch" class="hidden">
   <div id="joy"><i></i></div>
   <div id="look"></div>
-  <button id="b-run">RUN</button><button id="b-torch">TORCH</button><button id="b-use">USE</button><button id="b-pause">II</button>
+  <button id="b-run">RUN</button><button id="b-torch">TORCH</button><button id="b-use">USE</button><button id="b-pause">II</button><button id="b-map">MAP</button><button id="b-help">HELP</button>
 </div>
 
 <!-- MENU -->
@@ -76,6 +79,8 @@
   <label>Sound captions <input type="checkbox" id="s-caps" checked></label>
   <label>Graphics
     <select id="s-gfx"><option value="low">Low</option><option value="med" selected>Medium</option><option value="high">High</option></select></label>
+  <label>Navigation aid
+    <select id="s-nav"><option value="full">Minimap + compass + waypoint</option><option value="compass">Compass + waypoint only</option><option value="off">Off (objective text only)</option></select></label>
   <label>Reduce camera shake <input type="checkbox" id="s-shake"></label>
   <label>Reduce flashing <input type="checkbox" id="s-flash"></label>
   <button class="back">← Back</button>
@@ -91,9 +96,11 @@
     <tr><td><kbd>E</kbd></td><td>Interact · hold near the scooter to push it</td></tr>
     <tr><td><kbd>C</kbd></td><td>Crouch / hide</td></tr>
     <tr><td><kbd>P</kbd></td><td>Check phone</td></tr>
+    <tr><td><kbd>M</kbd></td><td>Open the map (shows where you are, which way you face, and where to go)</td></tr>
+    <tr><td><kbd>H</kbd></td><td>Stuck? Hops you a few metres ahead along the route</td></tr>
     <tr><td><kbd>Esc</kbd></td><td>Pause</td></tr>
   </table>
-  <p class="dim">No fighting. No inventory. No map. Just two friends, and a night.</p>
+  <p class="dim">No fighting. No inventory. Just two friends, and a night. The gold marker always shows where to go next.</p>
   <button class="back">← Back</button>
 </div></div>
 
@@ -103,6 +110,17 @@
   <button id="p-settings">Settings</button>
   <button id="p-controls">Controls</button>
   <button id="p-menu">Main menu</button>
+</div></div>
+
+<div id="map" class="screen hidden"><div class="panel map-panel">
+  <div class="map-head"><h3 id="map-title">Naksha · Map</h3><div id="map-obj"></div></div>
+  <div class="map-body"><canvas id="map-c" width="1000" height="640"></canvas>
+    <div class="map-side">
+      <div class="map-legend"><p><i class="lg you"></i> Aap · You (arrow = jis taraf dekh rahe ho)</p><p><i class="lg goal"></i> Manzil · Where to go</p><p><i class="lg route"></i> Raasta · Suggested route</p><p><i class="lg comp"></i> Nishant</p><p><i class="lg sc"></i> Scooter</p></div>
+      <div class="map-btns"><button id="map-zi">＋ Zoom</button><button id="map-zo">－ Zoom</button></div>
+      <p class="dim">Upar = Uttar (North). Mouse wheel se zoom.<br>Up = North. Scroll to zoom.</p>
+    </div></div>
+  <button id="map-close" class="primary">Wapas khel mein · Back to game (M)</button>
 </div></div>
 
 <div id="report" class="screen hidden"><div class="panel wide">
